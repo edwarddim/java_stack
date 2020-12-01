@@ -46,6 +46,55 @@ class SLL{
         }
         console.log(runner.value)
     }
+    contains(value){
+        if(this.head == null){
+            return false
+        }
+        var runner = this.head
+        while(runner.next != null){
+            if(runner.value == value){
+                return true
+            }
+            runner = runner.next
+        }
+        if(runner.value == value){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    pop(){
+        if(this.head == null){
+            return false
+        }
+        var runner = this.head
+        while(runner.next.next != null){
+            runner = runner.next
+        }
+        runner.next = null
+    }
+    remove(value){
+        if(this.head == null){
+            return false
+        }
+        // THE VALUE TO REMOVE IS THE BEGINNING OF THE LIST
+        if(this.head.value == value){
+            this.removeAtFront()
+            return true
+        }
+        // THE VALUE TO REMOIVE IS IN THE MIDDLE OF THE LIST
+        // THE VALUE TO REMOIVE IS IN THE END OF THE LIST
+        var runner = this.head
+        while(runner.next != null){
+            if(runner.next.value == value){
+                runner.next = runner.next.next
+                return true
+            }
+            runner = runner.next
+        }
+        return false
+    }
 }
 var list = new SLL()
 list.insertAtFront(1)
@@ -55,21 +104,16 @@ list.printValues()
 list.removeAtFront()
 list.printValues()
 
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// TUE
-
-// insertAtFront(value)
-// removeAtFront()
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
 // WED
 
 // contains(value)
+// GIVEN THE VALUE RETURN TRUE OR FALSE ON WHETHER THE VALUE EXISTS
+// ITERATE THROUGH THE LIST AND CHECK EACH NODE FOR THE VALUE GIVEN
 // pop()
+// REMOVE THE LAST NODE WITHIN THE SLL
 // remove(value)
+// IF THE GIVEN VALUE EXISTS WITHIN THE LIST, REMOVE SAID NODE FROM SLL
+// REMOVE THE FIRST OCCURANCE OF THE VALUE, THE NODE CAN BE IN THE BEGINNING, MIDDLE, OR END
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
 
