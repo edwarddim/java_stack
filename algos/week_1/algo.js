@@ -95,6 +95,48 @@ class SLL{
         }
         return false
     }
+    partition(num){
+        if(this.head == null){
+            return
+        }
+        // ITERATING THROUGH LIST
+        var leftPartitionHead
+        var leftRunner
+        var rightPartitionHead
+        var rightRunner
+        var runner = this.head
+        while(runner.next != null){
+            // CHECK TO SEE WHICH NUMBERS ARE LESS THAN AND GREATER THAN
+            if(runner.value < num){
+                // CREATING THE FIRST NODE ON THE LEFT PARTITION
+                if(leftPartitionHead == null){
+                    var newNode = new SLNode(runner.value)
+                    leftPartitionHead = newNode
+                    leftRunner = newNode
+                }
+                else{
+                    var newNode = new SLNode(runner.value)
+                    leftRunner.next = newNode
+                    leftRunner = leftRunner.next
+                }
+            }
+            else{
+                if(rightPartitionHead == null){
+                    var newNode = new SLNode(runner.value)
+                    rightPartitionHead = newNode
+                    rightRunner = newNode
+                }
+                else{
+                    var newNode = new SLNode(runner.value)
+                    rightRunner.next = newNode
+                    rightRunner = rightRunner.next
+                }
+            }
+            runner = runner.next
+        }
+        leftRunner.next = rightPartitionHead
+        this.head = leftPartitionHead
+    }
 }
 var list = new SLL()
 list.insertAtFront(1)
@@ -122,6 +164,8 @@ list.printValues()
 // partition(num)
 // PARTITION A LINKED LIST AROUND A VALUE X, SUCH THAT ALL NODE LESS THAN X
 // COME BEFORE ALL NODES GREATER THAN OR EQUAL TO X
+// 1. CREATE A NEW SLL WITH THE REARRANGED VALUES
+// 2. REARRANGE THE CURRENT SLL (HINT: YOU CAN SPLIT THE SLL IN TWO, THEN COMBINE THEM BACK AGAIN)
 // partition(5)
 // INPUT: 3->5->8->5->10->2->1
 // OUTPUT: 3->1->2 -> 10->5->5->8
