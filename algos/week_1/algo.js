@@ -137,6 +137,31 @@ class SLL{
         leftRunner.next = rightPartitionHead
         this.head = leftPartitionHead
     }
+    reverse(){
+        if(this.head == null){
+            return
+        }
+        // ITERATE THROUGH THE CURRENT LIST, ADD THE VALUES TO AN ARRAY
+        var runner = this.head
+        var arr = []
+        while(runner.next != null){
+            arr.push(runer.value)
+            runner = runner.next
+        }
+        arr.push(runner.value)
+        // LOOP THROUGH ARRAY BACKWARDS AND CREATE A NEW LIST
+        var reverseHead;
+        var reverseRunner;
+        reverseHead = new SLNode(arr[arr.length-1])
+        reverseRunner = reverseHead
+        for(let i = arr.length -2; i >= 0; i --){
+            var temp = new SLNode(arr[i])
+            reverseRunner.next = temp
+            reverseRunner = reverseRunner.next
+        }
+        // SET THE NEW LIST TO THE HEAD
+        this.head = reverseHead
+    }
 }
 var list = new SLL()
 list.insertAtFront(1)
@@ -176,5 +201,10 @@ list.printValues()
 
 // reverseNew()
 // reverese()
+// 1. CREATE A NEW SLL THEN SET THAT AS THE LIST
+// ITERATE THROUGH THE CURRENT LIST, ADD THE VALUES TO AN ARRAY
+// LOOP THROUGH ARRAY BACKWARDS AND CREATE A NEW LIST
+// SET THE NEW LIST TO THE HEAD
+// 2. REARRANGE THE CURRENT LIST WITHOUT CREATING ANY NEW NODES (HINT: 3 RUNNERS)
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
