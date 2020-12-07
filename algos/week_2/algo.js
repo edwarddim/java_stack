@@ -5,15 +5,13 @@ class SLNode{
       this.next = null
     }
 }
-
 // MON
+// LAST IN FIRST OUT
 // LIFO - STACKS
-
 class Stack {
     constructor(items = []) {
       this.items = items;
     }
-  
     // Time: O(1)
     // Space: O(1)
     push(item) {
@@ -60,27 +58,79 @@ class SLStack {
         this.head = null;
     }
     push(newVal) {
-        // push newVal to top of stack
+      // push newVal to top of stack
+      var newNode = new SLNode(newVal)
+      if(this.head == null){
+        this.head = newNode
+      }
+      newNode.next = this.head
+      this.head = newNode
     }
     pop() {
         // remove and return data at top of stack
+        if(this.head == null){
+          return null
+        }
+        var removed = this.head
+        this.head = this.head.next
+        return removed.value
     }
     peek() {
         // return data at top of stack without removing
+        if(this.head == null){
+          return null
+        }
+        return this.head.value
     }
     contains(value) {
         // return true if SLStack contains value
         // return false if SLStack does not contain value
+        if(this.head == null){
+          return false
+        }
+        var runner = this.head
+        while(runner){
+          if(runner.value == value){
+            return true
+          }
+          runner = runner.next
+        }
+        return false
     }
     isEmpty() {
         // return true if SLStack is empty
         // return false if SLStack is not empty
+        if(this.head == null){
+          return false
+        }
+        return true
     }
     size() {
         // return length of SLStack
+        var len = 0
+        if(this.head == null){
+          return 0
+        }
+        var runner = thi.head
+        while(runner){
+          len += 1
+          runner = runner.next
+        }
+        return len
     }
     print() {
         // print out the values of the SLStack
+        if(this.head == null){
+          return false
+        }
+        var runner = this.head
+        var vals = ""
+        while(runner){
+          vals += `${runner.value} -> `
+          runner = runner.next
+        }
+        console.log(vals)
+        return vals
     }
 }
 
