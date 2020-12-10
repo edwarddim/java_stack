@@ -139,7 +139,6 @@ class SLStack {
 
 // TUE
 // FIFO - QUEUES
-
 class SLQueue {
   constructor() {
     this.head = null;
@@ -157,22 +156,45 @@ class SLQueue {
   // Space: O(1)
   enqueue(val) {
     // ADD NODE TO THE BACK
+    var tailNode = new SLNode(val)
+    if(this.isEmpty()){
+      this.head = tailNode
+      this.tail = tailNode
+    }
+    else{
+      this.tail.next = tailNode
+      this.tail = this.tail.next
+    }
     // INCREMENT SIZE
+    this.size++
   }
 
   // Time: O(1) constant
   // Space: O(1)
   dequeue() {
+    if(this.isEmpty()){
+      return null
+    }
     // REMOVE NODE FROM THE FRONT
     // AND RETURN VALUE
+    var dequeued = this.head
+    this.head = this.head.next
+    if(this.head == null){
+      this.tail = null
+    }
     // DECREMENT SIZE
-
+    this.size --
+    return dequeued.value
   }
 
   // Time: O(1) constant
   // Space: O(1)
   front() {
     // RETURN THE VALUE OF THE HEAD
+    if(this.isEmpty()){
+      return null
+    }
+    return this.head.value
   }
 
   // Time: O(n) linear
@@ -200,7 +222,42 @@ class SLQueue {
     console.log(vals);
     return vals;
   }
+  /* 
+    Write a method that returns whether or not the sum of a queue's first half is equal to the sum of it's
+    second half. Use no other objects, do not loop directly over the underlying array,
+    or access by index
+    When the function finishes, the queue should be in it's original state.
+    
+    Time: O(n) linear, n = queue length
+    Space: O(1) constant
+  */
 
+  isSumOfHalvesEqual(){
+    var len = this.size
+    if(len % 2 != 0){
+      return false
+    }
+    var halfLen = len / 2
+    var leftSum = 0;
+    var rightSum = 0;
+    for(var i = 0; i < len; i++){
+      var dequeued = this.dequeue()
+      if(i < halfLen){
+        leftSum += dequeued
+      }
+      else{
+        rightSum += dequeued
+      }
+      this.enqueue(dequeued)
+    }
+    if(leftSum == rightSum){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  // WED
   /* 
     Queue: Is Palindrome
     Output: Bool representing if the queue items are a palindrome (items same forwards as reversed)
@@ -211,7 +268,6 @@ class SLQueue {
     but NO string concatenating the entire queue, no 2nd stack, 2nd queue, or arrays.
     
   */
-
   /* 
     Approach:
     1. loop over fixed-length of queue
@@ -222,9 +278,24 @@ class SLQueue {
     Time: O(2n) -> O(n) linear, n = queue length
     Space: O(n) from the stack being used
   */
-
   isPalindrome(){
-    
+    var stack = new SLStack();
+
+    for(var i = 0; i < this.size; i++){
+      var dequeued = this.dequeue()
+      stack.push(dequeued)
+      this.enqueue(dequeued)
+    }
+    var isPalindrome = true
+    for(var i = 0; i < this.size;i++){
+      var dequeued = this.dequeue()
+      var popped = stack.pop()
+      if(popped != dequeued){
+        isPalindrome = false
+      }
+      this.enqueue(dequeued)
+    }
+    return isPalindrome
   }
 
   // Time: O(n) linear since enqueue is O(1), n = vals.length
@@ -232,37 +303,27 @@ class SLQueue {
 }
 
 var queue = new SLQueue()
-queue.enqueue('a')
-queue.enqueue('b')
-queue.enqueue('c')
-queue.enqueue('b')
-queue.enqueue('a')
-queue.isPalindrome()
+// queue.enqueue('a')
+// queue.enqueue('b')
+// queue.enqueue('c')
+// queue.enqueue('b')
+// queue.enqueue('a')
+queue.enqueue(1)
+queue.enqueue(4)
+queue.enqueue(5)
+queue.enqueue(5)
+queue.enqueue(4)
+queue.enqueue(1)
+console.log(queue.isPalindrome()) // true
 
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
 
-// WED
 
-/* 
-  Write a method that returns whether or not the sum of a queue's first half is equal to the sum of it's
-  second half. Use no other objects, do not loop directly over the underlying array,
-  or access by index
-  When the function finishes, the queue should be in it's original state.
-  
-  Time: O(n) linear, n = queue length
-  Space: O(1) constant
-*/
-
-isSumOfHalvesEqual(){
-
-}
 
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
 
-// THUR
+// FRI
 class CircleQueue{
   constructor(length){
       this.size = length
@@ -296,14 +357,3 @@ class CircleQueue{
 }
 var circleQ = new CircleQueue(9);
 circleQ.enqueue('a')
-
-
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// FRI
-
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
