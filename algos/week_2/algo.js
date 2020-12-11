@@ -316,10 +316,6 @@ queue.enqueue(4)
 queue.enqueue(1)
 console.log(queue.isPalindrome()) // true
 
-
-
-
-
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
 
@@ -334,26 +330,64 @@ class CircleQueue{
   displayValues(){
       console.log(this.items)
   }
+  // HOW TO FIGURE OUT LIST IS FULL
+  // HOW TO FIGURE OUT THE NEXT INDEX FOR ENQEUE
+  // HOW TO FIGURE OUT THE NEXT INDEX FOR DEQUEUE
+  // HINT: THE SIZE OF THE ARRAY AND MODULOUS OPERATOR
   enqueue(value){
     // LIST IS FULL
-    if((this.tail + 1) % this.size === this.head ){
-      console.log("THE QUEUE IS FULL")
-      return false
+    if((this.tail + 1) % this.size == this.head ){
+      console.log("QUEUE IS FULL")
+      return
     }
-
     // LIST IS EMPTY
-    if(this.head == -1){
+    else if(this.head == -1){
       this.head = 0
       this.tail = 0
       this.items[this.head] = value
     }
     // LIST IS PARTIALLY FULL
-
-
+    else{
+      this.tail = (this.tail + 1) % this.size
+      this.items[this.tail] = value
+    }
   }
   dequeue(){
-
+    // LIST IS EMPTY
+    if(this.head == -1){
+      console.log("QUEUE IS EMPTY")
+      return
+    }
+    // LIST ONLY HAS ONE ELEMENT LEFT
+    else if(this.head == this.tail){
+      var returnVal = this.items[this.head]
+      this.items[this.head] = null
+      this.tail = -1
+      this.head = -1
+      return returnVal
+    }
+    // LIST IS PARTIALLY FULL
+    else{
+      var returnVal = this.items[this.head]
+      this.items[this.head] = null
+      this.head = (this.head + 1) % this.size
+      return returnVal
+    }
   }
 }
-var circleQ = new CircleQueue(9);
-circleQ.enqueue('a')
+var cQ = new CircleQueue(9);
+cQ.enqueue('a')
+cQ.enqueue('b')
+cQ.enqueue('c')
+cQ.dequeue()
+cQ.enqueue('d')
+cQ.enqueue('e')
+cQ.enqueue('f')
+cQ.enqueue('g')
+cQ.enqueue('h')
+cQ.enqueue('i')
+cQ.enqueue('j')
+cQ.dequeue()
+cQ.dequeue()
+cQ.enqueue('k')
+
