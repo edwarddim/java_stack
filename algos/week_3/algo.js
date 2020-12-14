@@ -1,23 +1,57 @@
 // MON
-
-/* 
-    CHECK TO SEE IF BST IS EMPTY
-*/
-isEmpty(){
-
+class BSTNode{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+    }
 }
-/* 
-    RETURN THE MINIMUM VALUE STORED IN THE BST
-*/
-min(){
-
+class BST{
+    constructor(){
+        this.root = null
+    }
+    /* 
+        CHECK TO SEE IF BST IS EMPTY
+    */
+    isEmpty(){
+        if(this.root == null){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    /* 
+        RETURN THE MINIMUM VALUE STORED IN THE BST
+    */
+    min(){
+        // CHECK TO SEE IF BST IS EMPTY
+        if(this.isEmpty()){
+            return null
+        }
+        // SET A RUNNER AND MOVE DOWN LEFT SIDE OF BST
+        var runner = this.root
+        while(runner.left != null){
+            runner = runner.left
+        }
+        return runner.value
+    }
+    /* 
+        RETURN THE MAXIMUM VALUE STORED IN THE BST
+    */
+    max(){
+        if(this.isEmpty()){
+            return null
+        }
+        // SET A RUNNER AND MOVE DOWN RIGHT SIDE OF BST
+        var runner = this.root
+        while(runner.right != null){
+            runner = runner.right
+        }
+        return runner.value
+    }
 }
-/* 
-    RETURN THE MAXIMUM VALUE STORED IN THE BST
-*/
-max(){
 
-}
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
