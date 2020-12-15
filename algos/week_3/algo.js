@@ -50,31 +50,74 @@ class BST{
         }
         return runner.value
     }
+    /* 
+        RETURN THE RANGE OF BST, MAX - MIN
+    */
+    range(){
+        return this.max() - this.min()
+    }
+    /* 
+        CREATE A NODE IN THE BST AT THE RIGHT PLACE
+    */
+    insert(value){
+        // BST IS EMPTY
+        if(this.isEmpty()){
+            this.root = new BSTNode(value)
+            return
+        }
+        var runner = this.root
+        while(runner != null){
+            if(value < runner.value){
+                if(runner.left == null){
+                    runner.left = new BSTNode(value)
+                    return
+                }
+                else{
+                    runner = runner.left
+                }
+            }
+            else{
+                if(runner.right == null){
+                    runner.right = new BSTNode(value)
+                    return
+                }
+                else{
+                    runner = runner.right
+                }
+            }
+        }
+
+    }
+    /* 
+        RETURNS TRUE IF THE VALUE EXISTS WITHIN THE BST
+    */
+    contains(value){
+        if(this.isEmpty()){
+            return false
+        }
+        if(this.root.value == value){
+            return true
+        }
+        else{
+            var runner = this.root
+            while(runner != null){
+                if(runner.value == value){
+                    return true
+                }
+                else{
+                    if(value < runner.value){
+                        runner = runner.left
+                    }
+                    else{
+                        runner = runner.right
+                    }
+                }
+            }
+            return false
+        }
+    }
 }
 
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// TUE
-/* 
-    RETURN THE RANGE OF BST, MAX - MIN
-*/
-range(){
-
-}
-/* 
-    CREATE A NODE IN THE BST AT THE RIGHT PLACE
-*/
-insert(value){
-
-}
-/* 
-    RETURNS TRUE IF THE VALUE EXISTS WITHIN THE BST
-*/
-contains(value){
-
-}
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//

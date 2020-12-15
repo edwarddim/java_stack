@@ -1,11 +1,14 @@
 package com.edwardim.semiresttv.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,13 @@ public class MainController {
 	
 	@Autowired
 	private MainService mainServ;
+//	-------------- DASHBOARD   ----------------------- //
+	@GetMapping("/shows")
+	public String dashboard(Model model) {
+		List<Show> allShows = mainServ.getAllShows();
+		model.addAttribute("shows", allShows);
+		return "dashboard.jsp";
+	}
 	
 //	-------------- CREATE A SHOW --------------------- //
 	@GetMapping("/shows/new")
@@ -70,5 +80,17 @@ public class MainController {
 		model.addAttribute("show", oneShow);
 		return "show.jsp";
 	}
-//	-------------- CREATE A SHOW --------------------- //
+//	-------------- DELETE A SHOW ---------------------- //
+	@GetMapping("/shows/{id}/delete")
+	public String deleteShow(@PathVariable("id")Long id) {
+		mainServ.deleteShowById(id);
+		return "redirect:/shows";
+	}
+	
+//	@DeleteMapping("/shows/{id}")
+//	public String deleteShow(@PathVariable("id")Long id) {
+//		mainServ.deleteShowById(id);
+//		return "redirect:/shows";
+//	}
+	
 }

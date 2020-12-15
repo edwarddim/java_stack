@@ -1,5 +1,7 @@
 package com.edwardim.semiresttv.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,14 @@ public class MainService {
 
 	public Show findShowById(Long id) {
 		return sRepo.findById(id).orElse(null);
+	}
+
+	public List<Show> getAllShows() {
+		return sRepo.findAll();
+	}
+
+	public void deleteShowById(Long id) {
+		sRepo.deleteById(id);
 	}
 	
 	
