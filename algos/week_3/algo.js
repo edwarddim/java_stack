@@ -116,7 +116,26 @@ class BST{
             return false
         }
     }
+    sortedArrtoBST(arr){
+        this.root = this.sortedArrtoBSTHelper(arr)
+    }
+    sortedArrtoBSTHelper(arr){
+        // 1. BASE CASE
+        if(arr.length < 1){
+            return null
+        }
+        // CHOOSING MIDDLE INDEX AND CREATING NODE WITH MID NUMBER
+        var midInd = Math.floor(arr.length/2)
+        var root = new BSTNode(arr[midInd])
+        // 2. FORWARD PROGRESS(SLICING THE ARR)
+        // 3. RECRUSIVE CALL
+        root.left = this.sortedArrtoBSTHelper(arr.slice(0, midInd))
+        root.right = this.sortedArrtoBSTHelper(arr.slice(midInd + 1, arr.length))
+        return root
+    }
 }
+var newBST = new BST()
+newBST.sortedArrtoBST([1,2,3,4,5,6,7,8,9])
 
 
 // -----------------------------------------------------------------------------------------------//
@@ -132,6 +151,10 @@ sortedArrtoBST(arr){
 
 }
 
+// -----------------------------------------------------------------------------------------------//
+// -----------------------------------------------------------------------------------------------//
+
+// THUR
 /* 
     RETURNS THE HEIGHT OF THE BST
 */
@@ -139,10 +162,6 @@ height(){
 
 }
 
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// THUR
 /* 
     CHECK IF THE BST IS CURRENTLY BALANCED
     REQUIREMENTS FOR BEING BALANCED:
@@ -152,6 +171,10 @@ height(){
 isBalanced(node){
 
 }
+
+// -----------------------------------------------------------------------------------------------//
+// -----------------------------------------------------------------------------------------------//
+// FRI
 
 /* 
     DELETE THE NODE CONTAING VALUE GIVEN, IF VALUE DOESN'T EXIST WITHIN TREE RETURN FALSE
@@ -166,10 +189,3 @@ recDelete(node, value){
     // CASE 2: Deleting a node with TWO child nodes(RECURSIVE)
 }
 
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// FRI
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
