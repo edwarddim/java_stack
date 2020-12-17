@@ -133,44 +133,57 @@ class BST{
         root.right = this.sortedArrtoBSTHelper(arr.slice(midInd + 1, arr.length))
         return root
     }
+    /* 
+        RETURNS THE HEIGHT OF THE BST
+    */
+    height(){
+        return this.heightHelper(this.root)
+    }
+    heightHelper(node){
+        // BASE CASE
+        if(node == null){
+            return 0
+        }
+        // FORWARD PROGRESS & RECURSIVE
+        var leftHeight = this.heightHelper(node.left)
+        var rightHeight = this.heightHelper(node.right)
+        if(leftHeight > rightHeight){
+            return leftHeight + 1
+        }
+        else{
+            return rightHeight + 1
+        }
+    }
+    /* 
+        CHECK IF THE BST IS CURRENTLY BALANCED
+        REQUIREMENTS FOR BEING BALANCED:
+        1. DIFFERENCE OF HEIGHT IN LEFT AND RIGHT NODE MUST 1 OR LESS
+        2. ALL NODES WITHIN BST MUSBT BE BALANCED, NOT JUST THE ROOT
+    */
+    isBalanced(){
+        return this.isBalancedHelper(this.root)
+    }
+    isBalancedHelper(node){
+        if(node == null){
+            return true
+        }
+        var leftHeight = this.height(node.left)
+        var rightHeight = this.height(node.right)
+        // if( DIFFERENCE IN LEFT AND RIGHT HEIGHT IS LESS THAN 1 && LEFT NODE IS BALANCED && RIGHT NODE IS BALANCED )
+        if( Math.abs(leftHeight-rightHeight) <= 1 && this.isBalancedHelper(node.left) && this.isBalancedHelper(node.right) ){
+            return true
+        }
+        else{
+            return false
+        }
+        
+    }
 }
 var newBST = new BST()
 newBST.sortedArrtoBST([1,2,3,4,5,6,7,8,9])
+console.log(newBST.height())
 
 
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// WED
-// 
-/* 
-    TAKES IN A SORTED ARR AND CREATES A BST WITH NUMBERS
-    FROM ARRAY
-*/
-sortedArrtoBST(arr){
-
-}
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-
-// THUR
-/* 
-    RETURNS THE HEIGHT OF THE BST
-*/
-height(){
-
-}
-
-/* 
-    CHECK IF THE BST IS CURRENTLY BALANCED
-    REQUIREMENTS FOR BEING BALANCED:
-    1. DIFFERENCE OF HEIGHT IN LEFT AND RIGHT NODE MUST 1 OR LESS
-    2. ALL NODES WITHIN BST MUSBT BE BALANCED, NOT JUST THE ROOT
-*/
-isBalanced(node){
-
-}
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
