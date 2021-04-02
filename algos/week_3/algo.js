@@ -178,27 +178,50 @@ class BST{
         }
         
     }
+    /* 
+        DELETE THE NODE CONTAING VALUE GIVEN, IF VALUE DOESN'T EXIST WITHIN TREE RETURN FALSE
+    */
+    delete(value){
+        return this.recDelete(this.root,value)
+    }
+
+    recDelete(node, value){
+        if(node == null){
+            return
+        }
+        else if(value < node.value){
+            node.left = this.recDelete(node.left, value)
+        }
+        else if(value > node.value){
+            node.right = this.recDelete(node.right, value)
+        }
+        else{
+            // CASE 1: Deleting a node with ONE or NO child node(NOT RECURRSIVE)
+            if(node.left == null){
+                var temp = node.right
+                node = null
+                return temp
+            }
+            else if(node.right == null){
+                var temp = node.left
+                node = null
+                return temp
+            }
+            // CASE 2: Deleting a node with TWO child nodes(RECURSIVE)
+            else{
+                // GRAB MAX OF THE LEFT SIDE OR MIN OF THE RIGHT SIDE
+                // REPLACE VALUE WITH THE NEW VALUE
+                // DELETE THE OLD VALUE
+                var tempValue = this.min(node.right)
+                node.value = tempValue
+                node.right = this.recDelete(node.right, tempValue)
+            }
+        }
+        return node
+    }
 }
 var newBST = new BST()
 newBST.sortedArrtoBST([1,2,3,4,5,6,7,8,9])
 console.log(newBST.height())
 
-
-
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
-// FRI
-
-/* 
-    DELETE THE NODE CONTAING VALUE GIVEN, IF VALUE DOESN'T EXIST WITHIN TREE RETURN FALSE
-*/
-delete(value){
-
-}
-
-recDelete(node, value){
-    // CASE 1: Deleting a node with ONE or NO child node(NOT RECURRSIVE)
-
-    // CASE 2: Deleting a node with TWO child nodes(RECURSIVE)
-}
 
