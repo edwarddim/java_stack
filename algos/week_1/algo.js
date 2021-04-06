@@ -80,6 +80,7 @@ console.log(head.next.val);
 console.log(head.next.next.next.val);
 
 
+//  TUESDAY -------------------------------------------------------------------//
  /**
   * Creates a new node with the given data and inserts it at the back of
   * this list.
@@ -98,8 +99,8 @@ console.log(head.next.next.next.val);
   * @returns {SinglyLinkedList} This list.
   */
  seedFromArr(vals) {}
-
-//  TUESDAY -------------------------------------------------------------------//
+ 
+ // WEDNESDAY -------------------------------------------------------------------//
 /**
  * Creates a new node with the given data and inserts that node at the front
  * of this list.
@@ -127,7 +128,7 @@ console.log(head.next.next.next.val);
   */
  average() {}
 
-// WEDNESDAY -------------------------------------------------------------------//
+ // THURSDAY --------------------------------------------------------------------//
 /**
  * Determines whether or not the given search value exists in this list.
  * - Time: (?).
@@ -136,6 +137,14 @@ console.log(head.next.next.next.val);
  * @returns {boolean}
  */
  contains(val) {}
+
+ /**
+  * Removes the last node of this list.
+  * - Time: (?).
+  * - Space: (?).
+  * @returns {any} The data from the node that was removed.
+  */
+ removeBack() {}
 
  /**
   * Determines whether or not the given search value exists in this list.
@@ -148,13 +157,6 @@ console.log(head.next.next.next.val);
   */
  containsRecursive(val, current = this.head) {}
  
- /**
-  * Removes the last node of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @returns {any} The data from the node that was removed.
-  */
- removeBack() {}
  
  // EXTRA
  /**
@@ -169,8 +171,8 @@ console.log(head.next.next.next.val);
   */
  recursiveMax(runner = this.head, maxNode = this.head) {}
 
+ // FRIDAY ----------------------------------------------------------------------//
 
-// THURSDAY --------------------------------------------------------------------//
 /**
  * Retrieves the data of the second to last node in this list.
  * - Time: (?).
@@ -190,6 +192,9 @@ console.log(head.next.next.next.val);
   * @returns {boolean} Indicates if a node was removed or not.
   */
  removeVal(val) {}
+
+
+ // ====================================================
  
  // EXTRA
  /**
@@ -203,8 +208,6 @@ console.log(head.next.next.next.val);
  prepend(newVal, targetVal) {}
 
 
-
-// FRIDAY ----------------------------------------------------------------------//
 /**
  * Concatenates the nodes of a given list onto the back of this list.
  * - Time: (?).
