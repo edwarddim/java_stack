@@ -1,84 +1,83 @@
 // MON
-class SLNode{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
-class SLL{
-    constructor(){
-        this.head = null
-    }
-    
-}
-
 // Algorithms Agenda:
 
 // 	Review/Intro: 
 // 		[ ] while loops
 
-    // starting condition // end to the loop // something that changes // increment/decrement
-    function someaction() {
-        var i = 0
-        while (i <= 10) {
-            console.log(i);
-            // increment/decrement inside while
-            // VERY IMPORTANT or else infinite loop
-            i++;
-        }
-        
+// starting condition // end to the loop // something that changes // increment/decrement
+function someAction() {
+    var i = 0
+    while (i <= 10) {
+        console.log(i);
+        // increment/decrement inside while
+        // VERY IMPORTANT or else infinite loop
+        i++;
     }
-    someAction()
+    
+}
+// someAction()
 
 // 	[ ] OOP vs procedural programming
-    // OOP Object Oriented Programming
-    // classes
-    //  blueprint
-        // constructor
-        // attributes:
-            // make, model, year, doors
-        // methods:
-            // drive --> up the odometer, change coordinates
+// OOP Object Oriented Programming
+// classes
+//  blueprint
+// constructor
+// attributes:
+// make, model, year, doors
+// methods:
+// drive --> up the odometer, change coordinates
 
 // 	Review:
 // 		[ ] Array memory storage
 // 		[ ] Drawbacks / Benefits
 // 		[ ] Time complexity
-	
+
 // 	Intro to Linked Lists Data Structure
 // 		[ ] Conceptual intro
 // 		[ ] Drawbacks/benefits
 
 // Part I
 
-let a = new Node(7);
-let b = new Node(3);
-let c = new Node(1);
-a.next = b;
-b.next = c;
+// let a = new SLNode(7);
+// let b = new SLNode(3);
+// let c = new SLNode(1);
+// a.next = b;
+// b.next = c;
 
-console.log('A:', a.val);
-console.log('B:', b.val);
-console.log('C:', c.val);
-console.log(a.next.val);
-console.log(a.next.next.val);
-console.log(a.next.next.next.val);
+// console.log('A:', a.val);
+// console.log('B:', b.val);
+// console.log('C:', c.val);
+// console.log(a.next.val);
+// console.log(a.next.next.val);
+// console.log(a.next.next.next.val);
 
 // Part II 
 // Note: Later the head variable shown here will be part of the SLL class
 
-let head = new Node(1);
-let runner_temp = head;
-for (let i of [7,3,5,2]) {
-    let new_node = new Node(i);
-    runner_temp.next = new_node;
-    runner_temp = new_node;
-}
-   
-console.log(head.val);
-console.log(head.next.val);
-console.log(head.next.next.next.val);
+// let head = new SLNode(1);
+// let runner_temp = head;
+// for (let i of [7,3,5,2]) {
+//     let new_node = new SLNode(i);
+//     runner_temp.next = new_node;
+//     runner_temp = new_node;
+// }
 
+// console.log(head.val);
+// console.log(head.next.val);
+// console.log(head.next.next.next.val);
+
+
+class SLNode{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class SLL{
+    constructor(){
+        this.head = null;
+}    
 
 //  TUESDAY -------------------------------------------------------------------//
  /**
@@ -89,7 +88,28 @@ console.log(head.next.next.next.val);
   * @param {any} data The data to be added to the new node.
   * @returns {SinglyLinkedList} This list.
   */
- insertAtBack(data) {}
+ insertAtBack(data){
+    let new_node = new SLNode(data);
+    if (this.head == null) {
+        this.head = new_node;
+        return this;
+    }
+
+    let current_node = this.head;
+    while(current_node.next != null) {
+        current_node = current_node.next;
+    }
+    current_node.next = new_node;
+    return this;
+    }
+
+ /* TO TEST, UNCOMMENT THE BELOW AND ADD AFTER CLASS DEFINITION */
+//  my_list = new SLL();
+//  my_list.insertAtBack(8);
+//  my_list.insertAtBack(9);
+//  my_list.insertAtBack(10);
+//  console.log(my_list);
+//  Note: we will be creating the print method later, but for now, if you run the code 
  
  /**
   * Adds each item of the given array to the back of this list.
@@ -98,9 +118,23 @@ console.log(head.next.next.next.val);
   * @param {Array<any>} vals The data for each new node.
   * @returns {SinglyLinkedList} This list.
   */
- seedFromArr(vals) {}
+ seedFromArr(vals) {
+    for (const item of vals) {
+        this.insertAtBack(item);
+    }
+    return this;
+ }
  
  // WEDNESDAY -------------------------------------------------------------------//
+/**
+ * Prints all the nodes in the list to the console.
+ * of this list.
+ * - Time: (?).
+ * - Space: (?).
+ * @returns {SinglyLinkedList} This list.
+ */
+ printValues() {}
+
 /**
  * Creates a new node with the given data and inserts that node at the front
  * of this list.
@@ -180,8 +214,7 @@ console.log(head.next.next.next.val);
  * @returns {any} The data of the second to last node or null if there is no
  *    second to last node.
  */
- secondToLast() {
-    if (!this.head || !this.head.next) {}
+ secondToLast() {}
  
  /**
   * Removes the node that has the matching given val as it's data.
@@ -239,4 +272,20 @@ console.log(head.next.next.next.val);
   * @returns {SinglyLinkedList} The split list containing the nodes that are
   *    no longer in this list.
   */
- splitOnVal(val) {}
+    splitOnVal(val) {}
+//  }
+}
+
+/* insertAtBack & seedFromArray Test */
+let my_list = new SLL();
+my_list.insertAtBack(8);
+my_list.insertAtBack(9);
+my_list.insertAtBack(10);
+console.log(my_list);
+
+let new_list = new SLL();
+new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
+
+for (let node = new_list.head; node !=null; node=node.next) {
+    console.log(node.value);
+}
