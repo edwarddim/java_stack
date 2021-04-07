@@ -77,90 +77,136 @@ class SLNode{
 class SLL{
     constructor(){
         this.head = null;
-}    
+    }    
 
-//  TUESDAY -------------------------------------------------------------------//
- /**
-  * Creates a new node with the given data and inserts it at the back of
-  * this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {any} data The data to be added to the new node.
-  * @returns {SinglyLinkedList} This list.
-  */
- insertAtBack(data){
-    let new_node = new SLNode(data);
-    if (this.head == null) {
-        this.head = new_node;
+    //  TUESDAY -------------------------------------------------------------------//
+    /**
+     * Creates a new node with the given data and inserts it at the back of
+     * this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data to be added to the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    insertAtBack(data){
+        let new_node = new SLNode(data);
+        if (this.head == null) {
+            this.head = new_node;
+            return this;
+        }
+
+        let current_node = this.head;
+        while(current_node.next != null) {
+            current_node = current_node.next;
+        }
+        current_node.next = new_node;
+        return this;
+        }
+
+    /* TO TEST, UNCOMMENT THE BELOW AND ADD AFTER CLASS DEFINITION */
+    //  my_list = new SLL();
+    //  my_list.insertAtBack(8);
+    //  my_list.insertAtBack(9);
+    //  my_list.insertAtBack(10);
+    //  console.log(my_list);
+    //  Note: we will be creating the print method later, but for now, if you run the code 
+    
+    /**
+     * Adds each item of the given array to the back of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {Array<any>} vals The data for each new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    seedFromArr(vals) {
+        for (const item of vals) {
+            this.insertAtBack(item);
+        }
         return this;
     }
-
-    let current_node = this.head;
-    while(current_node.next != null) {
-        current_node = current_node.next;
-    }
-    current_node.next = new_node;
-    return this;
-    }
-
- /* TO TEST, UNCOMMENT THE BELOW AND ADD AFTER CLASS DEFINITION */
-//  my_list = new SLL();
-//  my_list.insertAtBack(8);
-//  my_list.insertAtBack(9);
-//  my_list.insertAtBack(10);
-//  console.log(my_list);
-//  Note: we will be creating the print method later, but for now, if you run the code 
- 
- /**
-  * Adds each item of the given array to the back of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {Array<any>} vals The data for each new node.
-  * @returns {SinglyLinkedList} This list.
-  */
- seedFromArr(vals) {
-    for (const item of vals) {
-        this.insertAtBack(item);
-    }
-    return this;
- }
- 
+    
  // WEDNESDAY -------------------------------------------------------------------//
-/**
- * Prints all the nodes in the list to the console.
- * of this list.
- * - Time: (?).
- * - Space: (?).
- * @returns {SinglyLinkedList} This list.
- */
- printValues() {}
+    /**
+     * Prints all the nodes in the list to the console.
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    printValues() {
+        var runner = this.head
+        while(runner != null){
+            console.log(runner.value)
+            runner = runner.next
+        }
+    }
 
-/**
- * Creates a new node with the given data and inserts that node at the front
- * of this list.
- * - Time: (?).
- * - Space: (?).
- * @param {any} data The data for the new node.
- * @returns {SinglyLinkedList} This list.
- */
- insertAtFront(data) {}
+    /**
+     * Creates a new node with the given data and inserts that node at the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data for the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    insertAtFront(data) {
+        // Create the new node
+        var newNode = new SLNode(value)
 
- /**
-  * Removes the first node of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @returns {any} The data from the removed node.
-  */
- removeHead() {}
- 
- // EXTRA
- /**
-  * Calculates the average of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @returns {number|NaN} The average of the node's data.
-  */
- average() {}
+        // Point new node's .next to the head
+        // What happens if .head is null? .next is still null!
+        newNode.next = this.head
+        
+        // Change the head to the new node
+        this.head = newNode
+    }
+
+    /**
+     * Removes the first node of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data from the removed node.
+     */
+     removeAtFront(){
+        // If list empty
+        if(this.head == null){
+            console.log("LIST IS EMPTY")
+        }
+        // Save head's value to return, 
+        // reassign head to next node (or null if no next node)
+        else {
+            var value = this.head.value
+            this.head = this.head.next
+            return value
+        }
+    }
+    
+    // EXTRA
+    /**
+     * Calculates the average of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {number|NaN} The average of the node's data.
+     */
+    average() {
+        let runner = this.head;
+        let sum = 0;
+        let count = 0;
+
+        while (runner) {
+            count++;
+            sum += runner.data;
+            runner = runner.next;
+        }
+        /**
+         * Dividing by 0 will give you NaN (Not a Number), so an empty list
+         * will return NaN in this case, it may make sense to allow NaN to be
+         * returned, because the average of an empty list doesn't make sense and
+         * it could be misleading to return 0 since 0 is the average of any
+         * list with a sum of 0 (due to negatives or all zeros).
+         */
+        return sum / cnt;
+    }
 
  // THURSDAY --------------------------------------------------------------------//
 /**
@@ -277,15 +323,15 @@ class SLL{
 }
 
 /* insertAtBack & seedFromArray Test */
-let my_list = new SLL();
-my_list.insertAtBack(8);
-my_list.insertAtBack(9);
-my_list.insertAtBack(10);
-console.log(my_list);
+// let my_list = new SLL();
+// my_list.insertAtBack(8);
+// my_list.insertAtBack(9);
+// my_list.insertAtBack(10);
+// console.log(my_list);
 
-let new_list = new SLL();
-new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
+// let new_list = new SLL();
+// new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
 
-for (let node = new_list.head; node !=null; node=node.next) {
-    console.log(node.value);
-}
+// for (let node = new_list.head; node !=null; node=node.next) {
+//     console.log(node.value);
+// }
