@@ -11,18 +11,22 @@ public class User{
     private String email;
     private String password;
     private int age;
+    // CLASS VARIABLES
+    public static int numOfPeople;
     // CONSTRUCTOR METHODS
     public User(){
         this.name = "DEFAULT NAME";
         this.email = "DEFAULT EMAIL";
         this.password = "DEFAULT PASSWORD";
         this.age = 0;
+        numOfPeople++;
     }
     public User(String name, String email, String password, int age){
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
+        numOfPeople++;
     }
     // GETTERS AND SETTERS METHODS
     public String getName(){
@@ -39,8 +43,15 @@ public class User{
         this.email = newEmail;
     }
 
-    public String getPassword(){
-        return this.email;
+    public String getPassword(String adminPass){
+        if(adminPass == "qwery12345"){
+            return this.password;
+        }
+        else{
+            System.out.println("ACCESS DENIED");
+            return "ACCESS DENIED";
+        }
+
     }
     public void setPassword(String newPassword){
         this.password = newPassword;
@@ -60,5 +71,10 @@ public class User{
     // OTHER METHODS
     public void introduction(){
         System.out.println("Hello my name is " + this.name);
+    }
+
+    // CLASS METHOD
+    public static void printPopulation(){
+        System.out.println(numOfPeople);
     }
 }
