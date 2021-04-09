@@ -1,40 +1,4 @@
 // MON
-// Algorithms Agenda:
-
-// 	Review/Intro: 
-// 		[ ] while loops
-
-// starting condition // end to the loop // something that changes // increment/decrement
-function someAction() {
-    var i = 0
-    while (i <= 10) {
-        console.log(i);
-        // increment/decrement inside while
-        // VERY IMPORTANT or else infinite loop
-        i++;
-    }
-    
-}
-// someAction()
-
-// 	[ ] OOP vs procedural programming
-// OOP Object Oriented Programming
-// classes
-//  blueprint
-// constructor
-// attributes:
-// make, model, year, doors
-// methods:
-// drive --> up the odometer, change coordinates
-
-// 	Review:
-// 		[ ] Array memory storage
-// 		[ ] Drawbacks / Benefits
-// 		[ ] Time complexity
-
-// 	Intro to Linked Lists Data Structure
-// 		[ ] Conceptual intro
-// 		[ ] Drawbacks/benefits
 
 // Part I
 
@@ -151,7 +115,7 @@ class SLL{
      */
     insertAtFront(data) {
         // Create the new node
-        var newNode = new SLNode(value)
+        var newNode = new SLNode(data)
 
         // Point new node's .next to the head
         // What happens if .head is null? .next is still null!
@@ -195,7 +159,7 @@ class SLL{
 
         while (runner) {
             count++;
-            sum += runner.data;
+            sum += runner.value;
             runner = runner.next;
         }
         /**
@@ -208,126 +172,204 @@ class SLL{
         return sum / cnt;
     }
 
- // THURSDAY --------------------------------------------------------------------//
-/**
- * Determines whether or not the given search value exists in this list.
- * - Time: (?).
- * - Space: (?).
- * @param {any} val The data to search for in the nodes of this list.
- * @returns {boolean}
- */
- contains(val) {}
+    // THURSDAY --------------------------------------------------------------------//
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @returns {boolean}
+     */
+    contains(val) {
+        let runner = this.head;
 
- /**
-  * Removes the last node of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @returns {any} The data from the node that was removed.
-  */
- removeBack() {}
+        while (runner) {
+            if (runner.value === val) {
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false;
+    }
 
- /**
-  * Determines whether or not the given search value exists in this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {any} val The data to search for in the nodes of this list.
-  * @param {?node} current The current node during the traversal of this list
-  *    or null when the end of the list has been reached.
-  * @returns {boolean}
-  */
- containsRecursive(val, current = this.head) {}
- 
- 
- // EXTRA
- /**
-  * Recursively finds the maximum integer data of the nodes in this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {Node} runner The start or current node during traversal, or null
-  *    when the end of the list is reached.
-  * @param {Node} maxNode Keeps track of the node that contains the current
-  *    max integer as it's data.
-  * @returns {?number} The max int or null if none.
-  */
- recursiveMax(runner = this.head, maxNode = this.head) {}
+    /**
+     * Removes the last node of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data from the node that was removed.
+     */
+    removeBack() {
 
- // FRIDAY ----------------------------------------------------------------------//
+        // We plan to save the last value
+        // before removing it
+        var removedVal;
 
-/**
- * Retrieves the data of the second to last node in this list.
- * - Time: (?).
- * - Space: (?).
- * @returns {any} The data of the second to last node or null if there is no
- *    second to last node.
- */
- secondToLast() {}
- 
- /**
-  * Removes the node that has the matching given val as it's data.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {any} val The value to compare to the node's data to find the
-  *    node to be removed.
-  * @returns {boolean} Indicates if a node was removed or not.
-  */
- removeVal(val) {}
+        // Case if list empty
+        if(!this.head) {
+            console.log("List empty.")
+            return null;
+        }
+
+        // Case if only one node in list
+        if (!this.head.next) {
+
+            // Save value in head to return
+            removedVal = this.head.value;
+            // Reassign head to null
+            this.head = null;
+            return removedVal;
+        }
+
+        var runner = this.head;
+        // We want to stop at the second to last node
+        // So we check if there is a node after the next node
+        while (runner.next.next) {
+            // keep advancing the pointer
+            runner = runner.next;
+        }
+        // Save last node's value
+        removedVal = runner.next.value;
+        // Re-assign second-to-last node's next pointer to null
+        runner.next = null;
+        return removedVal;
+
+    }
+
+    // --- If extra time -- code the removeAtFront method from scratch
+    
+    // EXTRA
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @param {?node} current The current node during the traversal of this list
+     *    or null when the end of the list has been reached.
+     * @returns {boolean}
+     */
+    containsRecursive(val, current = this.head) {
+        if (current === null) {
+            return false;
+        }
+        if (current.value === val) {
+            return true;
+        }
+        return this.containsRecursive(val, current.next);
+    }
+    
+    
+    /**
+     * Recursively finds the maximum integer data of the nodes in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {Node} runner The start or current node during traversal, or null
+     *    when the end of the list is reached.
+     * @param {Node} maxNode Keeps track of the node that contains the current
+     *    max integer as it's data.
+     * @returns {?number} The max int or null if none.
+     */
+    recursiveMax(runner = this.head, maxNode = this.head) {
+        if (this.head === null) {
+            return null;
+        }
+    
+        if (runner === null) {
+            return maxNode.data;
+        }
+    
+        if (runner.data > maxNode.data) {
+            maxNode = runner;
+        }
+    
+        return this.recursiveMax(runner.next, maxNode);
+    }
+
+    // FRIDAY ----------------------------------------------------------------------//
+
+    /**
+     * Retrieves the data of the second to last node in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data of the second to last node or null if there is no
+     *    second to last node.
+     */
+    secondToLast() {}
+    
+    /**
+     * Removes the node that has the matching given val as it's data.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The value to compare to the node's data to find the
+     *    node to be removed.
+     * @returns {boolean} Indicates if a node was removed or not.
+     */
+    removeVal(val) {}
+
+    //  FRIDAY EXTRA
+    /**
+     * Retrieves the data of the kth to last node in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data of the second to last node or null if there is no
+     *    second to last node.
+     */
+     kthToLast() {}
+
+    // ====================================================
+    
+    // EXTRA
+    /**
+     * Inserts a new node before a node that has the given value as its data.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} newVal The value to use for the new node that is being added.
+     * @param {any} targetVal The value to use to find the node that the newVal
+     *    should be inserted in front of.
+     */
+    prepend(newVal, targetVal) {}
 
 
- // ====================================================
- 
- // EXTRA
- /**
-  * Inserts a new node before a node that has the given value as its data.
-  * - Time: (?).
-  * - Space: (?).
-  * @param {any} newVal The value to use for the new node that is being added.
-  * @param {any} targetVal The value to use to find the node that the newVal
-  *    should be inserted in front of.
-  */
- prepend(newVal, targetVal) {}
+    /**
+     * Concatenates the nodes of a given list onto the back of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {SinglyLinkedList} addList An instance of a different list whose
+     *    whose nodes will be added to the back of this list.
+     * @returns {SinglyLinkedList} This list with the added nodes.
+     */
+    concat(addList) {}
 
-
-/**
- * Concatenates the nodes of a given list onto the back of this list.
- * - Time: (?).
- * - Space: (?).
- * @param {SinglyLinkedList} addList An instance of a different list whose
- *    whose nodes will be added to the back of this list.
- * @returns {SinglyLinkedList} This list with the added nodes.
- */
- concat(addList) {}
-
- /**
-  * Finds the node with the smallest number as data and moves it to the front
-  * of this list.
-  * - Time: (?).
-  * - Space: (?).
-  * @returns {SinglyLinkedList} This list.
-  */
- moveMinToFront() {}
- 
- // EXTRA
- /**
-  * Splits this list into two lists where the 2nd list starts with the node
-  * that has the given value.
-  * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
-  * and the return value will be a new list containing (5=>2=>4)
-  * - Time: (?).
-  * - Space: (?).
-  * @param {any} val The value in the node that the list should be split on.
-  * @returns {SinglyLinkedList} The split list containing the nodes that are
-  *    no longer in this list.
-  */
-    splitOnVal(val) {}
-//  }
+    /**
+     * Finds the node with the smallest number as data and moves it to the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    moveMinToFront() {}
+    
+    // EXTRA
+    /**
+     * Splits this list into two lists where the 2nd list starts with the node
+     * that has the given value.
+     * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+     * and the return value will be a new list containing (5=>2=>4)
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The value in the node that the list should be split on.
+     * @returns {SinglyLinkedList} The split list containing the nodes that are
+     *    no longer in this list.
+     */
+        splitOnVal(val) {}
+    //  }
 }
 
 /* insertAtBack & seedFromArray Test */
-// let my_list = new SLL();
-// my_list.insertAtBack(8);
-// my_list.insertAtBack(9);
-// my_list.insertAtBack(10);
-// console.log(my_list);
+let my_list = new SLL();
+my_list.insertAtBack(8);
+my_list.insertAtBack(9);
+my_list.insertAtBack(10);
+console.log(my_list);
 
 // let new_list = new SLL();
 // new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
@@ -335,3 +377,10 @@ class SLL{
 // for (let node = new_list.head; node !=null; node=node.next) {
 //     console.log(node.value);
 // }
+
+console.log(my_list.removeBack()); // 10
+console.log(my_list.removeBack()); // 9
+console.log(my_list.removeBack()); // 8
+console.log(my_list.removeBack()); // List empty
+
+
