@@ -66,14 +66,6 @@ class SLL{
         current_node.next = new_node;
         return this;
         }
-
-    /* TO TEST, UNCOMMENT THE BELOW AND ADD AFTER CLASS DEFINITION */
-    //  my_list = new SLL();
-    //  my_list.insertAtBack(8);
-    //  my_list.insertAtBack(9);
-    //  my_list.insertAtBack(10);
-    //  console.log(my_list);
-    //  Note: we will be creating the print method later, but for now, if you run the code 
     
     /**
      * Adds each item of the given array to the back of this list.
@@ -103,6 +95,16 @@ class SLL{
             console.log(runner.value)
             runner = runner.next
         }
+    }
+    printPretty() {
+        let printString = ""
+        let runner = this.head;
+        while (runner != null) {
+            printString += runner.value + "->";
+            runner = runner.next;
+        }
+        printString += "null";
+        console.log(printString);
     }
 
     /**
@@ -293,7 +295,16 @@ class SLL{
      * @returns {any} The data of the second to last node or null if there is no
      *    second to last node.
      */
-    secondToLast() {}
+    secondToLast() {
+        if (!this.head || !this.head.next) {
+            return null;
+        }
+        var runner = this.head;
+        while (runner.next.next) {
+            runner = runner.next;
+        }
+        return runner.value;
+    }
     
     /**
      * Removes the node that has the matching given val as it's data.
@@ -303,17 +314,52 @@ class SLL{
      *    node to be removed.
      * @returns {boolean} Indicates if a node was removed or not.
      */
-    removeVal(val) {}
+    removeVal(val) {
+        if (!this.head) {
+            return false;
+        }
+        if (this.head.value == val) {
+            this.removeAtFront();
+            return true;
+        }
+        var runner = this.head;
+        while (runner.next) {
+            if (runner.next.value == val) {
+                runner.next = runner.next.next;
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false;
+    }
 
     //  FRIDAY EXTRA
     /**
      * Retrieves the data of the kth to last node in this list.
      * - Time: (?).
      * - Space: (?).
-     * @returns {any} The data of the second to last node or null if there is no
-     *    second to last node.
+     * @returns {any} The data of the kth to last node or null if there is no
+     *    kth to last node.
      */
-     kthToLast() {}
+     kthToLast(k) {
+         var buffer = this.head;
+         var trail = this.head;
+         while (k > 0 && buffer) {
+            // console.log("Buffer at: ", buffer.value)
+            buffer = buffer.next;
+            // console.log("moved on to ", buffer);
+            k--;
+         }
+         if (!buffer || k < 0) {
+             console.log("value out of range")
+             return null;
+         }
+         while (buffer.next) {
+            trail = trail.next;
+            buffer = buffer.next
+         }
+         return trail.value;
+     }
 
     // ====================================================
     
@@ -364,12 +410,19 @@ class SLL{
     //  }
 }
 
+//==========================//
+//         TESTING          //
+//==========================//
+
 /* insertAtBack & seedFromArray Test */
 let my_list = new SLL();
 my_list.insertAtBack(8);
 my_list.insertAtBack(9);
 my_list.insertAtBack(10);
-console.log(my_list);
+my_list.insertAtBack(11);
+my_list.insertAtBack(12);
+my_list.insertAtBack(13);
+// console.log(my_list);
 
 // let new_list = new SLL();
 // new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
@@ -378,9 +431,27 @@ console.log(my_list);
 //     console.log(node.value);
 // }
 
-console.log(my_list.removeBack()); // 10
-console.log(my_list.removeBack()); // 9
-console.log(my_list.removeBack()); // 8
-console.log(my_list.removeBack()); // List empty
+// console.log(my_list.removeBack()); // 10
+// console.log(my_list.removeBack()); // 9
+// console.log(my_list.removeBack()); // 8
+// console.log(my_list.removeBack()); // List empty
+// console.log(my_list.removeVal(10))
+my_list.printPretty();
+console.log("Second from last: ", my_list.secondToLast());
+
+
+// console.log("\n4 removed? ", my_list.removeVal(4));
+// my_list.printPretty();
+// console.log("\n8 removed? ", my_list.removeVal(8));
+// my_list.printPretty();
+// console.log("\n11 removed? ", my_list.removeVal(11));
+// my_list.printPretty();
+// console.log("\n13 removed? ", my_list.removeVal(13));
+// my_list.printPretty();
+
+for (var k = -1; k < 7; k++) {
+    console.log(`${k} from last: ${my_list.kthToLast(k)}`);
+}
+
 
 
