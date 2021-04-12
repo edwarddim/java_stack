@@ -60,8 +60,8 @@ class SLStack {
     }
 
     ////  EXTRA  /////
-    // Reverses the new stack with the order of the nodes reversed
-    // For this exercise, do not do in place. Instead
+    // Reverses stack with the order of the nodes reversed
+    // For this exercise, do try to re-point all the pointers
     // use an extra stack as storage and utilize the pop and push 
     // methods.
     reverse() {}
