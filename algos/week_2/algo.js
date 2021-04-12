@@ -39,18 +39,32 @@ class SLStack {
     isEmpty(){
       
     }
-    push(value){
 
+    // Adds a new node with the given value in front of the head node.
+    push(value){
+      
     }
+
+    // Removes the head node
+    // return the popped value -- important!
     pop(){
 
     }
+
     size(){
 
     }
+
     peek(){
       // return top item without removing
     }
+
+    ////  EXTRA  /////
+    // Reverses the new stack with the order of the nodes reversed
+    // For this exercise, do not do in place. Instead
+    // use an extra stack as storage and utilize the pop and push 
+    // methods.
+    reverse() {}
     
 }
 
