@@ -37,3 +37,9 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
+
+<!-- DEPENDENCY FOR USING VALIDATION ANNOTATIONS -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
