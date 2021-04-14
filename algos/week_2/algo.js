@@ -90,13 +90,13 @@ class SLStack {
     
 }
 
-var new_stack = new SLStack();
-new_stack.push(3);
-new_stack.push(2);
-new_stack.push(1);
-console.log(new_stack);
-new_stack.reverse();
-console.log(new_stack);
+// var new_stack = new SLStack();
+// new_stack.push(3);
+// new_stack.push(2);
+// new_stack.push(1);
+// console.log(new_stack);
+// new_stack.reverse();
+// console.log(new_stack);
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
@@ -111,24 +111,55 @@ class SLQueue {
   }
 
   enqueue(value){
-
+    var new_node = new SLNode(value);
+    
+    if (this.isEmpty()) {
+      this.head = new_node;
+      this.tail = new_node;
+    }
+    else {
+      this.tail.next = new_node;
+      this.tail = new_node;
+    }
+    this.size++;
   }
   dequeue(){
+    if (this.isEmpty()) {
+      return null;
+    }
+    var removed_val = this.head.value;
+    this.head = this.head.next;
+    
+    if (!this.head) {
+      this.tail = null;
+    }
+    this.size--;
+    return removed_val;
 
   }
   isEmpty(){
-
+    return !this.head;
   }
-  size(){
-
+  // Note: Changed this! 
+  // Attributes and methods should have different names.
+  getSize(){
+    return this.size;
   }
   front(){
-    
+    return this.head? this.head.value: null;
   }
 
   
 }
-
+var queue = new SLQueue();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+console.log(queue);
+console.log("Popped: ", queue.dequeue());
+console.log("Popped: ", queue.dequeue());
+console.log("Popped: ", queue.dequeue());
+console.log(queue);
 
 
 // -----------------------------------------------------------------------------------------------//
