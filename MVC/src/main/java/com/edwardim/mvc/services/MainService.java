@@ -32,8 +32,6 @@ public class MainService {
 	// GRAB A USER BY ID
 	public User findUser(Long id) {
 		return userRepo.findById(id).orElse(null);
-		
-		
 //        Optional<User> optionalUser = userRepo.findById(id);
 //        if(optionalUser.isPresent()) {
 //            return optionalUser.get();
@@ -41,5 +39,6 @@ public class MainService {
 //            return null;
 //        }
 	}
+	
 		
 }
