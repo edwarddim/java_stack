@@ -154,13 +154,93 @@ class SLQueue {
   // will return whether they are equal (same items in same order).
   // Do not use any extra array or objects as storage.
   // Do not alter (pop from or push into) either queue.
-  equals(secondQ){}
+  equals(secondQ){
+    if (secondQ.size != this.size) {
+      return false;
+    }
+    let runner1 = this.head;
+    let runner2 = secondQ.head;
+
+    while (runner1 && runner2) {
+      if(runner1.value != runner2.value) {
+        return false;
+      }
+      runner1 = runner1.next;
+      runner2 = runner2.next;
+    }
+    return true;
+  }
 
   // isPalindrome
   // Write a method on the Queue class that returns whether or not the queue is a palindrome
   // Use only 1 stack as additional storage (no additional arrays / objects).
-  //   BONUS (after solving) -- can you do it in one pass?
-  isPalindrome(){}
+  isPalindrome(){
+    let compareStack = new SLStack();
+    let runner = this.head;
+    while (runner) {
+      compareStack.push(runner.val);
+      runner = runner.next;
+    }
+    // Note: If you implement the size attribute in the
+    //       stack class as well, you can use the equals
+    //       method here, since it is identical code!
+    let runner1 = this.head;
+    let runner2 = compareStack.head;
+
+    while (runner1 && runner2) {
+      if(runner1.value != runner2.value) {
+        return false;
+      }
+      runner1 = runner1.next;
+      runner2 = runner2.next;
+    }
+    return true;
+  }
+  //   BONUS (after solving) -- can you do it in one pass? 
+  //  ( ADVANCED BRAIN_TEASER! )
+  isPalindrome1Pass(){
+    let compareStack = new SLStack();
+
+    // runner will help add each value to the
+    // stack and stop at the middle
+    let runner = this.head;
+
+    // this runner goes 2x as fast as the runner
+    // so that the first runner will stop in the middle
+    let doubleTimeRunner = this.head;
+
+    // Goes half-way through the queue adding nodes to the 
+    // compare stack (reverses order)
+    while(doubleTimeRunner && doubleTimeRunner.next) {
+
+      compareStack.push(runner.value);
+
+      // Quick runner skips a node each time 
+      // so normal runner will end up at the middle at the end
+      doubleTimeRunner = doubleTimeRunner.next.next;
+      runner = runner.next;
+    }
+    // If odd number of nodes, advance runner.
+    runner = doubleTimeRunner? runner.next: runner;
+
+    // prepare to iterate over the compareStack 
+    // which is now the first half of the queue reversed.
+    let stackRunner = compareStack.head;
+    
+    // compare each node in the last half of of the queue
+    // with the compareStack.
+    while (runner) {
+      if(stackRunner.value != runner.value) {
+        return false;
+      }
+      stackRunner = stackRunner.next;
+      runner = runner.next;
+    }
+    return true;
+
+
+
+  }
   
 }
 // WEDNESDAY EXTRA
@@ -187,11 +267,14 @@ queue3.enqueue(4);
 var letterQ = new SLQueue();
 letterQ.enqueue("a");
 letterQ.enqueue("b");
+letterQ.enqueue("b");
 letterQ.enqueue("a");
+// letterQ.enqueue("a");
 
 console.log(queue.equals(queue2)); // false
 console.log(queue2.equals(queue3)); // true
-console.log(letterQ.isPalindrome()); // true
+console.log(letterQ.isPalindrome());
+console.log(letterQ.isPalindrome1Pass());
 
 
 // -----------------------------------------------------------------------------------------------//
