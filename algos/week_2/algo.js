@@ -149,17 +149,49 @@ class SLQueue {
     return this.head? this.head.value: null;
   }
 
+  // equals
+  // Write a method on the Queue class that, given another queue, 
+  // will return whether they are equal (same items in same order).
+  // Do not use any extra array or objects as storage.
+  // Do not alter (pop from or push into) either queue.
+  equals(secondQ){}
+
+  // isPalindrome
+  // Write a method on the Queue class that returns whether or not the queue is a palindrome
+  // Use only 1 stack as additional storage (no additional arrays / objects).
+  //   BONUS (after solving) -- can you do it in one pass?
+  isPalindrome(){}
   
 }
+// WEDNESDAY EXTRA
+// Extra: MinStack
+// Design a stack that supports push, pop, top, and min methods where the min method retrieves the minimum int in the stack
+// Bonus: retrieve min element in constant time (no looping).
+
+
 var queue = new SLQueue();
 queue.enqueue(1);
 queue.enqueue(2);
 queue.enqueue(3);
-console.log(queue);
-console.log("Popped: ", queue.dequeue());
-console.log("Popped: ", queue.dequeue());
-console.log("Popped: ", queue.dequeue());
-console.log(queue);
+
+var queue2 = new SLQueue();
+queue2.enqueue(1);
+queue2.enqueue(2);
+queue2.enqueue(4);
+
+var queue3 = new SLQueue();
+queue3.enqueue(1);
+queue3.enqueue(2);
+queue3.enqueue(4);
+
+var letterQ = new SLQueue();
+letterQ.enqueue("a");
+letterQ.enqueue("b");
+letterQ.enqueue("a");
+
+console.log(queue.equals(queue2)); // false
+console.log(queue2.equals(queue3)); // true
+console.log(letterQ.isPalindrome()); // true
 
 
 // -----------------------------------------------------------------------------------------------//
