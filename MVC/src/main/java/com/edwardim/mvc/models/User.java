@@ -11,6 +11,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,15 +25,15 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message = "Name must be provided") // MAKING SURE THE THE USER PROVIDES A NAME
+	@NotEmpty(message = "Name must be provided") // MAKING SURE THE THE USER PROVIDES A NAME
 	@Size(min = 2, max = 40, message = "Name must be between 2 and 40 chars") // MAKING SURE THE USER NAME IS BETWEEN 2-40 CHARS
 	private String name;
 	
-	@NotNull(message = "Email must be provided")
+	@NotEmpty(message = "Email must be provided")
 	@Email(message = "Email must be valid pattern") // MAKING SURE THE EMAIL FOLLOWS EMAIL PATTERN
 	private String email;
 	
-	@NotNull
+	@NotEmpty
 	@Size(min = 8, max = 16)
 	private String password;
 	

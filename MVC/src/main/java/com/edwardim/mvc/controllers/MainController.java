@@ -20,20 +20,20 @@ public class MainController {
 	}
 	
 	// RETRIEVE ALL USERS
-	@GetMapping("/users")
+	@GetMapping("/api/users")
 	public List<User> getAllUsers() {
 		return mainServ.allUsers();
 	}
 	
 	// RETRIEVE A USER BY ID
-	@GetMapping("/users/{id}")
+	@GetMapping("/api/users/{id}")
 	public User findUser(
 			@PathVariable("id") Long user_id
 	) {
 		return mainServ.findUser(user_id);
 	}
 	// CREATE A USER
-	@PostMapping("/users/new")
+	@PostMapping("/api/users/new")
 	public User createUser(
 			@RequestParam("name") String name,
 			@RequestParam("email") String email,
