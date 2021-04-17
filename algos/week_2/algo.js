@@ -8,7 +8,7 @@ class SLNode{
 // MON
 // LAST IN FIRST OUT
 // LIFO - STACKS
-class Stack {
+class ArrayStack {
     constructor(items = []) {
       this.items = items;
     }
@@ -73,6 +73,16 @@ class SLStack {
       return this.head? this.head.value: null;
       // return top value without removing
     }
+    printPretty() {
+      let runner = this.head;
+      let printString = "~ SLStack ~ HEAD--(";
+      while (runner && runner.next) {
+        printString+= `${runner.value})->(`;
+        runner = runner.next;
+      }
+      printString+=`${runner.value})->null\n`;
+      console.log(printString);
+    }
 
     ////  EXTRA  /////
     // Reverses stack with the order of the nodes reversed
@@ -87,16 +97,84 @@ class SLStack {
       this.head = tempStack.head;
       this.length = tempStack.length;
     }
+
+    // Week 2 THURSDAY
+  // Stacks/Queues Continued
+
+  /** Methods will be in the STACK class
+   * Returns a new stack that is copy of the original stack.
+   * Retain the original order. You may create extra temp 
+   * SLStacks and/or SLQueues 
+   * as storage.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @returns {SLStack} Copy of the original stack
+   */
+   copy() {
+    let copy_stack = new SLStack();
+    let temp_stack = new SLStack();
+    let runner = this.head;
+    
+    // Push all the values into a temp stack
+    while (runner) {
+       temp_stack.push(runner.value);
+       runner = runner.next;
+    }
+    // Push all the vals in temp into copy stack
+    // by popping off the top to put back in the right order.
+    while (!temp_stack.isEmpty()) {
+      copy_stack.push(temp_stack.pop());
+    }
+    return copy_stack;
+  }
+
+  /**
+   * Rearranges the stack so that numbers > 0 are 
+   * on the top and any negatives are on the bottom
+   * Retain the order of the positives and negatives
+   * Use extra stacks and/or queues as storage.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @returns {any} The removed item.
+   */
+  partitionPositives() {
+    let positives = new SLStack;
+    let negatives = new SLStack;
+
+    while (!this.isEmpty()) {
+      if (this.peek() < 0) {
+        negatives.push(this.pop());
+      }
+      else {
+        positives.push(this.pop());
+      }
+    }
+    while (!negatives.isEmpty()) {
+      this.push(negatives.pop());
+    }
+    while (!positives.isEmpty()) {
+      this.push(positives.pop());
+    }
+  }
     
 }
 
-// var new_stack = new SLStack();
-// new_stack.push(3);
-// new_stack.push(2);
-// new_stack.push(1);
-// console.log(new_stack);
-// new_stack.reverse();
-// console.log(new_stack);
+var new_stack = new SLStack();
+new_stack.push(-3);
+new_stack.push(1);
+new_stack.push(2); 
+new_stack.push(-5); 
+new_stack.push(-7); 
+new_stack.push(8); 
+new_stack.push(-10); 
+// head (-10)->(8)->(-7)->(-5)->(2)->(1)->(-3)->null
+new_stack.copy();
+new_stack.printPretty();
+new_stack.partitionPositives();
+new_stack.printPretty();
+// head (8)->(2)->(1)->(-10)->(-7)->(-5)->(-3)->null
+
+
 
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
@@ -122,6 +200,7 @@ class SLQueue {
       this.tail = new_node;
     }
     this.size++;
+    return this;
   }
   dequeue(){
     if (this.isEmpty()) {
@@ -149,6 +228,18 @@ class SLQueue {
     return this.head? this.head.value: null;
   }
 
+  printPretty() {
+    let runner = this.head;
+    let printString = "~ SLQueue ~ HEAD--(";
+    while (runner && runner.next) {
+      printString+= runner === this.tail? "TAIL ":"";
+      printString+= `${runner.value})->(`;
+      runner = runner.next;
+    }
+    printString+= runner === this.tail? "TAIL ":"";
+    printString+=`${runner.value})->null\n`;
+    console.log(printString);
+  }
   // equals
   // Write a method on the Queue class that, given another queue, 
   // will return whether they are equal (same items in same order).
@@ -238,55 +329,76 @@ class SLQueue {
     }
     return true;
 
-
-
   }
   
 }
+let q = new SLQueue();
+q.enqueue(1).enqueue(2).enqueue(3).enqueue(4);
+q.printPretty();
 // WEDNESDAY EXTRA
 // Extra: MinStack
 // Design a stack that supports push, pop, top, and min methods where the min method retrieves the minimum int in the stack
 // Bonus: retrieve min element in constant time (no looping).
 
 
-var queue = new SLQueue();
-queue.enqueue(1);
-queue.enqueue(2);
-queue.enqueue(3);
-
-var queue2 = new SLQueue();
-queue2.enqueue(1);
-queue2.enqueue(2);
-queue2.enqueue(4);
-
-var queue3 = new SLQueue();
-queue3.enqueue(1);
-queue3.enqueue(2);
-queue3.enqueue(4);
-
-var letterQ = new SLQueue();
-letterQ.enqueue("a");
-letterQ.enqueue("b");
-letterQ.enqueue("b");
-letterQ.enqueue("a");
-// letterQ.enqueue("a");
-
-console.log(queue.equals(queue2)); // false
-console.log(queue2.equals(queue3)); // true
-console.log(letterQ.isPalindrome());
-console.log(letterQ.isPalindrome1Pass());
-
-
 // -----------------------------------------------------------------------------------------------//
 // -----------------------------------------------------------------------------------------------//
 
-// FRI
+// WEEK 2 FRI
 class CircleQueue{
-  constructor(length){
-      this.size = length
-      this.head = -1
-      this.tail = -1
-      this.items = new Array(length)
+  constructor(capacity){
+      this.size = 0
+      this.head_index = -1
+      this.tail_index = -1
+
+      // Items is an array with length == capacity 
+      // where all values are undefined
+      this.items = new Array(capacity)
+
+      this.capacity = capacity
+      
   }
   
+  // Adds a new element into the list.
+  enqueue(val){
+    if ((this.tail_index + 1) % this.capacity == this.head_index) {
+      console.log("Warning: failed to enqueue. List at capacity.")
+      return null;
+    }
+
+    if(this.head_index == -1) {
+      this.head_index = 0;
+      this.tail_index = 0;
+      this.items[0] = val;
+    }
+    else {
+      let next_spot = (this.tail_index + 1) % this.capacity;
+      this.items[next_spot] = val;
+      this.tail_index = next_spot;
+    }
+    this.size++;
+    // chaining
+    return this;
+  }
+
+  dequeue(){
+
+    if (this.head_index == -1) {
+      console.log("Warning: Dequeue Failed. List empty.")
+      return null;
+    }
+    let removed = this.items[this.head_index];
+    this.items[this.head_index] = undefined;
+    
+    if (this.head_index == this.tail_index){
+      this.tail_index = -1;
+      this.head_index = -1;
+    }
+    else {
+      this.head_index = (this.head_index + 1) % this.capacity;
+    }
+    this.size--;
+    return removed;
+  }
+
 }
