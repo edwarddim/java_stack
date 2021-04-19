@@ -70,5 +70,9 @@ public class MainService {
 		return userRepo.findByIdNotIn(ids);
 	}
 	
+	public List<User> test(Item item){
+		return userRepo.findUsersNoPurchase(item);
+	}
+	
 	
 }

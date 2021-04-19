@@ -69,7 +69,8 @@ public class MainController {
 		Item item = mainServ.findItem(id);
 		model.addAttribute(item);
 
-		List<User> list = mainServ.findNonPurchasers(item);
+//		List<User> list = mainServ.findNonPurchasers(item);
+		List<User> list = mainServ.test(item);
 		model.addAttribute("users", list);
 		
 		return "item.jsp";
