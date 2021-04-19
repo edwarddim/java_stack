@@ -11,4 +11,6 @@ import com.edwardim.middlemodel.models.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findAll();
 	List<User> findByname(String name);
+	
+	List<User> findByIdNotIn(List<Long> ids);
 }

@@ -1,5 +1,6 @@
 package com.edwardim.middlemodel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,20 @@ public class MainService {
 
 	public List<Purchase> allPurchase() {
 		return purchaseRepo.findAll();
+	}
+
+	public Item findItem(Long id) {
+		return itemRepo.findById(id).orElse(null);
+	}
+	
+	public List<User> findNonPurchasers(Item item){
+		// GENERATE LIST OF USERS WHO HAVE BOUGHT THIS ITEM
+		ArrayList<Long> ids = new ArrayList<Long>();
+		for(Purchase p : item.getOrders()) {
+			ids.add(p.getPurchaser().getId());
+		}
+		// QUERY THE LIST OF USERS WHO BOUGHT ITEM AGAINST ALL PURCHASES
+		return userRepo.findByIdNotIn(ids);
 	}
 	
 	
