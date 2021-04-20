@@ -29,15 +29,23 @@
 						<td><c:out value="${show.network }" /></td>
 						<td><c:out value="${show.release_date }" /></td>
 						<td>
-							<a href="/shows/${show.id}">Show</a>
-							<a href="/shows/${show.id}/edit">Edit</a>
-							<a href="/shows/${show.id}/delete">Delete</a>
+							<c:choose>
+								<c:when test="${show.creator.id == user_id }">
+									<a href="/shows/${show.id}">Show</a>
+									<a href="/shows/${show.id}/edit">Edit</a>
+									<a href="/shows/${show.id}/delete">Delete</a>
+								</c:when>
+								<c:otherwise>
+									<a href="/shows/${show.id}">Show</a>
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<form:form action="/shows/new" method="POST" modelAttribute="showObj">
+			<form:input path="creator" value="${user_id}" type="hidden" />
 			<p>
 				Title:
 				<form:input path="title" type="text" />

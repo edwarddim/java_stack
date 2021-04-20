@@ -1,5 +1,6 @@
 package com.edwardim.semiresttv.controllers;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ public class MainController {
 	// ----------------------- CREATE ---------------------------//
 	@GetMapping("/shows")
 	public String index(
-		@ModelAttribute("showObj")Show emptyShow, Model model
+		@ModelAttribute("showObj")Show emptyShow, Model model, HttpSession session
 	) {
+		// GRAB THE LOGGED USER ID FROM SESSION
+		Long user_id = (Long) session.getAttribute("user_id");
+		// BIND TO SHOW OBJ
+		model.addAttribute("user_id", user_id);
 		model.addAttribute("allShows", showServ.allShows());
 		return "index.jsp";
 	}
@@ -60,12 +65,19 @@ public class MainController {
 	// ----------------------- UPDATE ------------------------------//
 	@GetMapping("/shows/{id}/edit")
 	public String editShow(
-		@PathVariable("id") Long id, Model model
+		@PathVariable("id") Long id, Model model, HttpSession session
 	) {
 		// GRAB THE SHOW FROM DB USING ID
 		Show editShow = showServ.findShow(id);
 		// PASS THE SHOW OBJ TO THE JSP
 		model.addAttribute("showObj", editShow);
+		
+		// GRAB THE LOGGED USER ID FROM SESSION
+		Long user_id = (Long) session.getAttribute("user_id");
+		// BIND TO SHOW OBJ
+		model.addAttribute("user_id", user_id);
+		
+		
 		return "editShow.jsp";
 	}
 	

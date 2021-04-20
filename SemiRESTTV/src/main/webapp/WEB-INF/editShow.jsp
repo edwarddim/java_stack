@@ -15,6 +15,7 @@
 	<div class="container">
 		<h1>Edit Show</h1>
 		<form:form action="/shows/${showObj.id}/edit" method="POST" modelAttribute="showObj">
+			<form:input path="creator" value="${user_id}" type="hidden" />
 			<input type="hidden" name="_method" value="put">
 			<p>
 				Title:

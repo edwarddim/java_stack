@@ -15,6 +15,9 @@
 		<h3><c:out value="${oneShow.network}" /></h3>
 		<h3><c:out value="${oneShow.release_date}" /></h3>
 		<h3><c:out value="${oneShow.description}" /></h3>
+		<h3>Created by User:
+			<c:out value="${oneShow.creator.email }" />
+		</h3>
 	</div>
 </body>
 </html>
