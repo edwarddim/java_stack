@@ -143,13 +143,13 @@ class BST{
 
     // Predict the output, then rename the function
     // based on the outcome.
-    someFunc(node=this.root) {
+    printInOrder(node=this.root) {
         if (!node) {
             return;
         }
-        this.someFunc(node.left);
+        this.printInOrder(node.left);
         console.log(node.value);
-        this.someFunc(node.right);
+        this.printInOrder(node.right);
     }
 
         /**
