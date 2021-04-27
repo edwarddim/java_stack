@@ -114,7 +114,8 @@ console.log(myList.hasLoop());
 
 
 
-/** NEW CLASS!! Min Heap
+/** NEW CLASS!! MIN HEAP *****
+ * 
  * Class to represent a MinHeap which is a Priority Queue optimized for fast
  * retrieval of the minimum value. It is implemented using an array but it is
  * best visualized as a tree structure where each 'node' has left and right
@@ -151,3 +152,6 @@ console.log(myList.hasLoop());
      * @param {number} num The num to add.
      */
     insert(num) {}
+
+    
+}
