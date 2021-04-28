@@ -247,23 +247,26 @@ myList.push(5).push(4).push(3).push(2).push(1)
     // rather than needing to be executed on an instance or going through the .prototype
     // converts an array into a new heap
     static heapify(vals) {
-        
+        let heap = new MinHeap();
+        for (var val of vals) {
+            heap.insert(val);
+        }
+        return heap;
     }
 
 }
 
 /** BONUS CHALLENGE **/
-// Time: O(n log n) linearithmic because .insert is O(log n) and .insert is being done n times
+// Time: O(n log n) linearithmic because .insert & .extract are O(log n) and both are being done n times
+//     note: 2n*log(n) is considered n*log(n) time complexity as any coefficients and constants are disregarded.
 function heapSort(nums) {
-    
+    let tempHeap = MinHeap.heapify(nums);
+    for (let i = 0; i < nums.length; i++) {
+        nums[i] = tempHeap.extract();
+    }
 }
 
-let testHeap = new MinHeap();
-let testArr = [5, 3, 10, 17, 9, 4, 8, 16, 22, 45, 1];
-
-for (var i = 0; i < testArr.length; i++) {
-    testHeap.insert(testArr[i]);
-}
+let testHeap = MinHeap.heapify([5, 3, 10, 17, 9, 4, 8, 16, 22, 45, 1]);
 
 console.log(testHeap);
 
@@ -317,5 +320,9 @@ console.log(testHeap.extract());
 console.log(testHeap.extract());
 console.log(testHeap.extract());
 console.log(testHeap.extract());
-console.log(testHeap.extract());
-console.log(testHeap);
+console.log(testHeap.extract()); // Warning
+console.log(testHeap); // [null]
+
+let arrayToSort = [7, 11, 23, 4, 99, 56, 13, 2, 8, 77, 41, 38, 5];
+heapSort(arrayToSort);
+console.log(arrayToSort);
