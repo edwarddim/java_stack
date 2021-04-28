@@ -110,7 +110,7 @@ myList.push(5).push(4).push(3).push(2).push(1)
 // }
 // runner.next = myList.head.next; //
 
-console.log(myList.hasLoop());
+// console.log(myList.hasLoop());
 
 
 
@@ -140,7 +140,9 @@ console.log(myList.hasLoop());
      * - Space: O(1) constant.
      * @returns {?number} Null if empty.
      */
-    getMin() {}
+    getMin() {
+        return this.heap.length > 1? this.heap[1]: null;
+    }
   
     /**
      * Inserts a new number into the heap and maintains the heaps order.
@@ -151,7 +153,31 @@ console.log(myList.hasLoop());
      * - Space: O(1) constant.
      * @param {number} num The num to add.
      */
-    insert(num) {}
+    insert(num) {
+
+        if (this.heap.length <= 1) {
+            this.heap.push(num);
+            return this;
+        }
+
+        // Add number to end of array
+        this.heap.push(num);
+
+        let index = this.heap.length - 1;
+        let parentIdx = Math.floor(index / 2)
+
+        // Find a valid position
+        while (num < this.heap[parentIdx]) {
+
+            // Swap parent and current
+            [this.heap[index], this.heap[parentIdx]] = [this.heap[parentIdx], this.heap[index]]
+
+            // Update the new indexes
+            index = Math.floor(index / 2);
+            parentIdx = Math.floor(index / 2);
+        }
+        return num;
+    }
 
     /**
      * Extracts the min num from the heap and then re-orders the heap to
@@ -164,7 +190,50 @@ console.log(myList.hasLoop());
      * - Space: O(1) constant.
      * @returns {?number} The min number or null if empty.
      */
-    extract() {}
+    extract() {
+        if (this.heap.length <= 1) {
+            console.log("Warning: extraction unsuccessful. Heap is empty.")
+            return null;
+        }
+
+        // Save the minimum, and put the last value at the top before popping.
+        let min = this.heap[1];
+        this.heap[1] = this.heap[this.heap.length - 1];
+        this.heap.pop();
+        
+        // Initial variables
+        let index = 1;
+        let val = this.heap[1];
+        let leftIdx = index*2;
+        let rightIdx = leftIdx + 1;
+
+        // Keep going as long as the comparison value has at least one child.
+        while(leftIdx < this.heap.length) {
+
+            ///// Set variables for readability /////
+            let leftVal = this.heap[leftIdx];
+            // Right comparison value is set to Infinity if there is no right child, so that 
+            // the left child will be the default "smaller value"
+            let rightVal = rightIdx < this.heap.length? this.heap[rightIdx] : Infinity;
+            
+            // See which child is smaller and save that index
+            let smallerChildIdx = leftVal < rightVal? leftIdx : rightIdx;
+
+            // If it's less than both children, it's in a valid spot, exit
+            if (val <= this.heap[smallerChildIdx]) {
+                return min;
+            }
+    
+            // Otherwise, swap with the smaller child
+            [this.heap[index], this.heap[smallerChildIdx]] = [this.heap[smallerChildIdx], this.heap[index]];
+
+            // Move down to compare the next children
+            index = smallerChildIdx;
+            leftIdx = index*2;
+            rightIdx = leftIdx + 1;
+        }
+        return min;
+    }
 
     /** BONUS CHALLENGE **/
 
@@ -188,3 +257,65 @@ console.log(myList.hasLoop());
 function heapSort(nums) {
     
 }
+
+let testHeap = new MinHeap();
+let testArr = [5, 3, 10, 17, 9, 4, 8, 16, 22, 45, 1];
+
+for (var i = 0; i < testArr.length; i++) {
+    testHeap.insert(testArr[i]);
+}
+
+console.log(testHeap);
+
+// [null, 1, 3, 4, 16, 5, 10, 8, 17, 22, 45, 9]
+//                  1
+//          3                4
+//      16       5        10    8
+//   17   22   45  9
+
+console.log(testHeap.extract());
+console.log(testHeap);
+// [null, 3, 5, 4, 16, 9, 10, 8, 17, 22, 45]
+//                  3
+//          5                4
+//      16       9        10    8
+//   17   22   45
+
+console.log(testHeap.extract());
+console.log(testHeap);
+// [null, 4, 5, 8, 16, 9, 10, 45, 17, 22]
+//                  4
+//          5                8
+//      16       9        10    45
+//   17   22
+
+console.log(testHeap.extract());
+console.log(testHeap);
+// [null, 5, 9, 8, 16, 22, 10, 45, 17]
+//                  5
+//           9                8
+//      16       22        10    45
+//   17      
+
+console.log(testHeap.extract());
+console.log(testHeap);
+// [null, 8, 9, 10, 16, 22, 17, 45]
+//                  8
+//           9                10
+//      16       22        17    45
+
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap);
+// [null, 16, 22, 17, 45]
+//                  16
+//           22                17
+//      45
+
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap.extract());
+console.log(testHeap);
