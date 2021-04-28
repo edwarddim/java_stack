@@ -120,9 +120,9 @@ console.log(myList.hasLoop());
  * retrieval of the minimum value. It is implemented using an array but it is
  * best visualized as a tree structure where each 'node' has left and right
  * children except the 'node' may only have a left child.
- * - parent is located at:      ?
- * - left child is located at:  ?
- * - right child is located at: ?
+ * - parent is located at:      Math.floor(index/2)
+ * - left child is located at:  parentIdx * 2
+ * - right child is located at: parentIdx * 2 + 1
  */
  class MinHeap {
     constructor() {
@@ -140,7 +140,7 @@ console.log(myList.hasLoop());
      * - Space: O(1) constant.
      * @returns {?number} Null if empty.
      */
-    top() {}
+    getMin() {}
   
     /**
      * Inserts a new number into the heap and maintains the heaps order.
@@ -153,5 +153,38 @@ console.log(myList.hasLoop());
      */
     insert(num) {}
 
+    /**
+     * Extracts the min num from the heap and then re-orders the heap to
+     * maintain order so the next min is ready to be extracted.
+     * 1. Save the first node to a temp var.
+     * 2. Pop last node off and overwrite idx1 with it.
+     * 3. Iteratively swap the old last node that is now at idx1 with it's
+     *    smallest child IF the smallest child is smaller than it.
+     * - Time: O(log n) logarithmic due to shiftDown.
+     * - Space: O(1) constant.
+     * @returns {?number} The min number or null if empty.
+     */
+    extract() {}
+
+    /** BONUS CHALLENGE **/
+
+    /**
+     * Given an unsorted array, returns a heap instance version of the array.
+     * - Time: ?
+     * - Space: ?
+     * @returns {MinHeap} a heap with the same numbers as the array.
+     */
+    // static allows this method to be executed directly on the class itself 
+    // rather than needing to be executed on an instance or going through the .prototype
+    // converts an array into a new heap
+    static heapify(vals) {
+        
+    }
+
+}
+
+/** BONUS CHALLENGE **/
+// Time: O(n log n) linearithmic because .insert is O(log n) and .insert is being done n times
+function heapSort(nums) {
     
 }
