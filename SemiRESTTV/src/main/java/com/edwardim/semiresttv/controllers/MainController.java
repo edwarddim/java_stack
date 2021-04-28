@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.edwardim.semiresttv.models.Comment;
 import com.edwardim.semiresttv.models.Show;
 import com.edwardim.semiresttv.services.ShowService;
 
@@ -21,6 +22,11 @@ public class MainController {
 	
 	@Autowired
 	private ShowService showServ;
+	
+	@GetMapping("/test")
+	public String text() {
+		return "test.jsp";
+	}
 	
 	// ----------------------- CREATE ---------------------------//
 	@GetMapping("/shows")
@@ -55,13 +61,50 @@ public class MainController {
 	// ----------------------- READ(ONE) ---------------------------//
 	@GetMapping("/shows/{id}")
 	public String show(
-		@PathVariable("id") Long id, Model model
+		@PathVariable("id") Long id, Model model,
+		@ModelAttribute("commentObj") Comment emptyComment,
+		HttpSession session
 	) {
 		Show oneShow = showServ.findShow(id);
 		model.addAttribute("oneShow", oneShow);
+		
+		// GRAB USER ID FROM SESSION
+		Long session_user_id = (Long) session.getAttribute("user_id");
+		model.addAttribute("user_id", session_user_id);
+		
 		return "show.jsp";
 	}
+	
 	// ----------------------- READ(ONE) ---------------------------//
+	// ----------------------- ADD COMMENT -------------------------//
+	@PostMapping("/comment/create")
+	public String createComment(
+		@Valid @ModelAttribute("commentObj") Comment filledComment, BindingResult results,
+		Model model
+	) {
+		if(results.hasErrors()) {
+			Long show_id = filledComment.getShow().getId();
+			Show oneShow = showServ.findShow(show_id);
+			model.addAttribute("oneShow", oneShow);
+			return "show.jsp";
+		}
+		else {
+			showServ.saveComment(filledComment);
+			return "redirect:/shows";
+		}
+	}
+	// ----------------------- ADD COMMENT -------------------------//
+	// ----------------------- DELETE COMMENT ----------------------//
+	@GetMapping("/comments/{id}/delete")
+	public String deleteComment(
+		@PathVariable("id") Long id
+	) {
+		showServ.deleteComment(id);
+		return "redirect:/shows";
+	}
+	
+	
+	// ----------------------- DELETE COMMENT ----------------------//
 	// ----------------------- UPDATE ------------------------------//
 	@GetMapping("/shows/{id}/edit")
 	public String editShow(

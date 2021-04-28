@@ -32,6 +32,12 @@ public class User {
     @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
     private List<Show> shows_created;
     
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+    
+    
+    
+    
     @Transient
     private String passwordConfirmation;
     @Transient
@@ -168,5 +174,19 @@ public class User {
 
 	public void setShows_created(List<Show> shows_created) {
 		this.shows_created = shows_created;
+	}
+
+
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 }

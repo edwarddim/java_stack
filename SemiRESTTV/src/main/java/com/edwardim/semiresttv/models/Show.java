@@ -1,6 +1,7 @@
 package com.edwardim.semiresttv.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -42,7 +44,9 @@ public class Show {
     @JoinColumn(name = "user_id") // FOREIGN KEY COLUMN NAME
     private User creator;
     
-    
+    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+   
     public Show() {
     	
     }
@@ -125,5 +129,13 @@ public class Show {
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 }
