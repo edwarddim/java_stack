@@ -1,7 +1,14 @@
 // MON
 
-// Part I
+/* 
+Intro to Singly Linked Lists
+ - OOP
+ - Array VS SLL
 
+*/
+
+
+// Part I
 // let a = new SLNode(7);
 // let b = new SLNode(3);
 // let c = new SLNode(1);
@@ -53,19 +60,8 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     insertAtBack(data){
-        let new_node = new SLNode(data);
-        if (this.head == null) {
-            this.head = new_node;
-            return this;
-        }
 
-        let current_node = this.head;
-        while(current_node.next != null) {
-            current_node = current_node.next;
-        }
-        current_node.next = new_node;
-        return this;
-        }
+    }
     
     /**
      * Adds each item of the given array to the back of this list.
@@ -75,10 +71,7 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     seedFromArr(vals) {
-        for (const item of vals) {
-            this.insertAtBack(item);
-        }
-        return this;
+
     }
     
  // WEDNESDAY -------------------------------------------------------------------//
@@ -90,21 +83,10 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     printValues() {
-        var runner = this.head
-        while(runner != null){
-            console.log(runner.value)
-            runner = runner.next
-        }
+
     }
     printPretty() {
-        let printString = ""
-        let runner = this.head;
-        while (runner != null) {
-            printString += runner.value + "->";
-            runner = runner.next;
-        }
-        printString += "null";
-        console.log(printString);
+
     }
 
     /**
@@ -116,15 +98,7 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     insertAtFront(data) {
-        // Create the new node
-        var newNode = new SLNode(data)
 
-        // Point new node's .next to the head
-        // What happens if .head is null? .next is still null!
-        newNode.next = this.head
-        
-        // Change the head to the new node
-        this.head = newNode
     }
 
     /**
@@ -134,17 +108,7 @@ class SLL{
      * @returns {any} The data from the removed node.
      */
      removeAtFront(){
-        // If list empty
-        if(this.head == null){
-            console.log("LIST IS EMPTY")
-        }
-        // Save head's value to return, 
-        // reassign head to next node (or null if no next node)
-        else {
-            var value = this.head.value
-            this.head = this.head.next
-            return value
-        }
+
     }
     
     // EXTRA
@@ -155,23 +119,7 @@ class SLL{
      * @returns {number|NaN} The average of the node's data.
      */
     average() {
-        let runner = this.head;
-        let sum = 0;
-        let count = 0;
 
-        while (runner) {
-            count++;
-            sum += runner.value;
-            runner = runner.next;
-        }
-        /**
-         * Dividing by 0 will give you NaN (Not a Number), so an empty list
-         * will return NaN in this case, it may make sense to allow NaN to be
-         * returned, because the average of an empty list doesn't make sense and
-         * it could be misleading to return 0 since 0 is the average of any
-         * list with a sum of 0 (due to negatives or all zeros).
-         */
-        return sum / cnt;
     }
 
     // THURSDAY --------------------------------------------------------------------//
@@ -183,15 +131,7 @@ class SLL{
      * @returns {boolean}
      */
     contains(val) {
-        let runner = this.head;
 
-        while (runner) {
-            if (runner.value === val) {
-                return true;
-            }
-            runner = runner.next;
-        }
-        return false;
     }
 
     /**
@@ -202,38 +142,6 @@ class SLL{
      */
     removeBack() {
 
-        // We plan to save the last value
-        // before removing it
-        var removedVal;
-
-        // Case if list empty
-        if(!this.head) {
-            console.log("List empty.")
-            return null;
-        }
-
-        // Case if only one node in list
-        if (!this.head.next) {
-
-            // Save value in head to return
-            removedVal = this.head.value;
-            // Reassign head to null
-            this.head = null;
-            return removedVal;
-        }
-
-        var runner = this.head;
-        // We want to stop at the second to last node
-        // So we check if there is a node after the next node
-        while (runner.next.next) {
-            // keep advancing the pointer
-            runner = runner.next;
-        }
-        // Save last node's value
-        removedVal = runner.next.value;
-        // Re-assign second-to-last node's next pointer to null
-        runner.next = null;
-        return removedVal;
 
     }
 
@@ -250,13 +158,7 @@ class SLL{
      * @returns {boolean}
      */
     containsRecursive(val, current = this.head) {
-        if (current === null) {
-            return false;
-        }
-        if (current.value === val) {
-            return true;
-        }
-        return this.containsRecursive(val, current.next);
+
     }
     
     
@@ -271,19 +173,7 @@ class SLL{
      * @returns {?number} The max int or null if none.
      */
     recursiveMax(runner = this.head, maxNode = this.head) {
-        if (this.head === null) {
-            return null;
-        }
-    
-        if (runner === null) {
-            return maxNode.data;
-        }
-    
-        if (runner.data > maxNode.data) {
-            maxNode = runner;
-        }
-    
-        return this.recursiveMax(runner.next, maxNode);
+
     }
 
     // FRIDAY ----------------------------------------------------------------------//
@@ -296,14 +186,7 @@ class SLL{
      *    second to last node.
      */
     secondToLast() {
-        if (!this.head || !this.head.next) {
-            return null;
-        }
-        var runner = this.head;
-        while (runner.next.next) {
-            runner = runner.next;
-        }
-        return runner.value;
+
     }
     
     /**
@@ -315,22 +198,7 @@ class SLL{
      * @returns {boolean} Indicates if a node was removed or not.
      */
     removeVal(val) {
-        if (!this.head) {
-            return false;
-        }
-        if (this.head.value == val) {
-            this.removeAtFront();
-            return true;
-        }
-        var runner = this.head;
-        while (runner.next) {
-            if (runner.next.value == val) {
-                runner.next = runner.next.next;
-                return true;
-            }
-            runner = runner.next;
-        }
-        return false;
+
     }
 
     //  FRIDAY EXTRA
@@ -342,23 +210,7 @@ class SLL{
      *    kth to last node.
      */
      kthToLast(k) {
-         var buffer = this.head;
-         var trail = this.head;
-         while (k > 0 && buffer) {
-            // console.log("Buffer at: ", buffer.value)
-            buffer = buffer.next;
-            // console.log("moved on to ", buffer);
-            k--;
-         }
-         if (!buffer || k < 0) {
-             console.log("value out of range")
-             return null;
-         }
-         while (buffer.next) {
-            trail = trail.next;
-            buffer = buffer.next
-         }
-         return trail.value;
+
      }
 
     // ====================================================
@@ -413,45 +265,4 @@ class SLL{
 //==========================//
 //         TESTING          //
 //==========================//
-
-/* insertAtBack & seedFromArray Test */
-let my_list = new SLL();
-my_list.insertAtBack(8);
-my_list.insertAtBack(9);
-my_list.insertAtBack(10);
-my_list.insertAtBack(11);
-my_list.insertAtBack(12);
-my_list.insertAtBack(13);
-// console.log(my_list);
-
-// let new_list = new SLL();
-// new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
-
-// for (let node = new_list.head; node !=null; node=node.next) {
-//     console.log(node.value);
-// }
-
-// console.log(my_list.removeBack()); // 10
-// console.log(my_list.removeBack()); // 9
-// console.log(my_list.removeBack()); // 8
-// console.log(my_list.removeBack()); // List empty
-// console.log(my_list.removeVal(10))
-my_list.printPretty();
-console.log("Second from last: ", my_list.secondToLast());
-
-
-// console.log("\n4 removed? ", my_list.removeVal(4));
-// my_list.printPretty();
-// console.log("\n8 removed? ", my_list.removeVal(8));
-// my_list.printPretty();
-// console.log("\n11 removed? ", my_list.removeVal(11));
-// my_list.printPretty();
-// console.log("\n13 removed? ", my_list.removeVal(13));
-// my_list.printPretty();
-
-for (var k = -1; k < 7; k++) {
-    console.log(`${k} from last: ${my_list.kthToLast(k)}`);
-}
-
-
 
