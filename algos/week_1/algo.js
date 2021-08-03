@@ -9,33 +9,33 @@ Intro to Singly Linked Lists
 
 
 // Part I
-let a = new SLNode(7);
-let b = new SLNode(3);
-let c = new SLNode(1);
-a.next = b;
-b.next = c;
+// let a = new SLNode(7);
+// let b = new SLNode(3);
+// let c = new SLNode(1);
+// a.next = b;
+// b.next = c;
 
-console.log('A:', a.val);
-console.log('B:', b.val);
-console.log('C:', c.val);
-console.log(a.next.val);
-console.log(a.next.next.val);
-console.log(a.next.next.next.val);
+// console.log('A:', a.val);
+// console.log('B:', b.val);
+// console.log('C:', c.val);
+// console.log(a.next.val);
+// console.log(a.next.next.val);
+// console.log(a.next.next.next.val);
 
 // Part II 
 // Note: Later the head variable shown here will be part of the SLL class
 
-let head = new SLNode(1);
-let runner_temp = head;
-for (let i of [7,3,5,2]) {
-    let new_node = new SLNode(i);
-    runner_temp.next = new_node;
-    runner_temp = new_node;
-}
+// let head = new SLNode(1);
+// let runner_temp = head;
+// for (let i of [7,3,5,2]) {
+//     let new_node = new SLNode(i);
+//     runner_temp.next = new_node;
+//     runner_temp = new_node;
+// }
 
-console.log(head.val);
-console.log(head.next.val);
-console.log(head.next.next.next.val);
+// console.log(head.val);
+// console.log(head.next.val);
+// console.log(head.next.next.next.val);
 
 
 class SLNode{
@@ -48,9 +48,27 @@ class SLNode{
 class SLL{
     constructor(){
         this.head = null;
-    }    
-
+    }
     //  TUESDAY -------------------------------------------------------------------//
+    /**
+     * Prints all the nodes in the list to the console.
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    printValues() {
+        if(this.head == null){
+            console.log("LIST EMPTY")
+            return
+        }
+        // IF THE LIST IS NOT EMPTY
+        var runner = this.head
+        while(runner != null){
+            console.log(runner.value)
+            runner = runner.next
+        }
+    }
     /**
      * Creates a new node with the given data and inserts it at the back of
      * this list.
@@ -60,7 +78,8 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     insertAtBack(data){
-
+        // 1. SLL IS EMPTY
+        // 2. SLL IS NOT EMPTY
     }
     
     /**
@@ -74,20 +93,7 @@ class SLL{
 
     }
     
- // WEDNESDAY -------------------------------------------------------------------//
-    /**
-     * Prints all the nodes in the list to the console.
-     * of this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {SinglyLinkedList} This list.
-     */
-    printValues() {
-
-    }
-    printPretty() {
-
-    }
+    // WEDNESDAY -------------------------------------------------------------------//
 
     /**
      * Creates a new node with the given data and inserts that node at the front
