@@ -7,11 +7,11 @@ public class Test {
 		System.out.println("Hello Inheritance");
 		
 		// INSTANTIATE A HUMNAN
-		Human person = new Human("Edward", 30, "male");
-		Human pesron1 = new Human("Edward", 30, "male");
-		Human person2 = new Human("Edward", 30, "male");
+//		Human person = new Human("Edward", 30, "male");
+//		Human pesron1 = new Human("Edward", 30, "male");
+//		Human person2 = new Human("Edward", 30, "male");
 //		System.out.println(person.getName());
-		Human.humanPopulation();
+//		Human.humanPopulation();
 
 		// INSTANTIATE A AIR HUMNAN
 		AirHuman aang = new AirHuman("Aang", 113, "male", 100 );

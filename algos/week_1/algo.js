@@ -104,7 +104,9 @@ class SLL{
      * @returns {SinglyLinkedList} This list.
      */
     insertAtFront(data) {
-
+        // CREATE NEW NODE
+        // POINT NEW NODE NEXT TO CURRENT HEAD
+        // POINT HEAD TO THE NEW NODE
     }
 
     /**
@@ -127,148 +129,21 @@ class SLL{
     average() {
 
     }
-
-    // THURSDAY --------------------------------------------------------------------//
-    /**
-     * Determines whether or not the given search value exists in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} val The data to search for in the nodes of this list.
-     * @returns {boolean}
-     */
-    contains(val) {
-
-    }
-
-    /**
-     * Removes the last node of this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {any} The data from the node that was removed.
-     */
-    removeBack() {
-
-
-    }
-
-    // --- If extra time -- code the removeAtFront method from scratch
-    
-    // EXTRA
-    /**
-     * Determines whether or not the given search value exists in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} val The data to search for in the nodes of this list.
-     * @param {?node} current The current node during the traversal of this list
-     *    or null when the end of the list has been reached.
-     * @returns {boolean}
-     */
-    containsRecursive(val, current = this.head) {
-
-    }
-    
-    
-    /**
-     * Recursively finds the maximum integer data of the nodes in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {Node} runner The start or current node during traversal, or null
-     *    when the end of the list is reached.
-     * @param {Node} maxNode Keeps track of the node that contains the current
-     *    max integer as it's data.
-     * @returns {?number} The max int or null if none.
-     */
-    recursiveMax(runner = this.head, maxNode = this.head) {
-
-    }
-
-    // FRIDAY ----------------------------------------------------------------------//
-
-    /**
-     * Retrieves the data of the second to last node in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {any} The data of the second to last node or null if there is no
-     *    second to last node.
-     */
-    secondToLast() {
-
-    }
-    
-    /**
-     * Removes the node that has the matching given val as it's data.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} val The value to compare to the node's data to find the
-     *    node to be removed.
-     * @returns {boolean} Indicates if a node was removed or not.
-     */
-    removeVal(val) {
-
-    }
-
-    //  FRIDAY EXTRA
-    /**
-     * Retrieves the data of the kth to last node in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {any} The data of the kth to last node or null if there is no
-     *    kth to last node.
-     */
-     kthToLast(k) {
-
-     }
-
-    // ====================================================
-    
-    // EXTRA
-    /**
-     * Inserts a new node before a node that has the given value as its data.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} newVal The value to use for the new node that is being added.
-     * @param {any} targetVal The value to use to find the node that the newVal
-     *    should be inserted in front of.
-     */
-    prepend(newVal, targetVal) {}
-
-
-    /**
-     * Concatenates the nodes of a given list onto the back of this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {SinglyLinkedList} addList An instance of a different list whose
-     *    whose nodes will be added to the back of this list.
-     * @returns {SinglyLinkedList} This list with the added nodes.
-     */
-    concat(addList) {}
-
-    /**
-     * Finds the node with the smallest number as data and moves it to the front
-     * of this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {SinglyLinkedList} This list.
-     */
-    moveMinToFront() {}
-    
-    // EXTRA
-    /**
-     * Splits this list into two lists where the 2nd list starts with the node
-     * that has the given value.
-     * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
-     * and the return value will be a new list containing (5=>2=>4)
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} val The value in the node that the list should be split on.
-     * @returns {SinglyLinkedList} The split list containing the nodes that are
-     *    no longer in this list.
-     */
-        splitOnVal(val) {}
-    //  }
 }
 
 //==========================//
 //         TESTING          //
 //==========================//
 
+
+var sll = new SLL();
+sll.insertAtBack(1)
+sll.insertAtBack(2)
+sll.insertAtBack(3)
+sll.insertAtBack(4)
+sll.insertAtBack(5)
+
+sll.printValues()
+sll.insertAtFront(10)
+sll.removeAtFront()
+sll.printValues()
