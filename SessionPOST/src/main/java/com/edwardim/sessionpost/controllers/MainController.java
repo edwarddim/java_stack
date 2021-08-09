@@ -14,9 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MainController {
 	
 	@RequestMapping("/")
-	public String index(HttpSession session) {
+	public String index(HttpSession session, Model model) {
 		
 		session.setAttribute("count", 0);
+		
 		
 		return "index.jsp";
 	}
