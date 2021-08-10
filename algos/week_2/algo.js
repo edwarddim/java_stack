@@ -92,3 +92,30 @@ class SLStack {
 
     }
 }
+class SLQueue {
+    constructor() {
+      this.head = null;
+      this.tail = null;
+      this.size = 0;
+    }
+    enqueue(value){
+
+    }
+    // RETURNING THE VALUE
+    dequeue(){
+
+    }
+    isEmpty(){
+
+    }
+    getSize(){
+      
+    }
+    front(){
+      
+    }
+  
+    printPretty() {
+
+    }
+}
