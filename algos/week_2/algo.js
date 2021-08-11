@@ -1,53 +1,7 @@
-// MON
-// LAST IN FIRST OUT
-// LIFO - STACKS
-class Stack {
-    constructor(items = []) {
-        this.items = items;
-    }
-    // Time: O(1)
-    // Space: O(1)
-    push(item) {
-        this.items.push(item)
-    }
-
-    // Time: O(1)
-    // Space: O(1)
-    // Returns undefined if empty
-    pop() {
-        return this.items.pop()
-    }
-
-    // aka top, returns undefined if empty
-    // Time: O(1)
-    // Space: O(1)
-    peek() {
-        return this.items[this.items.length - 1]
-    }
-
-    // Time: O(1)
-    // Space: O(1)
-    isEmpty() {
-        return this.items.length == 0;
-    }
-
-    // Time: O(1)
-    // Space: O(1)
-    size() {
-
-    }
-
-    // Time: O(n) linear
-    // Space: O(n)
-    print() {
-
-    }
-}
-
-class SLNode {
-    constructor(value) {
-        this.value = value
-        this.next = null
+class SLNode{
+    constructor(value){
+      this.value = value
+      this.next = null
     }
 }
 
@@ -57,41 +11,53 @@ class SLStack {
         this.length = 0;
     }
 
-    isEmpty() {
-        
+    isEmpty(){
+      return this.head == null;
+    }
+    push(value){
+      var new_node = new SLNode(value);
+      new_node.next = this.head;
+      this.head = new_node;
+      this.length++;
+    }
+    pop(){
+      if (!this.head) {
+        return null;
+      }
+      var removed = this.head.value;
+      this.head = this.head.next;
+      this.length--;
+      return removed;
     }
 
-    // Adds a new node with the given value in front of the head node.
-    push(value) {
-
+    size(){
+      return this.length;
     }
 
-    // Removes the head node
-    // return the popped value -- important!
-    pop() {
+    peek(){
 
-    }
-
-    size() {
-
-    }
-
-    peek() {
-
+      return this.head? this.head.value: null;
     }
     printPretty() {
-
+      let runner = this.head;
+      let printString = "~ SLStack ~ HEAD--(";
+      while (runner && runner.next) {
+        printString+= `${runner.value})->(`;
+        runner = runner.next;
+      }
+      printString+=`${runner.value})->null\n`;
+      console.log(printString);
     }
-
-    ////  EXTRA  /////
-    // Reverses stack with the order of the nodes reversed
-    // For this exercise, do NOT try to re-point all the pointers
-    // use an extra stack as storage and utilize the pop and push 
-    // methods. Hint: you can re-point the head.
     reverse() {
-
+      var tempStack = new SLStack();
+      while(this.head) {
+        tempStack.push(this.pop());
+      }
+      this.head = tempStack.head;
+      this.length = tempStack.length;
     }
 }
+
 class SLQueue {
     constructor() {
       this.head = null;
@@ -99,23 +65,93 @@ class SLQueue {
       this.size = 0;
     }
     enqueue(value){
-
+      var new_node = new SLNode(value);
+      
+      if (this.isEmpty()) {
+        this.head = new_node;
+        this.tail = new_node;
+      }
+      else {
+        this.tail.next = new_node;
+        this.tail = new_node;
+      }
+      this.size++;
+      return this;
     }
-    // RETURNING THE VALUE
     dequeue(){
-
+      if (this.isEmpty()) {
+        return null;
+      }
+      var removed_val = this.head.value;
+      this.head = this.head.next;
+      
+      if (!this.head) {
+        this.tail = null;
+      }
+      this.size--;
+      return removed_val;
+  
     }
     isEmpty(){
-
+      return !this.head;
     }
     getSize(){
-      
+      return this.size;
     }
     front(){
-      
+      return this.head? this.head.value: null;
     }
   
     printPretty() {
+      let runner = this.head;
+      let printString = "~ SLQueue ~ HEAD--(";
+      while (runner && runner.next) {
+        printString+= runner === this.tail? "TAIL ":"";
+        printString+= `${runner.value})->(`;
+        runner = runner.next;
+      }
+      printString+= runner === this.tail? "TAIL ":"";
+      printString+=`${runner.value})->null\n`;
+      console.log(printString);
+    }
+    // equals
+    // Write a method on the Queue class that, given another queue, 
+    // will return whether they are equal (same items in same order).
+    // Do not use any extra array or objects as storage.
+    // Do not alter (pop from or push into) either queue.
+    equals(secondQ){
+
+    }
+  
+    // isPalindrome
+    // Write a method on the Queue class that returns whether or not the queue is a palindrome
+    // Use only 1 stack as additional storage (no additional arrays / objects).
+    isPalindrome(){
 
     }
 }
+
+/* 
+ _____ _____ ____ _____ ___ _   _  ____ 
+|_   _| ____/ ___|_   _|_ _| \ | |/ ___|
+  | | |  _| \___ \ | |  | ||  \| | |  _ 
+  | | | |___ ___) || |  | || |\  | |_| |
+  |_| |_____|____/ |_| |___|_| \_|\____|
+*/
+
+var q1 = new SLQueue()
+q1.enqueue(1)
+q1.enqueue(2)
+q1.enqueue(3)
+
+var q2 = new SLQueue()
+q2.enqueue(3)
+q2.enqueue(2)
+q2.enqueue(1)
+console.log(q1.equals(q2)) // SHOULD RETURN FALSE
+
+var q3 = new SLQueue()
+q3.enqueue("a")
+q3.enqueue("b")
+q3.enqueue("c")
+console.log(q3.isPalindrome()) // SHOULD RETURN FALSE

@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,9 +24,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotEmpty()
+    @Size(max=20)
     private String title;
+    
+    @NotEmpty()
     private String description;
+    
+    @NotEmpty()
     private String language;
+    
+    @Min(0)
     private Integer numberOfPages;
     
     @Column(updatable=false)
@@ -37,7 +48,7 @@ public class Book {
     public Book() {
     }
     // FULL CONSTRUCTORS
-    public Book(String title, String desc, String lang, int pages) {
+    public Book(String title, String desc, String lang, Integer pages) {
         this.title = title;
         this.description = desc;
         this.language = lang;

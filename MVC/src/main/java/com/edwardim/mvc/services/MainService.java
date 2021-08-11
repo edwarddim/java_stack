@@ -35,4 +35,21 @@ public class MainService {
 //            return null;
 //        }
     }
+
+	public Book updateBook(Long book_id, String title, String description, String language, Integer numPages) {
+		// FIND THE BOOK
+		Book editBook = this.findBook(book_id);
+		// UPDATE THE BOOK OBJECT WITH NEW INFO
+		editBook.setTitle(title);
+		editBook.setDescription(description);
+		editBook.setLanguage(language);
+		editBook.setNumberOfPages(numPages);
+		// SAVE THE UPDATED BOOK OBJECT INTO DB
+//		return this.createBook(editBook);
+		return bookRepository.save(editBook);
+	}
+
+	public void deleteBook(Long book_id) {
+		bookRepository.deleteById(book_id);
+	}
 }
