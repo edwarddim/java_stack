@@ -24,11 +24,11 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty()
-    @Size(max=20)
+    @NotEmpty(message="HEY TITLE MUST HAVE SOMETHING")
+    @Size(max=20, message="YOUR BOOK TITLE IS WAY TOO LONG")
     private String title;
     
-    @NotEmpty()
+    @NotEmpty(message="YOUR CUSTOM ERROR MESSAGES")
     private String description;
     
     @NotEmpty()

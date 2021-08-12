@@ -19,5 +19,9 @@
 		<p>Created At: <c:out value="${book.createdAt }" /></p>
 		<p>Updated At: <c:out value="${book.updatedAt }" /></p>
 	</div>
+	<form action="/books/${book.id}" method="post">
+		<input type="hidden" name="_method" value="delete">
+		<button class="btn btn-danger">Delete</button>
+	</form>
 </body>
 </html>
