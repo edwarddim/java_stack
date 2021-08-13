@@ -158,6 +158,42 @@ class SLQueue {
     }
 }
 
+class CircleQueue {
+    constructor(capacity) {
+        this.size = 0
+        this.head_index = -1
+        this.tail_index = -1
+
+        // Items is an array with length == capacity 
+        // where all values are undefined
+        this.items = new Array(capacity)
+
+        this.capacity = capacity
+
+    }
+
+    // Adds a new element into the list.
+    enqueue(val) {
+        // CIRCLE QUEUE IS FULL
+
+        // CIRCLE QUEUE IS EMPTY
+        if(this.head_index === -1){
+            this.head_index = 0
+            this.tail_index = 0
+            this.items[this.head_index] = val
+        }
+        // CIRCLE QUEUE IS PARTIALY FULL
+
+    }
+
+    dequeue() {
+        // CIRCLE QUEUE IS EMPTY SO NOTHING TO DQUEUE
+        // CRICLE QUEUE IS EMPTY AFTER DEQEUEE
+        // CIRCLE QUEUE IS PARTIALLY AFTER DEQUEUE
+    }
+
+}
+
 /* 
  _____ _____ ____ _____ ___ _   _  ____ 
 |_   _| ____/ ___|_   _|_ _| \ | |/ ___|
