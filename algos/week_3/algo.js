@@ -64,4 +64,67 @@ class BST{
     insertRecursive(val){
 
     }
+
+
+    /**
+     * Determines if this tree is empty.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {boolean} Indicates if this tree is empty.
+     */
+     isEmpty() {
+
+    }
+
+    /**
+     * Retrieves the smallest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The smallest integer from this tree.
+     */
+    min() {
+
+    }
+
+    /**
+     * Retrieves the smallest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The smallest integer from this tree.
+     */
+    minRecursive(current = this.root) {
+        // 1. BASE CASE - WHEN THE NODE GIVEN IS NULL
+        // 2. FORWARD PROGRESS
+        // 3. RECURSIVE CALL
+    }
+
+    /**
+     * Retrieves the largest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The largest integer from this tree.
+     */
+    max() {
+
+    }
+
+    /**
+     * Retrieves the largest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The largest integer from this tree.
+     */
+    maxRecursive(current = this.root) {
+
+    }
+
+
 }
