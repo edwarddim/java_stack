@@ -1,5 +1,6 @@
 package com.edwardim.middlemodel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,13 @@ public class MainService {
 		return groupRepo.findById(group_id).orElse(null);
 	}
 	
+	public List<Group> groupsExcludingUser(User u){
+		return groupRepo.groupsExcludingUser(u);
+	}
+	
 	// -------------------- CRUD USER GROUP -----------------------------//
 	public UserGroup saveUserGroup(UserGroup userGroup) {
 		return userGroupRepo.save(userGroup);
 	}
+
 }

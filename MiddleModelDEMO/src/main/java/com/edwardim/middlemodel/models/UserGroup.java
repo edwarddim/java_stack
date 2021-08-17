@@ -31,7 +31,6 @@ public class UserGroup {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    
     // FOREIGN KEY -> GROUP
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")

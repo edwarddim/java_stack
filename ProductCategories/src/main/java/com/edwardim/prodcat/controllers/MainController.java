@@ -56,8 +56,9 @@ public class MainController {
 	public String oneProduct(
 			@PathVariable("id") Long prod_id, Model model
 	) {
-		model.addAttribute("product", mainServ.findProduct(prod_id));
-		model.addAttribute("categories", mainServ.allCategories());
+		Product oneProduct = mainServ.findProduct(prod_id);
+		model.addAttribute("product", oneProduct);
+		model.addAttribute("categories", mainServ.categoriesExcludingProduct(oneProduct));
 		
 		return "product.jsp";
 	}

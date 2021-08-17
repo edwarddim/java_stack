@@ -67,8 +67,8 @@ public class MainController {
 			Model model
 	) {
 		User oneUser = mainServ.findUser(user_id);
-		List<Group> allGroups = mainServ.allGroups();
-		
+		List<Group> allGroups = mainServ.groupsExcludingUser(oneUser);
+
 		model.addAttribute("user", oneUser);
 		model.addAttribute("groups", allGroups);
 		return "one_user.jsp";

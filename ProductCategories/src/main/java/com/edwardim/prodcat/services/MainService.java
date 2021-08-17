@@ -43,6 +43,10 @@ public class MainService {
 	public Category findCategory(Long cat_id) {
 		return catRepo.findById(cat_id).orElse(null);
 	}
+	
+	public List<Category> categoriesExcludingProduct(Product p){
+		return catRepo.findByProductsNotContains(p);
+	}
 
 
 }
