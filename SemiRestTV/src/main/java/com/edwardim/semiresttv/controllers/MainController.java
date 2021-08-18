@@ -2,6 +2,7 @@ package com.edwardim.semiresttv.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edwardim.semiresttv.models.Show;
 import com.edwardim.semiresttv.services.ShowService;
@@ -31,12 +33,25 @@ public class MainController {
 
 	// -------------------- CREATE -------------------------------//
 	@GetMapping("/")
-	public String index(@ModelAttribute("showObj") Show emptyShow, Model model) {
-
+	public String index(
+			@ModelAttribute("showObj") Show emptyShow, 
+			Model model,
+			HttpSession session,
+    		RedirectAttributes flashMessages
+	) {
+		// CHECK TO SEE IF A USER IS LOGGED IN
+		if(session.getAttribute("user_id") == null) {
+			flashMessages.addFlashAttribute("error", "YOU MUST BE LOGGED IN TO ACCESS THE PAGE");
+			return "redirect:/login";
+		}
+		
 		// GRAB ALL SHOWS FROM DB
 		List<Show> allShows = showServ.allShows();
 		// PASS ALL SHOWS TO JSP
 		model.addAttribute("shows", allShows);
+		// PASS THE USER'S ID TO THE JSP
+//		model.addAttribute("user_id", session.getAttribute("user_id"));
+		
 		return "index.jsp";
 	}
 
@@ -60,7 +75,12 @@ public class MainController {
 
 	// -------------------- UPDATE -------------------------------//
 	@GetMapping("/shows/{id}/edit")
-	public String edit(@PathVariable("id") Long show_id, Model model) {
+	public String edit(@PathVariable("id") Long show_id, Model model, HttpSession session,RedirectAttributes flashMessages ) {
+		// CHECK TO SEE IF A USER IS LOGGED IN
+		if(session.getAttribute("user_id") == null) {
+			flashMessages.addFlashAttribute("error", "YOU MUST BE LOGGED IN TO ACCESS THE PAGE");
+			return "redirect:/login";
+		}
 		Show oneShow = showServ.findOneShow(show_id);
 		model.addAttribute("showObj", oneShow);
 		return "edit.jsp";
@@ -82,7 +102,12 @@ public class MainController {
 
 	// -------------------- READ ONE -------------------------------//
 	@GetMapping("/shows/{id}")
-	public String oneShow(@PathVariable("id") Long show_id, Model model) {
+	public String oneShow(@PathVariable("id") Long show_id, Model model, HttpSession session,RedirectAttributes flashMessages) {
+		// CHECK TO SEE IF A USER IS LOGGED IN
+		if(session.getAttribute("user_id") == null) {
+			flashMessages.addFlashAttribute("error", "YOU MUST BE LOGGED IN TO ACCESS THE PAGE");
+			return "redirect:/login";
+		}
 		Show oneShow = showServ.findOneShow(show_id);
 		model.addAttribute("show", oneShow);
 		return "show.jsp";
@@ -91,7 +116,12 @@ public class MainController {
 
 	// -------------------- DELETE -------------------------------//
 	@GetMapping("/shows/{id}/delete")
-	public String delete(@PathVariable("id") Long show_id) {
+	public String delete(@PathVariable("id") Long show_id, HttpSession session,RedirectAttributes flashMessages) {
+		// CHECK TO SEE IF A USER IS LOGGED IN
+		if(session.getAttribute("user_id") == null) {
+			flashMessages.addFlashAttribute("error", "YOU MUST BE LOGGED IN TO ACCESS THE PAGE");
+			return "redirect:/login";
+		}
 		showServ.deleteShow(show_id);
 		return "redirect:/";
 	}

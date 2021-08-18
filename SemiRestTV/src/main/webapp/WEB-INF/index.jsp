@@ -34,8 +34,10 @@
 						<td><c:out value="${show.release_date }" /></td>
 						<td>
 							<a href="/shows/${show.id}">Show</a>
-							<a href="/shows/${show.id}/edit">Edit</a>
-							<a href="/shows/${show.id}/delete">Delete</a>
+							<c:if test="${user_id == show.creator.id}">
+								<a href="/shows/${show.id}/edit">Edit</a>
+								<a href="/shows/${show.id}/delete">Delete</a>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
@@ -45,6 +47,7 @@
 		
 		
 		<form:form action="/shows/new" method="POST" modelAttribute="showObj">
+			<form:input value="${user_id}" path="creator" type="hidden"/>
 			<p>
 				Title:
 				<form:input path="title" type="text" />

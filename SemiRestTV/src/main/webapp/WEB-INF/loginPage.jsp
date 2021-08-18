@@ -13,13 +13,19 @@
 </head>
 <body>
 	<div class="container">
-		<h1>One Show</h1>
-		<h2>ID: <c:out value="${show.id }" /></h2>
-		<h2>Title: <c:out value="${show.title }" /></h2>
-		<h2>Network: <c:out value="${show.network }" /></h2>
-		<h2>Release Date: <c:out value="${show.release_date }" /></h2>
-		<h2>Description: <c:out value="${show.description }" /></h2>
-		<h2>Created By: <c:out value="${show.creator.email}" /></h2>
+	    <h1>Login</h1>
+	    <p><c:out value="${error}" /></p>
+	    <form method="post" action="/login">
+	        <p>
+	            <label for="email">Email</label>
+	            <input type="text" id="email" name="email"/>
+	        </p>
+	        <p>
+	            <label for="password">Password</label>
+	            <input type="password" id="password" name="password"/>
+	        </p>
+	        <input type="submit" value="Login!"/>
+	    </form>
 	</div>
 </body>
 </html>

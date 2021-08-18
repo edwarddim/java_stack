@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -21,7 +24,8 @@ public class Show {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+    // MEMBER VARIABLES
 	@NotNull
 	@Size(min = 2)
 	private String title;
@@ -37,6 +41,11 @@ public class Show {
 	@NotNull
 	@Size(min = 10)
 	private String description;
+	
+    // RELATIONSHIPS
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id") // FOREIGN KEY NAME
+	private User creator;
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -114,6 +123,13 @@ public class Show {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 
 	// OTHER METHODS

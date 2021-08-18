@@ -126,5 +126,35 @@ class BST{
 
     }
 
+    ///         WEDNESDAY           ///
+    printInOrder(node=this.root) {
+        // 1. BASE CASE - CHECK TO SEE IF NODE IS NULL
+        // 2. FORWARD PROGRESS
+        // 3. RECURSIVE CALL
+    }
+
+
+
+    // RETURN A BST TREE GIVEN A SORTED ARRAY
+    sortedArrToBST(arr){
+        this.root = this.sortedArrToBSTHelper(arr)
+    };
+    sortedArrToBSTHelper(arr){
+        // 1. BASE CASE
+        if(arr.length < 1){
+            return null
+        }
+        // 2. FORWARD PROGRESS
+        // 3. RECURSIVE CALL
+        // CREATE A BST NODE WITH THE MIDDLE NUMBER OF THE CURRENT ARRAY
+        var midIdx = Math.floor(arr.length / 2)
+        var node = new BSTNode(arr[midIdx])
+        node.left = this.sortedArrToBSTHelper(arr.slice(0, midIdx))
+        node.right = this.sortedArrToBSTHelper(arr.slice(midIdx+1, arr.length))
+        return node
+    };
+
+
+
 
 }
