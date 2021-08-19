@@ -155,6 +155,26 @@ class BST{
     };
 
 
+    size(node = this.root) {
+        // 1. BASE CASE
+        if(node == null){
+            return 0
+        }
+        // FORWARD PROGRESS
+        // RECURSIVE CALLS
+    }
 
-
+    /**
+     * Calculates the height of the tree which is based on how many nodes from
+     * top to bottom (whichever side is taller).
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {number} The height of the tree.
+     */
+    height(node = this.root) {
+        if(node == null){
+            return 0
+        }
+    }
 }
