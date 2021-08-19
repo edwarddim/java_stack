@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.edwardim.semiresttv.models.Comment;
 import com.edwardim.semiresttv.models.Show;
+import com.edwardim.semiresttv.services.CommentService;
 import com.edwardim.semiresttv.services.ShowService;
 
 @Controller
@@ -30,6 +32,9 @@ public class MainController {
 
 	@Autowired
 	private ShowService showServ;
+	
+	@Autowired
+	private CommentService commentServ;
 
 	// -------------------- CREATE -------------------------------//
 	@GetMapping("/")
@@ -102,7 +107,13 @@ public class MainController {
 
 	// -------------------- READ ONE -------------------------------//
 	@GetMapping("/shows/{id}")
-	public String oneShow(@PathVariable("id") Long show_id, Model model, HttpSession session,RedirectAttributes flashMessages) {
+	public String oneShow(
+			@PathVariable("id") Long show_id, 
+			RedirectAttributes flashMessages,
+			HttpSession session,
+			Model model,
+			@ModelAttribute("commentObj") Comment emptyComment
+	) {
 		// CHECK TO SEE IF A USER IS LOGGED IN
 		if(session.getAttribute("user_id") == null) {
 			flashMessages.addFlashAttribute("error", "YOU MUST BE LOGGED IN TO ACCESS THE PAGE");
@@ -126,5 +137,27 @@ public class MainController {
 		return "redirect:/";
 	}
 	// -------------------- DELETE -------------------------------//
-
+	
+	// -------------------- CREATE A COMMENT -------------------------------//
+	@PostMapping("/comments/new")
+	public String createComment(
+			@ModelAttribute("commentObj") Comment filledComment
+	) {
+		Long show_id = filledComment.getShow().getId();
+		commentServ.saveComment(filledComment);
+		return "redirect:/shows/" + show_id;
+	}
+	// -------------------- CREATE A COMMENT -------------------------------//
+	
+	// -------------------- DELETE A COMMENT -------------------------------//
+	@GetMapping("/comments/{id}/delete")
+	public String delteComment(
+			@PathVariable("id") Long comment_id
+	) {
+		Comment comment = commentServ.findComment(comment_id);
+		commentServ.deleteComment(comment_id);
+		Long show_id = comment.getShow().getId();
+		return "redirect:/shows/" + show_id;
+	}
+	// -------------------- DELETE A COMMENT -------------------------------//
 }

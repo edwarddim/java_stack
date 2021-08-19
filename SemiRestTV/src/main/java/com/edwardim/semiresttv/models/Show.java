@@ -1,6 +1,7 @@
 package com.edwardim.semiresttv.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -43,9 +45,16 @@ public class Show {
 	private String description;
 	
     // RELATIONSHIPS
+	//MtoO FUNCTIONALITY FOR CREATOR OF THIS COMMENT
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id") // FOREIGN KEY NAME
 	private User creator;
+	
+    //MtoM FUNCTIONALITY FOR LEAVING COMMENTS
+    @OneToMany(mappedBy="show", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+	
+	
 
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -130,6 +139,13 @@ public class Show {
 
 	public void setCreator(User creator) {
 		this.creator = creator;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	// OTHER METHODS

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -25,18 +26,28 @@ public class User {
     private Long id;
     
     // MEMBER VARIABLES
-    @Email(message = "Must have valid email format")
+	@NotEmpty(message="Email is required!")
+	@Email(message = "Must have valid email format")
     private String email;
     
+    
     @NotEmpty(message = "Must have password")
+    @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
     private String password;
     
     @Transient
     private String passwordConfirmation;
     
     // RELATIONSHIPS
+    // OtoM FUNCTIONALITY ALL SHOWS CREATED
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
     private List<Show> createdShows;
+    
+    
+    //MtoM FUNCTIONALITY FOR LEAVING COMMENTS
+    @OneToMany(mappedBy="author", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+    
     
     // CONSTRUCTORS
     public User() {
@@ -91,6 +102,12 @@ public class User {
 	}
 	public void setCreatedShows(List<Show> createdShows) {
 		this.createdShows = createdShows;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 

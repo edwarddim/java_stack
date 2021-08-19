@@ -20,6 +20,44 @@
 		<h2>Release Date: <c:out value="${show.release_date }" /></h2>
 		<h2>Description: <c:out value="${show.description }" /></h2>
 		<h2>Created By: <c:out value="${show.creator.email}" /></h2>
+		<div>
+			<table class="table table-dark">
+				<thead>
+					<tr>
+						<th>Message</th>
+						<th>User</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="comment" items="${show.comments}">
+						<tr>
+							<td>
+								<c:out value="${comment.body }" />
+							</td>
+							<td>
+								<c:out value="${comment.author.email }" />
+							</td>
+							<td>
+								<c:if test="${comment.author.id == user_id }">
+									<a href="/comments/${comment.id}/delete">Delete</a>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<br />
+		<form:form action="/comments/new" method="POST" modelAttribute="commentObj">
+			<form:input value="${user_id}" path="author" type="hidden"/>
+			<form:input value="${show.id}" path="show" type="hidden"/>
+			<p>
+				Leave a Comment:
+				<form:input path="body"/>
+			</p>
+			<button>Submit</button>
+		</form:form>
 	</div>
 </body>
 </html>
