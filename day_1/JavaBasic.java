@@ -20,8 +20,6 @@ public class JavaBasic{
         String name = "Edward Im";
         System.out.println(name.length());
 
-
-
         // TYPE CASTING
         // implicit casting
         int price = 1;
