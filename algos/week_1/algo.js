@@ -40,12 +40,12 @@ class SLNode {
 class SLL{
   constructor(){
     this.head = null;
-    return
   }
   printValues(){
     // 1. SLL IS EMPTY
     if(this.head === null){
       console.log("LIST IS EMPTY")
+      return
     }
     // 2. SLL IS NOT EMPTY
     var runner = this.head
@@ -55,16 +55,33 @@ class SLL{
     }
     console.log(runner.value)
   }
-
   insertAtBack(data){
-
+    // 1. LIST IS EMPTY
+    if(this.head === null){
+      var newNode = new SLNode(data)
+      this.head = newNode
+    }
+    // 2. LIST IS NOT EMPTY
+    // Set the runner at head
+    // Have the runner go to the last Node
+    // Create a new SLNode with the data
+    // Set the runner.next to the new Node created
   }
   seedFromArr(vals) {
 
   }
 }
 
+
+//==========================//
+//         TESTING          //
+//==========================//
+
 var newList = new SLL()
+newList.insertAtBack('a')
+newList.insertAtBack('b')
+newList.insertAtBack('c')
+newList.insertAtBack('d')
+
+
 newList.printValues()
-
-
