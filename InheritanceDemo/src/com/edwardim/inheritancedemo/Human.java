@@ -1,6 +1,6 @@
 package com.edwardim.inheritancedemo;
 
-public class Human {
+public abstract class Human {
 	// MEMBER VARIABLES
 	protected String name;
 	protected int strength;

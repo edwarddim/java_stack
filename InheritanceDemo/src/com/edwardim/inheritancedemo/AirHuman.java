@@ -1,6 +1,6 @@
 package com.edwardim.inheritancedemo;
 
-public class AirHuman extends Human {
+public class AirHuman extends Human implements GravityInterface, SwimmingInterface {
 	// MEMBER VARIALBES
 	protected int airBend;
 	// CONSTRUCTOR
@@ -19,5 +19,15 @@ public class AirHuman extends Human {
 	}
 	public void setAirBend(int airBend) {
 		this.airBend = airBend;
+	}
+	
+	
+	@Override
+	public void movement() {
+		System.out.println("Fly");
+	}
+	@Override
+	public void swim() {
+		System.out.println("Run on water");
 	}
 }
