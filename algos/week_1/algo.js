@@ -44,30 +44,75 @@ class SLL{
   printValues(){
     // 1. SLL IS EMPTY
     if(this.head === null){
-      console.log("LIST IS EMPTY")
+      console.log("LIST EMPTY")
       return
     }
     // 2. SLL IS NOT EMPTY
+    var string = ""
     var runner = this.head
     while(runner.next != null){
-      console.log(runner.value)
+      string += runner.value + " -> "
+      // console.log(runner.value)
       runner = runner.next
     }
-    console.log(runner.value)
+    string += runner.value + " -> null"
+    // console.log(runner.value)
+    console.log(string)
   }
   insertAtBack(data){
+    var newNode = new SLNode(data)
     // 1. LIST IS EMPTY
     if(this.head === null){
-      var newNode = new SLNode(data)
       this.head = newNode
+      return
     }
     // 2. LIST IS NOT EMPTY
+    var runner = this.head
+    while(runner.next != null){
+      runner = runner.next
+    }
+    runner.next = newNode
     // Set the runner at head
     // Have the runner go to the last Node
     // Create a new SLNode with the data
     // Set the runner.next to the new Node created
   }
   seedFromArr(vals) {
+
+  }
+
+  // WEDNESDAY -------------------------------------------------------------------//
+
+    /**
+     * Creates a new node with the given data and inserts that node at the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data for the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+  insertAtFront(data) {
+
+  }
+
+  /**
+   * Removes the first node of this list.
+   * - Time: (?).
+   * - Space: (?).
+   * @returns {any} The data from the removed node.
+   */
+  removeAtFront() {
+
+  }
+
+  // EXTRA
+  /**
+   * Calculates the average of this list.
+   * - Time: (?).
+   * - Space: (?).
+   * @returns {number|NaN} The average of the node's data.
+   */
+  average() {
 
   }
 }
