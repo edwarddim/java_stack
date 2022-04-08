@@ -93,7 +93,7 @@ class SLL {
    */
   insertAtFront(data) {
     // 1. LIST IS EMPTY
-    if(this.head === null){
+    if (this.head === null) {
       // CREATE A NEW NODE
       var newNode = new SLNode(data)
       // POINT THE HEAD TO THE NEW NODE
@@ -117,7 +117,7 @@ class SLL {
    */
   removeAtFront() {
     // 1. LIST IS EMPTY
-    if(this.head === null){
+    if (this.head === null) {
       return
     }
     // 2. LIST IS NOT EMPTY
@@ -139,7 +139,7 @@ class SLL {
    */
   average() {
     // 1. LIST IS EMPTY
-    if(this.head === null){
+    if (this.head === null) {
       return 0
     }
     // 2. LIST NOT EMPTY
@@ -162,13 +162,13 @@ class SLL {
  * @returns {any} The data of the second to last node is null or if there is no
  *    second to last node, return false
  */
-  secondToLast() { 
-    if(this.head === null || this.head.next === null){
+  secondToLast() {
+    if (this.head === null || this.head.next === null) {
       return false
     }
     // 2. LIST IS NOT EMPTY
     var runner = this.head
-    while(runner.next.next != null){
+    while (runner.next.next != null) {
       runner = runner.next
     }
     return runner.value
@@ -182,7 +182,29 @@ class SLL {
    *    node to be removed.
    * @returns {boolean} Indicates if a node was removed or not.
    */
-  removeVal(val) { 
+  removeVal(val) {
+    // 1. LIST IS EMPTY
+    if(this.head === null){
+      return false
+    }
+    // 2. LIST IS NOT EMPTY
+    if(this.head.next === null && val === this.head.value){
+      this.head = null
+    }
+    // CREATE A RUNNER
+
+    // HAVE THE RUNNER GO DOWN THE SLL, CHECK TO SEE IF NEXT NODE'S VALUE
+    // MATCHES THE val
+
+    // SET A TEMP VARIABLE TO THE NODE TO DELETE
+
+    // HAVE THE RUNNER SKIP THE NODE TO DELETE
+    
+    // SET THE TEMP POINT TO A NULL
+
+    // runner.next.value == val
+    // var temp = runner.next
+    // runner.next = runner.next.next
 
   }
 
@@ -197,6 +219,40 @@ class SLL {
    * @returns {boolean} To indicate whether the node was pre-pended or not.
    */
   prepend(newVal, targetVal) { }
+
+  // FRIDAY -------------------------------------------------------------------//
+  /**
+ * Concatenates the nodes of a given list onto the back of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {SinglyLinkedList} addList An instance of a different list whose
+ *    whose nodes will be added to the back of this list.
+ * @returns {SinglyLinkedList} This list with the added nodes.
+ */
+  concat(addList) { }
+
+  /**
+   * Finds the node with the smallest number as data and moves it to the front
+   * of this list.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @returns {SinglyLinkedList} This list.
+   */
+  moveMinToFront() { }
+
+  // EXTRA
+  /**
+   * Splits this list into two lists where the 2nd list starts with the node
+   * that has the given value.
+   * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+   * and the return value will be a new list containing (5=>2=>4)
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {any} val The value in the node that the list should be split on.
+   * @returns {SinglyLinkedList} The split list containing the nodes that are
+   *    no longer in this list.
+   */
+  splitOnVal(val) { }
 }
 
 
