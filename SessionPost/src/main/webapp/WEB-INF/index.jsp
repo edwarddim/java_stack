@@ -19,6 +19,7 @@
 			<input type="password" name="password" />
 			<button>Submit</button>
 		</form>
+		<c:out value="${errorKey }" />
 	</div>
 </body>
 </html>
