@@ -17,11 +17,11 @@ class BinarySearchTree {
      * - Space: O(?).
      * @returns {boolean} Indicates if this tree is empty.
      */
-    isEmpty() { 
-        if(this.root === null){
+    isEmpty() {
+        if (this.root === null) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -34,15 +34,15 @@ class BinarySearchTree {
      *    the tree is being traversed.
      * @returns {number} The smallest integer from this tree.
      */
-    min(current = this.root) { 
+    min(current = this.root) {
         // 1. BST IS EMPTY
-        if(this.isEmpty()){
+        if (this.isEmpty()) {
             console.log("BST IS EMPTY")
             return
         }
         // 2. BST IS NOT EMPTY
         var runner = this.root
-        while(runner.left != null){
+        while (runner.left != null) {
             runner = runner.left
         }
         return runner.data
@@ -56,12 +56,12 @@ class BinarySearchTree {
      *    the tree is being traversed.
      * @returns {number} The smallest integer from this tree.
      */
-    minRecursive(current = this.root) { 
+    minRecursive(current = this.root) {
         // 1. BASE CASE
-        if(current === null){
+        if (current === null) {
             return null
         }
-        if(current.left === null){
+        if (current.left === null) {
             return current.data
         }
         // 2. FORWARD PROGRESS
@@ -77,15 +77,15 @@ class BinarySearchTree {
      *    the tree is being traversed.
      * @returns {number} The largest integer from this tree.
      */
-    max(current = this.root) { 
+    max(current = this.root) {
         // 1. BST IS EMPTY
-        if(this.isEmpty()){
+        if (this.isEmpty()) {
             console.log("BST IS EMPTY")
             return
         }
         // 2. BST IS NOT EMPTY
         var runner = this.root
-        while(runner.right != null){
+        while (runner.right != null) {
             runner = runner.right
         }
         return runner.data
@@ -101,10 +101,10 @@ class BinarySearchTree {
      */
     maxRecursive(current = this.root) {
         // 1. BASE CASE
-        if(current === null){
+        if (current === null) {
             return null
         }
-        if(current.right === null){
+        if (current.right === null) {
             return current.data
         }
         // 2. FORWARD PROGRESS
@@ -128,6 +128,41 @@ class BinarySearchTree {
 
         this.print(node.left, spaceCnt);
     }
+    // TUESDAY -------------------------------------------------------------------//
+
+    /**
+     * Determines if this tree contains the given searchVal.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    contains(searchVal) { 
+        // 1. BST IS EMPTY
+        // 2. BST IS NOT EMPTY
+        
+        // If the searchVal is less than the runner data, go left
+        // If the searchVal is greater than the runner data, go right
+    }
+
+    /**
+     * Determines if this tree contains the given searchVal.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    containsRecursive(searchVal, current = this.root) { }
+
+    /**
+     * Calculates the range (max - min) from the given startNode.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} startNode The node to start from to calculate the range.
+     * @returns {number|null} The range of this tree or a sub tree depending on if the
+     *    startNode is the root or not.
+     */
+    range(startNode = this.root) { }
 }
 
 //==========================//
@@ -173,4 +208,6 @@ threeLevelTree.root.right.left = new BSTNode(13);
 
 // console.log(threeLevelTree.max())
 // console.log(threeLevelTree.min())
-threeLevelTree.print()
+console.log(threeLevelTree.contains(13)) // return true
+console.log(threeLevelTree.contains(30)) // return false
+console.log(threeLevelTree.range()) // return 18
