@@ -40,6 +40,14 @@ public class UserService {
 	}
 	
 	// UPDATE USER
+	public User updateUser(Long id, String firstName, String lastName, String email) {
+		User userToUpdate = this.oneUser(id);
+		userToUpdate.setFirstName(firstName);
+		userToUpdate.setLastName(lastName);
+		userToUpdate.setEmail(email);
+		return userRepo.save(userToUpdate);
+	}
+	
 	
 	// DELETE USER
 	
