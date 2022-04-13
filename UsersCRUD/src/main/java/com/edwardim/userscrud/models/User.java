@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,8 +24,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotNull
+    @Size(min = 2, message="First Name must be at least 2 chars")
     private String firstName;
+    
+    @NotNull
+    @Size(min = 2, message="Last Name must be at least 2 chars")
     private String lastName;
+    
+    @Email(message="Email format is invalid")
+    @NotNull
     private String email;
     
     

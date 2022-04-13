@@ -37,6 +37,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<form action="/api/users" method="post">
+			<input type="text" name="firstName" />
+			<input type="text" name="lastName" />
+			<input type="text" name="email" />
+		</form>
 	</div>
 </body>
 </html>
