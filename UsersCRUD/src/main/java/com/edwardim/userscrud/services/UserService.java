@@ -20,6 +20,7 @@ public class UserService {
 	public User create(User newUser) {
 		return userRepo.save(newUser);
 	}
+
 	
 	// GET ALL USERS
 	public List<User> allUsers(){
@@ -50,6 +51,8 @@ public class UserService {
 	
 	
 	// DELETE USER
-	
+	public void deleteUser(Long id) {
+		userRepo.deleteById(id);
+	}
 	
 }

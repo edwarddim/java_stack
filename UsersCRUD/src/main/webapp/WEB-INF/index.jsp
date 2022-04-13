@@ -29,9 +29,12 @@
 						<td><c:out value="${user.email}" /></td>
 						<td><c:out value="${user.createdAt}" /></td>
 						<td>
-							<a href="">Show</a>
-							<a href="">Edit</a>
-							<a href="">Delete</a>
+							<a href="/users/${user.id}">Show</a>
+							<a href="/users/${user.id}/edit">Edit</a>
+							<form action="/users/${user.id}" method="post">
+							    <input type="hidden" name="_method" value="delete">
+							    <input type="submit" value="Delete">
+							</form>
 						</td>		
 					</tr>		
 				</c:forEach>

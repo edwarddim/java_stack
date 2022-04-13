@@ -2,6 +2,7 @@
 <!-- New line below to use the JSP Standard Tag Library -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isErrorPage="true" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +12,9 @@
 </head>
 <body>
 	<div class="container">
-		<h1>New User</h1>
-		<!-- NORMAL FORM -->
-		<h1>Normal Form</h1>
-		<form action="" method="post">
-			<input type="text" name="firstName" id="" />
-			<input type="text" name="lastName" id="" />
-			<input type="text" name="email" id="" />
-		</form>
-		<hr />
-		<!-- DATA BINDING -->
-		<h1>Data Binding Form</h1>
-		<form:form action="/users/new" method="post" modelAttribute="user">
+		<h1>Edit User</h1>
+		<form:form action="/users/${user.id}/edit" method="post" modelAttribute="user">
+			<input type="hidden" name="_method" value="put">
 		    <p>
 		    	First Name:
 		        <form:errors path="firstName"/>
@@ -38,7 +30,7 @@
 		        <form:errors path="email"/>
 		        <form:input path="email"/>
 		    </p>
-		    <input type="submit" value="Submit"/>
+		    <input type="submit" value="Update"/>
 		</form:form>
 	</div>
 </body>
