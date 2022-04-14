@@ -15,6 +15,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,6 +28,7 @@ public class Sale {
     private Long id;
 	// client name
     @NotNull
+    @Size(min=3)
     private String client;
 	// sale amount
     @Positive
