@@ -144,11 +144,11 @@ class BinarySearchTree {
         // If the searchVal is less than the runner data, go left
         // If the searchVal is greater than the runner data, go right
         var runner = this.root
-        while(runner != null){
-            if(searchVal < runner.data){
+        while (runner != null) {
+            if (searchVal < runner.data) {
                 runner = runner.left
             }
-            else if (searchVal > runner.data){
+            else if (searchVal > runner.data) {
                 runner = runner.right
             }
         }
@@ -173,7 +173,7 @@ class BinarySearchTree {
      */
     range(startNode = this.root) { }
 
-    
+
     // WEDNESDAY -------------------------------------------------------------------//
     /**
      * Inserts a new node with the given newVal in the right place to preserver
@@ -183,10 +183,10 @@ class BinarySearchTree {
      * @param {number} newVal The data to be added to a new node.
      * @returns {BinarySearchTree} This tree.
      */
-    insert(newVal) { 
+    insert(newVal) {
         var newNode = new BSTNode(newVal)
         // 1. BST IS EMPTY
-        if(this.isEmpty()){
+        if (this.isEmpty()) {
             this.root = newNode
             return
         }
@@ -209,6 +209,75 @@ class BinarySearchTree {
      * @returns {BinarySearchTree} This tree.
      */
     insertRecursive(newVal, curr = this.root) { }
+
+    // THURSDAY -------------------------------------------------------------------//
+    /**
+     * DFS Inorder: (Left, CurrNode, Right)
+     * Converts this BST into an array following Depth First Search inorder.
+     * See debugger call stack to help understand the recursion.
+     * Example on the fullTree var:
+     * [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+     toArrInorder(node = this.root, vals = []) {
+        if(node){
+            // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
+            this.toArrInorder(node.left, vals)
+            // ADDING THE CURRENT NODE'S NUMBER TO ARR
+            vals.push(node.data)
+            // RECURSIVELY CALL THE RIGHT SIDE OF THE NODE
+            this.toArrInorder(node.right, vals)
+        }
+        return vals
+        // 1. BASE CASE
+        // 2. FORWARD PROGRESS
+        // 3. RECURSIVE CALL
+     }
+
+
+    /**
+     * DFS Preorder: (CurrNode, Left, Right)
+     * Converts this BST into an array following Depth First Search preorder.
+     * Example on the fullTree var:
+     * [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+    toArrPreorder(node = this.root, vals = []) { 
+        if(node){
+            // ADDING THE CURRENT NODE'S NUMBER TO ARR
+            vals.push(node.data)
+            // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
+            this.toArrInorder(node.left, vals)
+            // RECURSIVELY CALL THE RIGHT SIDE OF THE NODE
+            this.toArrInorder(node.right, vals)
+        }
+        return vals
+    }
+
+    /**
+     * DFS Postorder (Left, Right, CurrNode)
+     * Converts this BST into an array following Depth First Search postorder.
+     * Example on the fullTree var:
+     * [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+    toArrPostorder(node = this.root, vals = []) { 
+        if(node){
+            // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
+            this.toArrInorder(node.left, vals)
+            // RECURSIVELY CALL THE RIGHT SIDE OF THE NODE
+            this.toArrInorder(node.right, vals)
+            // ADDING THE CURRENT NODE'S NUMBER TO ARR
+            vals.push(node.data)
+        }
+        return vals
+    }
 }
 
 //==========================//
@@ -255,6 +324,8 @@ threeLevelTree.root.left.right = new BSTNode(6);
 threeLevelTree.root.right = new BSTNode(15);
 threeLevelTree.root.right.right = new BSTNode(20);
 threeLevelTree.root.right.left = new BSTNode(13);
+
+console.log(threeLevelTree.toArrInorder())
 
 
 // console.log(threeLevelTree.max())
