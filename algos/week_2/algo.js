@@ -221,8 +221,8 @@ class BinarySearchTree {
      * @param {Array<number>} vals The data that has been visited so far.
      * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
      */
-     toArrInorder(node = this.root, vals = []) {
-        if(node){
+    toArrInorder(node = this.root, vals = []) {
+        if (node) {
             // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
             this.toArrInorder(node.left, vals)
             // ADDING THE CURRENT NODE'S NUMBER TO ARR
@@ -234,7 +234,7 @@ class BinarySearchTree {
         // 1. BASE CASE
         // 2. FORWARD PROGRESS
         // 3. RECURSIVE CALL
-     }
+    }
 
 
     /**
@@ -246,8 +246,8 @@ class BinarySearchTree {
      * @param {Array<number>} vals The data that has been visited so far.
      * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
      */
-    toArrPreorder(node = this.root, vals = []) { 
-        if(node){
+    toArrPreorder(node = this.root, vals = []) {
+        if (node) {
             // ADDING THE CURRENT NODE'S NUMBER TO ARR
             vals.push(node.data)
             // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
@@ -267,8 +267,8 @@ class BinarySearchTree {
      * @param {Array<number>} vals The data that has been visited so far.
      * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
      */
-    toArrPostorder(node = this.root, vals = []) { 
-        if(node){
+    toArrPostorder(node = this.root, vals = []) {
+        if (node) {
             // RECURSIVELY CALL THE LEFT SIDE OF THE NODE
             this.toArrInorder(node.left, vals)
             // RECURSIVELY CALL THE RIGHT SIDE OF THE NODE
@@ -277,6 +277,38 @@ class BinarySearchTree {
             vals.push(node.data)
         }
         return vals
+    }
+    // FRIDAY -------------------------------------------------------------------//
+    /**
+     * Recursively counts the total number of nodes in this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during the traversal of this tree.
+     * @returns {number} The total number of nodes.
+     */
+    size(node = this.root) { 
+        // 1. BASE CASE
+        if(node === null){
+            return 0
+        }
+        return 1 + this.size(node.left) + this.size(node.right)
+        // 2. FORWARD PROGRESS
+        // 3. RECURSIVE CALL
+    }
+
+    /**
+     * Calculates the height of the tree which is based on how many nodes from
+     * top to bottom (whichever side is taller).
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {number} The height of the tree.
+     */
+    height(node = this.root) { 
+        if(node === null){
+            return 0
+        }
+        return 1 + Math.max(this.height(node.left) , this.height(node.right))
     }
 }
 
