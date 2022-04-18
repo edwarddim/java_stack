@@ -15,15 +15,45 @@
 		<h1>Welcome</h1>
 		<div>
 			<h1>Registration</h1>
-			<form:form action="/register" method="" modelAttribute="newUser">
-			
+			<form:form action="/register" method="post" modelAttribute="newUser">
+				<p>
+					Username:
+					<form:input path="userName" />
+					<form:errors path="userName" />
+				</p>
+				<p>
+					Email:
+					<form:input path="email" />
+					<form:errors path="email" />
+				</p>
+				<p>
+					Password:
+					<form:input path="password" />
+					<form:errors path="password" />
+				</p>
+				<p>
+					Confirm Password:
+					<form:input path="confirm" />
+					<form:errors path="confirm" />
+				</p>
+				<button>Register</button>
 			</form:form>
 		</div>
 		
 		<div>
 			<h1>Login</h1>
-			<form:form action="" method="" modelAttribute="newLogin">
-				
+			<form:form action="/login" method="post" modelAttribute="newLogin">
+				<p>
+					Email:
+					<form:input path="email" />
+					<form:errors path="email" />
+				</p>
+				<p>
+					Password:
+					<form:input path="password" />
+					<form:errors path="password" />
+				</p>
+				<button>Login</button>
 			</form:form>	
 		</div>
 	</div>

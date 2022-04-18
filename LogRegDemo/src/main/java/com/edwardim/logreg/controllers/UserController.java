@@ -18,12 +18,13 @@ import com.edwardim.logreg.services.UserService;
 @Controller
 public class UserController {
 	// Add once service is implemented:
-     @Autowired
-     private UserService userServ;
+	 @Autowired
+	 private UserService userServ;
     
     @GetMapping("/")
-    public String index(Model model) {
-    
+    public String index(
+    		Model model
+	) {
         // Bind empty User and LoginUser objects to the JSP
         // to capture the form input
         model.addAttribute("newUser", new User());
@@ -40,7 +41,8 @@ public class UserController {
         
         // TO-DO Later -- call a register method in the service 
         // to do some extra validations and create a new user!
-    	User user = userServ.register(newUser, result);
+        // CREATE THE USER
+    	User registeredUser = userServ.register(newUser, result);
         
         if(result.hasErrors()) {
             // Be sure to send in the empty LoginUser before 
@@ -48,12 +50,10 @@ public class UserController {
             model.addAttribute("newLogin", new LoginUser());
             return "index.jsp";
         }
-        
         // No errors! 
         // TO-DO Later: Store their ID from the DB in session, 
         // in other words, log them in.
-        // CREATE THE USER
-    
+        session.setAttribute("user_id", registeredUser.getId());
         return "redirect:/home";
     }
     
@@ -71,11 +71,18 @@ public class UserController {
             model.addAttribute("newUser", new User());
             return "index.jsp";
         }
-    
         // No errors! 
         // TO-DO Later: Store their ID from the DB in session, 
         // in other words, log them in.
-    
+        session.setAttribute("user_id", user.getId());
         return "redirect:/home";
+    }
+    
+    @GetMapping("/home")
+    public String home(HttpSession session) {
+    	if(session.getAttribute("user_id") == null) {
+    		return "redirect:/";
+    	}
+    	return "home.jsp";
     }
 }
