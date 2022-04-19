@@ -16,6 +16,13 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	public User getOneUser(Long id) {
+		return userRepo.findById(id).orElse(null);
+	}
+	
+	
+	
 	public boolean checkEmailExists(String email) {
 		Optional<User> user = userRepo.findByEmail(email);
 		
