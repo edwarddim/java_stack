@@ -10,3 +10,4 @@ git add .
 git commit -m "YOUR COMMIT MESSAGE GOES HERE"
 
 ## PUSH YOUR LOCAL CODE TO GITHUB
+git push origin master
