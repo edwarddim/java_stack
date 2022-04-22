@@ -1,8 +1,21 @@
-HELP.md
+# Operating System Files
+
+*.DS_Store
+Thumbs.db
+*.sw?
+.#*
+*#
+*~
+*.sublime-*
+
+# Build Artifacts
+
+.gradle/
+build/
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+bin/
+dependency-reduced-pom.xml
+
 
 ### STS ###
 .apt_generated
@@ -28,7 +41,16 @@ application.properties
 /.nb-gradle/
 build/
 
+### Java ###
+
+*.class
+
 ### VS Code ###
 .vscode/
 
-*.class
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
