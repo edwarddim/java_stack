@@ -86,6 +86,14 @@ class LinkedListStack {
      * @returns {number} The new length of this stack.
      */
     push(item) {
+      var newNode = new StackNode(item)
+      if(this.head == null){
+        this.head = newNode
+      }
+      else{
+        newNode.next = this.head
+        this.head = newNode
+      }
 
     }
   
@@ -131,3 +139,5 @@ class LinkedListStack {
 
 
 }
+
+
