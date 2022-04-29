@@ -104,7 +104,7 @@ class LinkedListStack {
      * @returns {any} The removed item or undefined if this stack was empty.
      */
     pop() {
-
+      return this.items.pop();
     }
   
     /**
@@ -114,7 +114,7 @@ class LinkedListStack {
      * @returns {any} The top / last item of this stack.
      */
     peek() {
-
+      return this.items[this.items.length - 1];
     }
   
     /**
@@ -124,7 +124,7 @@ class LinkedListStack {
      * @returns {boolean}
      */
     isEmpty() {
-
+      return this.items.length === 0;
     }
   
     /**
@@ -134,7 +134,7 @@ class LinkedListStack {
      * @returns {number} The length.
      */
     size() {
-
+      return this.items.length;
     }
 
 
