@@ -1,210 +1,457 @@
 // MON
+
+// Part I
+
+// let a = new SLNode(7);
+// let b = new SLNode(3);
+// let c = new SLNode(1);
+// a.next = b;
+// b.next = c;
+
+// console.log('A:', a.val);
+// console.log('B:', b.val);
+// console.log('C:', c.val);
+// console.log(a.next.val);
+// console.log(a.next.next.val);
+// console.log(a.next.next.next.val);
+
+// Part II 
+// Note: Later the head variable shown here will be part of the SLL class
+
+// let head = new SLNode(1);
+// let runner_temp = head;
+// for (let i of [7,3,5,2]) {
+//     let new_node = new SLNode(i);
+//     runner_temp.next = new_node;
+//     runner_temp = new_node;
+// }
+
+// console.log(head.val);
+// console.log(head.next.val);
+// console.log(head.next.next.next.val);
+
+
 class SLNode{
     constructor(value){
         this.value = value
         this.next = null
     }
 }
+
 class SLL{
     constructor(){
-        this.head = null
-    }
-    insertAtFront(value){
-        // CHECK TO SEE IF LIST IS EMPTY
-        // IF EMPTY, CREATE NODE AND SET HEAD TO NEW NODE
-        if(this.head == null){
-            var newNode = new SLNode(value)
-            this.head = newNode
+        this.head = null;
+    }    
+
+    //  TUESDAY -------------------------------------------------------------------//
+    /**
+     * Creates a new node with the given data and inserts it at the back of
+     * this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data to be added to the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    insertAtBack(data){
+        let new_node = new SLNode(data);
+        if (this.head == null) {
+            this.head = new_node;
+            return this;
         }
-        // IF LIST IS NOT EMPTY
-        else{
-            // CREATE THE NEW NODE
-            var newNode = new SLNode(value)
-            // POINT NEW NODE'S .NEXT TO THE HEAD
-            newNode.next = this.head
-            // CHANGE THE HEAD POINTER TO NEW NODE
-            this.head = newNode
+
+        let current_node = this.head;
+        while(current_node.next != null) {
+            current_node = current_node.next;
+        }
+        current_node.next = new_node;
+        return this;
+        }
+    
+    /**
+     * Adds each item of the given array to the back of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {Array<any>} vals The data for each new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    seedFromArr(vals) {
+        for (const item of vals) {
+            this.insertAtBack(item);
+        }
+        return this;
+    }
+    
+ // WEDNESDAY -------------------------------------------------------------------//
+    /**
+     * Prints all the nodes in the list to the console.
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    printValues() {
+        var runner = this.head
+        while(runner != null){
+            console.log(runner.value)
+            runner = runner.next
         }
     }
-    removeAtFront(){
-        // MOVE HEAD POINTER TO SECOND NODE
+    printPretty() {
+        let printString = ""
+        let runner = this.head;
+        while (runner != null) {
+            printString += runner.value + "->";
+            runner = runner.next;
+        }
+        printString += "null";
+        console.log(printString);
+    }
+
+    /**
+     * Creates a new node with the given data and inserts that node at the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data for the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    insertAtFront(data) {
+        // Create the new node
+        var newNode = new SLNode(data)
+
+        // Point new node's .next to the head
+        // What happens if .head is null? .next is still null!
+        newNode.next = this.head
+        
+        // Change the head to the new node
+        this.head = newNode
+    }
+
+    /**
+     * Removes the first node of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data from the removed node.
+     */
+     removeAtFront(){
+        // If list empty
         if(this.head == null){
             console.log("LIST IS EMPTY")
         }
-        // LIST IS NOT EMPTY
-        else{
+        // Save head's value to return, 
+        // reassign head to next node (or null if no next node)
+        else {
             var value = this.head.value
             this.head = this.head.next
             return value
         }
     }
-    printValues(){
-        var runner = this.head
-        while(runner.next != null){
-            console.log(runner.value)
-            runner = runner.next
+    
+    // EXTRA
+    /**
+     * Calculates the average of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {number|NaN} The average of the node's data.
+     */
+    average() {
+        let runner = this.head;
+        let sum = 0;
+        let count = 0;
+
+        while (runner) {
+            count++;
+            sum += runner.value;
+            runner = runner.next;
         }
-        console.log(runner.value)
+        /**
+         * Dividing by 0 will give you NaN (Not a Number), so an empty list
+         * will return NaN in this case, it may make sense to allow NaN to be
+         * returned, because the average of an empty list doesn't make sense and
+         * it could be misleading to return 0 since 0 is the average of any
+         * list with a sum of 0 (due to negatives or all zeros).
+         */
+        return sum / cnt;
     }
-    contains(value){
-        if(this.head == null){
-            return false
-        }
-        var runner = this.head
-        while(runner.next != null){
-            if(runner.value == value){
-                return true
+
+    // THURSDAY --------------------------------------------------------------------//
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @returns {boolean}
+     */
+    contains(val) {
+        let runner = this.head;
+
+        while (runner) {
+            if (runner.value === val) {
+                return true;
             }
-            runner = runner.next
+            runner = runner.next;
         }
-        if(runner.value == value){
-            return true
-        }
-        else{
-            return false
-        }
+        return false;
     }
-    pop(){
-        if(this.head == null){
-            return false
+
+    /**
+     * Removes the last node of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data from the node that was removed.
+     */
+    removeBack() {
+
+        // We plan to save the last value
+        // before removing it
+        var removedVal;
+
+        // Case if list empty
+        if(!this.head) {
+            console.log("List empty.")
+            return null;
         }
-        var runner = this.head
-        while(runner.next.next != null){
-            runner = runner.next
+
+        // Case if only one node in list
+        if (!this.head.next) {
+
+            // Save value in head to return
+            removedVal = this.head.value;
+            // Reassign head to null
+            this.head = null;
+            return removedVal;
         }
-        runner.next = null
+
+        var runner = this.head;
+        // We want to stop at the second to last node
+        // So we check if there is a node after the next node
+        while (runner.next.next) {
+            // keep advancing the pointer
+            runner = runner.next;
+        }
+        // Save last node's value
+        removedVal = runner.next.value;
+        // Re-assign second-to-last node's next pointer to null
+        runner.next = null;
+        return removedVal;
+
     }
-    remove(value){
-        if(this.head == null){
-            return false
+
+    // --- If extra time -- code the removeAtFront method from scratch
+    
+    // EXTRA
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @param {?node} current The current node during the traversal of this list
+     *    or null when the end of the list has been reached.
+     * @returns {boolean}
+     */
+    containsRecursive(val, current = this.head) {
+        if (current === null) {
+            return false;
         }
-        // THE VALUE TO REMOVE IS THE BEGINNING OF THE LIST
-        if(this.head.value == value){
-            this.removeAtFront()
-            return true
+        if (current.value === val) {
+            return true;
         }
-        // THE VALUE TO REMOIVE IS IN THE MIDDLE OF THE LIST
-        // THE VALUE TO REMOIVE IS IN THE END OF THE LIST
-        var runner = this.head
-        while(runner.next != null){
-            if(runner.next.value == value){
-                runner.next = runner.next.next
-                return true
+        return this.containsRecursive(val, current.next);
+    }
+    
+    
+    /**
+     * Recursively finds the maximum integer data of the nodes in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {Node} runner The start or current node during traversal, or null
+     *    when the end of the list is reached.
+     * @param {Node} maxNode Keeps track of the node that contains the current
+     *    max integer as it's data.
+     * @returns {?number} The max int or null if none.
+     */
+    recursiveMax(runner = this.head, maxNode = this.head) {
+        if (this.head === null) {
+            return null;
+        }
+    
+        if (runner === null) {
+            return maxNode.data;
+        }
+    
+        if (runner.data > maxNode.data) {
+            maxNode = runner;
+        }
+    
+        return this.recursiveMax(runner.next, maxNode);
+    }
+
+    // FRIDAY ----------------------------------------------------------------------//
+
+    /**
+     * Retrieves the data of the second to last node in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data of the second to last node or null if there is no
+     *    second to last node.
+     */
+    secondToLast() {
+        if (!this.head || !this.head.next) {
+            return null;
+        }
+        var runner = this.head;
+        while (runner.next.next) {
+            runner = runner.next;
+        }
+        return runner.value;
+    }
+    
+    /**
+     * Removes the node that has the matching given val as it's data.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The value to compare to the node's data to find the
+     *    node to be removed.
+     * @returns {boolean} Indicates if a node was removed or not.
+     */
+    removeVal(val) {
+        if (!this.head) {
+            return false;
+        }
+        if (this.head.value == val) {
+            this.removeAtFront();
+            return true;
+        }
+        var runner = this.head;
+        while (runner.next) {
+            if (runner.next.value == val) {
+                runner.next = runner.next.next;
+                return true;
             }
-            runner = runner.next
+            runner = runner.next;
         }
-        return false
+        return false;
     }
-    partition(num){
-        if(this.head == null){
-            return
-        }
-        // ITERATING THROUGH LIST
-        var leftPartitionHead
-        var leftRunner
-        var rightPartitionHead
-        var rightRunner
-        var runner = this.head
-        while(runner.next != null){
-            // CHECK TO SEE WHICH NUMBERS ARE LESS THAN AND GREATER THAN
-            if(runner.value < num){
-                // CREATING THE FIRST NODE ON THE LEFT PARTITION
-                if(leftPartitionHead == null){
-                    var newNode = new SLNode(runner.value)
-                    leftPartitionHead = newNode
-                    leftRunner = newNode
-                }
-                else{
-                    var newNode = new SLNode(runner.value)
-                    leftRunner.next = newNode
-                    leftRunner = leftRunner.next
-                }
-            }
-            else{
-                if(rightPartitionHead == null){
-                    var newNode = new SLNode(runner.value)
-                    rightPartitionHead = newNode
-                    rightRunner = newNode
-                }
-                else{
-                    var newNode = new SLNode(runner.value)
-                    rightRunner.next = newNode
-                    rightRunner = rightRunner.next
-                }
-            }
-            runner = runner.next
-        }
-        leftRunner.next = rightPartitionHead
-        this.head = leftPartitionHead
-    }
-    reverse(){
-        if(this.head == null){
-            return
-        }
-        // ITERATE THROUGH THE CURRENT LIST, ADD THE VALUES TO AN ARRAY
-        var runner = this.head
-        var arr = []
-        while(runner.next != null){
-            arr.push(runer.value)
-            runner = runner.next
-        }
-        arr.push(runner.value)
-        // LOOP THROUGH ARRAY BACKWARDS AND CREATE A NEW LIST
-        var reverseHead;
-        var reverseRunner;
-        reverseHead = new SLNode(arr[arr.length-1])
-        reverseRunner = reverseHead
-        for(let i = arr.length -2; i >= 0; i --){
-            var temp = new SLNode(arr[i])
-            reverseRunner.next = temp
-            reverseRunner = reverseRunner.next
-        }
-        // SET THE NEW LIST TO THE HEAD
-        this.head = reverseHead
-    }
+
+    //  FRIDAY EXTRA
+    /**
+     * Retrieves the data of the kth to last node in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data of the kth to last node or null if there is no
+     *    kth to last node.
+     */
+     kthToLast(k) {
+         var buffer = this.head;
+         var trail = this.head;
+         while (k > 0 && buffer) {
+            // console.log("Buffer at: ", buffer.value)
+            buffer = buffer.next;
+            // console.log("moved on to ", buffer);
+            k--;
+         }
+         if (!buffer || k < 0) {
+             console.log("value out of range")
+             return null;
+         }
+         while (buffer.next) {
+            trail = trail.next;
+            buffer = buffer.next
+         }
+         return trail.value;
+     }
+
+    // ====================================================
+    
+    // EXTRA
+    /**
+     * Inserts a new node before a node that has the given value as its data.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} newVal The value to use for the new node that is being added.
+     * @param {any} targetVal The value to use to find the node that the newVal
+     *    should be inserted in front of.
+     */
+    prepend(newVal, targetVal) {}
+
+
+    /**
+     * Concatenates the nodes of a given list onto the back of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {SinglyLinkedList} addList An instance of a different list whose
+     *    whose nodes will be added to the back of this list.
+     * @returns {SinglyLinkedList} This list with the added nodes.
+     */
+    concat(addList) {}
+
+    /**
+     * Finds the node with the smallest number as data and moves it to the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    moveMinToFront() {}
+    
+    // EXTRA
+    /**
+     * Splits this list into two lists where the 2nd list starts with the node
+     * that has the given value.
+     * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+     * and the return value will be a new list containing (5=>2=>4)
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The value in the node that the list should be split on.
+     * @returns {SinglyLinkedList} The split list containing the nodes that are
+     *    no longer in this list.
+     */
+        splitOnVal(val) {}
+    //  }
 }
-var list = new SLL()
-list.insertAtFront(1)
-list.insertAtFront(2)
-list.insertAtFront(3)
-list.printValues()
-list.removeAtFront()
-list.printValues()
 
-// WED
+//==========================//
+//         TESTING          //
+//==========================//
 
-// contains(value)
-// GIVEN THE VALUE RETURN TRUE OR FALSE ON WHETHER THE VALUE EXISTS
-// ITERATE THROUGH THE LIST AND CHECK EACH NODE FOR THE VALUE GIVEN
-// pop()
-// REMOVE THE LAST NODE WITHIN THE SLL
-// remove(value)
-// IF THE GIVEN VALUE EXISTS WITHIN THE LIST, REMOVE SAID NODE FROM SLL
-// REMOVE THE FIRST OCCURANCE OF THE VALUE, THE NODE CAN BE IN THE BEGINNING, MIDDLE, OR END
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
+/* insertAtBack & seedFromArray Test */
+let my_list = new SLL();
+my_list.insertAtBack(8);
+my_list.insertAtBack(9);
+my_list.insertAtBack(10);
+my_list.insertAtBack(11);
+my_list.insertAtBack(12);
+my_list.insertAtBack(13);
+// console.log(my_list);
 
-// THUR
+// let new_list = new SLL();
+// new_list.seedFromArr([3, 4, 5, 6, 7, 8, 9]);
 
-// partition(num)
-// PARTITION A LINKED LIST AROUND A VALUE X, SUCH THAT ALL NODE LESS THAN X
-// COME BEFORE ALL NODES GREATER THAN OR EQUAL TO X
-// 1. CREATE A NEW SLL WITH THE REARRANGED VALUES
-// 2. REARRANGE THE CURRENT SLL (HINT: YOU CAN SPLIT THE SLL IN TWO, THEN COMBINE THEM BACK AGAIN)
-// partition(5)
-// INPUT: 3->5->8->5->10->2->1
-// OUTPUT: 3->1->2 -> 10->5->5->8
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
+// for (let node = new_list.head; node !=null; node=node.next) {
+//     console.log(node.value);
+// }
 
-// FRI
+// console.log(my_list.removeBack()); // 10
+// console.log(my_list.removeBack()); // 9
+// console.log(my_list.removeBack()); // 8
+// console.log(my_list.removeBack()); // List empty
+// console.log(my_list.removeVal(10))
+my_list.printPretty();
+console.log("Second from last: ", my_list.secondToLast());
 
-// reverseNew()
-// reverese()
-// 1. CREATE A NEW SLL THEN SET THAT AS THE LIST
-// ITERATE THROUGH THE CURRENT LIST, ADD THE VALUES TO AN ARRAY
-// LOOP THROUGH ARRAY BACKWARDS AND CREATE A NEW LIST
-// SET THE NEW LIST TO THE HEAD
-// 2. REARRANGE THE CURRENT LIST WITHOUT CREATING ANY NEW NODES (HINT: 3 RUNNERS)
-// -----------------------------------------------------------------------------------------------//
-// -----------------------------------------------------------------------------------------------//
+
+// console.log("\n4 removed? ", my_list.removeVal(4));
+// my_list.printPretty();
+// console.log("\n8 removed? ", my_list.removeVal(8));
+// my_list.printPretty();
+// console.log("\n11 removed? ", my_list.removeVal(11));
+// my_list.printPretty();
+// console.log("\n13 removed? ", my_list.removeVal(13));
+// my_list.printPretty();
+
+for (var k = -1; k < 7; k++) {
+    console.log(`${k} from last: ${my_list.kthToLast(k)}`);
+}
+
+
+

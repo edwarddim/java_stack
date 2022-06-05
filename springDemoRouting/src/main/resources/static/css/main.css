@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.container {
+	margin: 40px;
+	padding: 40px;
+	font-family: Monaco, sans-serif;
+	background-color: lightgrey;
+}
+
+.box {
+	width: 100px;
+	height: 100px;
+	background-color: grey;
+	margin: 5px;
+}
+
+
+.error {
+	color: #F9214B;
+	font-weight: bold;
+}

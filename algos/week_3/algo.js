@@ -10,218 +10,267 @@ class BST{
     constructor(){
         this.root = null
     }
-    /* 
-        CHECK TO SEE IF BST IS EMPTY
-    */
-    isEmpty(){
-        if(this.root == null){
-            return true
+
+
+    // Inserts a value into the tree
+    // positioning based on it's value.
+    // RECURSIVE
+    insert(val, runner=this.root) {
+        if (!this.root) {
+            this.root = new BSTNode(val);
+            return this;
+        }  
+        if (!runner.left && val < runner.value) {
+            runner.left = new BSTNode(val);
+            return this;
         }
-        else{
-            return false
+        else if (!runner.right && val >= runner.value) {
+            runner.right = new BSTNode(val);
+            return this;
         }
+        else return val >= runner.value? 
+            this.insert(val, runner.right):
+            this.insert(val, runner.left); 
     }
-    /* 
-        RETURN THE MINIMUM VALUE STORED IN THE BST
-    */
-    min(){
-        // CHECK TO SEE IF BST IS EMPTY
-        if(this.isEmpty()){
-            return null
+
+    insertIterative(val) {
+        if (!this.root) {
+            this.root = new BSTNode(val);
+            return this;
         }
-        // SET A RUNNER AND MOVE DOWN LEFT SIDE OF BST
-        var runner = this.root
-        while(runner.left != null){
-            runner = runner.left
-        }
-        return runner.value
-    }
-    /* 
-        RETURN THE MAXIMUM VALUE STORED IN THE BST
-    */
-    max(){
-        if(this.isEmpty()){
-            return null
-        }
-        // SET A RUNNER AND MOVE DOWN RIGHT SIDE OF BST
-        var runner = this.root
-        while(runner.right != null){
-            runner = runner.right
-        }
-        return runner.value
-    }
-    /* 
-        RETURN THE RANGE OF BST, MAX - MIN
-    */
-    range(){
-        return this.max() - this.min()
-    }
-    /* 
-        CREATE A NODE IN THE BST AT THE RIGHT PLACE
-    */
-    insert(value){
-        // BST IS EMPTY
-        if(this.isEmpty()){
-            this.root = new BSTNode(value)
-            return
-        }
-        var runner = this.root
-        while(runner != null){
-            if(value < runner.value){
-                if(runner.left == null){
-                    runner.left = new BSTNode(value)
-                    return
-                }
-                else{
-                    runner = runner.left
-                }
+        let runner = this.root;
+        while (
+            (runner.left && val < runner.value) || 
+            (runner.right && val >= runner.value)) {
+                
+                // Move runner left or right - ternary statement (shortened if block)
+                runner = val < runner.value ? runner.left: runner.right;
             }
-            else{
-                if(runner.right == null){
-                    runner.right = new BSTNode(value)
-                    return
-                }
-                else{
-                    runner = runner.right
-                }
-            }
+        if (val < runner.value) {
+            runner.left = new BSTNode(val);
+        }
+        else runner.right = new BSTNode(val);
+        return this;
+    }
+
+    /**
+     * Determines if this tree is empty.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {boolean} Indicates if this tree is empty.
+     */
+    isEmpty() {
+        return this.root == null;
+    }
+
+    /**
+     * Retrieves the smallest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The smallest integer from this tree.
+     */
+    min(current = this.root) {
+        if(!current) {
+            console.log("Root node of subtree empty");
+            return null;
         }
 
+        while (current.left) {
+            current = current.left;
+        }
+        return current.value;
     }
-    /* 
-        RETURNS TRUE IF THE VALUE EXISTS WITHIN THE BST
-    */
-    contains(value){
-        if(this.isEmpty()){
-            return false
+
+    /**
+     * Retrieves the smallest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The smallest integer from this tree.
+     */
+    minRecursive(current = this.root) {
+        if(!current) {
+            return null;
         }
-        if(this.root.value == value){
-            return true
+        if (!current.left) {
+            return current.value;
         }
-        else{
-            var runner = this.root
-            while(runner != null){
-                if(runner.value == value){
-                    return true
-                }
-                else{
-                    if(value < runner.value){
-                        runner = runner.left
-                    }
-                    else{
-                        runner = runner.right
-                    }
-                }
-            }
-            return false
-        }
+        return this.minRecursive(current.left);
     }
-    sortedArrtoBST(arr){
-        this.root = this.sortedArrtoBSTHelper(arr)
+
+    /**
+     * Retrieves the largest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The largest integer from this tree.
+     */
+    max(current = this.root) {
+        if(!current) {
+            console.log("Root node of subtree empty");
+            return null;
+        }
+
+        while (current.right) {
+            current = current.right;
+        }
+        return current.value;
     }
-    sortedArrtoBSTHelper(arr){
-        // 1. BASE CASE
-        if(arr.length < 1){
-            return null
+
+    /**
+     * Retrieves the largest integer data from this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} current The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {number} The largest integer from this tree.
+     */
+    maxRecursive(current = this.root) {
+        if(!current) {
+            return null;
         }
-        // CHOOSING MIDDLE INDEX AND CREATING NODE WITH MID NUMBER
-        var midInd = Math.floor(arr.length/2)
-        var root = new BSTNode(arr[midInd])
-        // 2. FORWARD PROGRESS(SLICING THE ARR)
-        // 3. RECRUSIVE CALL
-        root.left = this.sortedArrtoBSTHelper(arr.slice(0, midInd))
-        root.right = this.sortedArrtoBSTHelper(arr.slice(midInd + 1, arr.length))
-        return root
+        if (!current.right) {
+            return current.value;
+        }
+        return this.maxRecursive(current.right);
     }
-    /* 
-        RETURNS THE HEIGHT OF THE BST
-    */
-    height(){
-        return this.heightHelper(this.root)
+
+    ///         WEDNESDAY           ///
+
+    // Predict the output, then rename the function
+    // based on the outcome.
+    printInOrder(node=this.root) {
+        if (!node) {
+            return;
+        }
+        this.printInOrder(node.left);
+        console.log(node.value);
+        this.printInOrder(node.right);
     }
-    heightHelper(node){
-        // BASE CASE
-        if(node == null){
-            return 0
+
+        /**
+     * Determines if this tree contains the given searchVal.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    contains(searchVal) {}
+
+    /**
+     * Determines if this tree contains the given searchVal.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} searchVal The number to search for in the node's data.
+     * @returns {boolean} Indicates if the searchVal was found.
+     */
+    containsRecursive(searchVal, current = this.root) {}
+
+    // Extra for those hungry for more BST practice:
+    /**
+     * Calculates the range (max - min) from the given startNode.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} startNode The node to start from to calculate the range.
+     * @returns {number|null} The range of this tree or a sub tree depending on      * if the start Node is the root or not.
+     */
+     range(startNode = this.root) {
+
+     }
+
+     ///        THURSDAY        ///
+
+     /**
+     * DFS Inorder: (Left, Parent, Right)
+     * Converts this BST into an array following Depth First Search inorder.
+     * See debugger call stack to help understand the recursion.
+     * Example on the fullTree var:
+     * [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+     */
+    toArrInorder(node = this.root, vals = []) {
+        if (node) {
+            this.toArrInorder(node.left, vals);
+            vals.push(node.value);
+            this.toArrInorder(node.right, vals);
         }
-        // FORWARD PROGRESS & RECURSIVE
-        var leftHeight = this.heightHelper(node.left)
-        var rightHeight = this.heightHelper(node.right)
-        if(leftHeight > rightHeight){
-            return leftHeight + 1
-        }
-        else{
-            return rightHeight + 1
-        }
-    }
-    /* 
-        CHECK IF THE BST IS CURRENTLY BALANCED
-        REQUIREMENTS FOR BEING BALANCED:
-        1. DIFFERENCE OF HEIGHT IN LEFT AND RIGHT NODE MUST 1 OR LESS
-        2. ALL NODES WITHIN BST MUSBT BE BALANCED, NOT JUST THE ROOT
-    */
-    isBalanced(){
-        return this.isBalancedHelper(this.root)
-    }
-    isBalancedHelper(node){
-        if(node == null){
-            return true
-        }
-        var leftHeight = this.height(node.left)
-        var rightHeight = this.height(node.right)
-        // if( DIFFERENCE IN LEFT AND RIGHT HEIGHT IS LESS THAN 1 && LEFT NODE IS BALANCED && RIGHT NODE IS BALANCED )
-        if( Math.abs(leftHeight-rightHeight) <= 1 && this.isBalancedHelper(node.left) && this.isBalancedHelper(node.right) ){
-            return true
-        }
-        else{
-            return false
-        }
+        return vals;
         
     }
-    /* 
-        DELETE THE NODE CONTAING VALUE GIVEN, IF VALUE DOESN'T EXIST WITHIN TREE RETURN FALSE
-    */
-    delete(value){
-        return this.recDelete(this.root,value)
+
+    /**
+     * Recursively counts the total number of nodes in this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during the traversal of this tree.
+     * @returns {number} The total number of nodes.
+     */
+    size(node = this.root) {
+        if (!node) {
+            return 0;
+          }
+          // Translates into something like: 1 + 1 + 1 + 1 + 0 + 1 + 1 + 1 + 0
+          // instead of using a sum variable.
+          return 1 + this.size(node.left) + this.size(node.right);
     }
 
-    recDelete(node, value){
-        if(node == null){
-            return
-        }
-        else if(value < node.value){
-            node.left = this.recDelete(node.left, value)
-        }
-        else if(value > node.value){
-            node.right = this.recDelete(node.right, value)
-        }
-        else{
-            // CASE 1: Deleting a node with ONE or NO child node(NOT RECURRSIVE)
-            if(node.left == null){
-                var temp = node.right
-                node = null
-                return temp
-            }
-            else if(node.right == null){
-                var temp = node.left
-                node = null
-                return temp
-            }
-            // CASE 2: Deleting a node with TWO child nodes(RECURSIVE)
-            else{
-                // GRAB MAX OF THE LEFT SIDE OR MIN OF THE RIGHT SIDE
-                // REPLACE VALUE WITH THE NEW VALUE
-                // DELETE THE OLD VALUE
-                var tempValue = this.min(node.right)
-                node.value = tempValue
-                node.right = this.recDelete(node.right, tempValue)
-            }
-        }
-        return node
+    /**
+     * Calculates the height of the tree which is based on how many nodes from
+     * top to bottom (whichever side is taller).
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {number} The height of the tree.
+     */
+    height(node = this.root) {
+        if (!node) {
+            return 0;
+          }
+          // base case returns 0 but then the + 1 starts incrementing for each recursive call
+          return 1 + Math.max(this.height(node.left), this.height(node.right));
+          
+          // Note: You also could also use if statements and variables to compare 
+          // and get the greater of the two sides rather than max -- but remember js hoisting.
+          // Using the keyword var (instead of let) could result in unintended behavior 
+          // regarding scope.
     }
+        
 }
-var newBST = new BST()
-newBST.sortedArrtoBST([1,2,3,4,5,6,7,8,9])
-console.log(newBST.height())
+
+let tree = new BST();
+let testVals = [10, 5, 7, 20, 15, 15, 12, 13, 23, 2, 1];
+/*
+              10
+             /   \
+           5      20
+          / \    /  \
+         2   7  15   23
+        /      /  \
+       1      12   15
+                \
+                13
+*/      
+for (let val of testVals) {
+    tree.insert(val);
+}
+
+console.log(tree.toArrInorder());
+
+// Consider running this code in your browser through the inspect console.
+// Chrome dev tools will log to the console nested objects that you can expand
+// to see the whole tree represented..
+// console.log(tree); 
+
+// console.log(`Min of tree (recursive): ${tree.minRecursive()}`); // 1
+// console.log(`Min of right subtree (recursive): ${tree.minRecursive(tree.root.right)}`); // 12
+// console.log(`Max of tree (recursive): ${tree.maxRecursive()}`); // 23
+// console.log(`Max of left subtree (recursive): ${tree.maxRecursive(tree.root.left)}`); // 7
+
 
 
