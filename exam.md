@@ -1,23 +1,32 @@
 ## EXAM TIPS
- - Create a boilerplate project(Set up your pom, application.properties, packages, and login and reg)
- - PSEUDOCODE, take time to look over wireframe and break it down into as many features as possible
+ - Create a boilerplate project(Set up your pom.xml, application.properties, messages.properties, and login and reg)
+ - User model will contain name, email, password, confirm password
+ - PSEUDOCODE, take a look at the wireframe and take 10-15 mins writing out features and relationship or relationships
  - ASK QUESTIONS, we will go over the wireframe together BEFORE you start the exam
 
- - Lookify
+## FUNCTIONALITY
+ - LOGIN AND REG
+ - CREATE
+  - Validations and Displaying error messages
+ - READ
+  - Display the details
+  - Dashboard
+ - UPDATE
+  - Prepopulating the input fields
+  - Validations and Displaying error messages
+ - DELETE
+ - Relationships
+
+## ASSIGNMENTS
+ - Languages
  - Dojo / Ninja
- - Prodcut / Category
- - Login and Reg (Controller and View)
- - EVENTS BELT REVIEWER (ULTIMATE TEST)
+ - Product / Category
+ - EVENTS BELT REVIEWER
 
 ## EXAM GRADING
- - Jump into zoom room and walkthrough application
-
- - Red Belt
-    - Login and Reg
-    - CRUD (w/ validations)
-    - At least one relationship
+ - Live grading. If you are ready to be graded ping Edward or Shawn on cohort channel. NO DM, NO PINGING ON ZOOM
  - Black Belt
-    - Deployment (Must deploy in the same day)
+    - DEPLOYMENT(Must be done within 24 hours of when you START the exam)
     - Black belt features that MAY show up ( extra relationships, extra validations, custom queries, conditional rendering )
 
 ## CHEATING
@@ -25,6 +34,5 @@
  - Find the the exam on GITHUB
 
 ## NOT CHEATING
- - Asking Sadie or Ed for help
+ - Asking Edward or Shawn for help
  - Grabbing code from Ed's GITHUB
-

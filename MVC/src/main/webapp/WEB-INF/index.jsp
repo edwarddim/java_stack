@@ -1,64 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
 </head>
 <body>
 	<div class="container">
-		<h1>Users Page</h1>
-		<form:form action="/users/new" method="POST" modelAttribute="userObj">
-			<p>
-		        <form:label path="name">Name</form:label>
-		        <form:input path="name"/>
-		        <form:errors path="name"/>
-			</p>
-			<p>
-		        <form:label path="email">Email</form:label>
-		        <form:input path="email"/>
-		        <form:errors path="email"/>
-			</p>
-			<p>
-		        <form:label path="password">Password</form:label>
-		        <form:input path="password"/>
-		        <form:errors path="password"/>
-			</p>
-			<button type="submit">Create User</button>
-		</form:form>
+		<h1>All Books</h1>
 		<table class="table table-dark">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Password</th>
-					<th>Details</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Language</th>
+					<th># of Pages</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${allUsers}" var="user">
+				<c:forEach var="book" items="${books}">
 					<tr>
+						<td><c:out value="${book.id}" /></td>
 						<td>
-							<c:out value="${user.id }" />
+							<a href="/books/${book.id}"><c:out value="${book.title}" /></a>
 						</td>
-						<td>
-							<c:out value="${user.name }" />
-						</td>
-						<td>
-							<c:out value="${user.email }" />
-						</td>
-						<td>
-							<c:out value="${user.password }" />
-						</td>
-						<td>
-							<a href="/users/${user.id }">Details</a>
-							<a href="/users/${user.id }/edit">Edit</a>
-						</td>
+						<td><c:out value="${book.description}" /></td>
+						<td><c:out value="${book.language}" /></td>
+						<td><c:out value="${book.numberOfPages}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

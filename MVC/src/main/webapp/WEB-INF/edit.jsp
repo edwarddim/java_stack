@@ -1,33 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
 </head>
 <body>
 	<div class="container">
-	<form:form action="/users/new" method="POST" modelAttribute="userObj">
-			<p>
-		        <form:label path="name">Name</form:label>
-		        <form:input path="name"/>
-		        <form:errors path="name"/>
-			</p>
-			<p>
-		        <form:label path="email">Email</form:label>
-		        <form:input path="email"/>
-		        <form:errors path="email"/>
-			</p>
-			<p>
-		        <form:label path="password">Password</form:label>
-		        <form:input path="password"/>
-		        <form:errors path="password"/>
-			</p>
-			<button type="submit">Create User</button>
+		<h1>Edit book</h1>
+		<form:form action="/books/${bookObj.id}" method="post" modelAttribute="bookObj">
+		    <input type="hidden" name="_method" value="put">
+		    <p>
+		        <form:label path="title">Title</form:label>
+		        <form:input path="title"/>
+		        <form:errors path="title"/>
+		    </p>
+		    <p>
+		        <form:label path="description">Description</form:label>
+		        <form:errors path="description"/>
+		        <form:textarea path="description"/>
+		    </p>
+		    <p>
+		        <form:label path="language">Language</form:label>
+		        <form:errors path="language"/>
+		        <form:input path="language"/>
+		    </p>
+		    <p>
+		        <form:label path="numberOfPages">Pages</form:label>
+		        <form:errors path="numberOfPages"/>     
+		        <form:input type="number" path="numberOfPages"/>
+		    </p>    
+		    <input type="submit" value="Submit"/>
 		</form:form>
 	</div>
 </body>

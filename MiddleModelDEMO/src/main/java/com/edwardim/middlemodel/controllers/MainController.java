@@ -1,106 +1,86 @@
 package com.edwardim.middlemodel.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.edwardim.middlemodel.models.Item;
-import com.edwardim.middlemodel.models.Purchase;
+import com.edwardim.middlemodel.models.Group;
 import com.edwardim.middlemodel.models.User;
+import com.edwardim.middlemodel.models.UserGroup;
 import com.edwardim.middlemodel.services.MainService;
 
 @Controller
 public class MainController {
+	
 	@Autowired
 	private MainService mainServ;
 	
-	// ----------------- CREATE FOR USER --------------------------------//
+	@GetMapping("/")
+	public String index() {
+		return "index.jsp";
+	}
+	// ----------------- CREATING USERS ---------------------//
 	@GetMapping("/users/new")
-	public String newUser(@ModelAttribute("userObj")User emptyUser) {
-		
-		System.out.println(mainServ.findUsersWithName("Edward Im"));
-		return "newUser.jsp";
+	public String newUser(
+			@ModelAttribute("userObj") User emptyUser
+	) {
+		return "new_user.jsp";
 	}
 	
 	@PostMapping("/users/new")
 	public String createUser(
-			@Valid @ModelAttribute("userObj")User filledUser, BindingResult results
+			@ModelAttribute("userObj") User filledUser
 	) {
-		if(results.hasErrors()) {
-			return "newUser.jsp";
-		}
-		mainServ.createUser(filledUser);
+		mainServ.saveUser(filledUser);
 		return "redirect:/";
 	}
-	// -------------------------------------------------------------------//
+	// ----------------- CREATING USERS ---------------------//
 	
-	
-	// ----------------- CREATE FOR ITEM --------------------------------//
-	@GetMapping("/items/new")
-	public String newItem(@ModelAttribute("itemObj")Item emptyItem) {
-		return "newItem.jsp";
+	// ----------------- CREATING GROUPS ---------------------//
+	@GetMapping("/groups/new")
+	public String newGroup(
+			@ModelAttribute("groupObj") Group emptyGroup
+	) {
+		return "new_group.jsp";
 	}
 	
-	@PostMapping("/items/new")
-	public String createItem(
-			@Valid @ModelAttribute("itemObj")Item filledItem, BindingResult results
+	@PostMapping("/groups/new")
+	public String createGroup(
+			@ModelAttribute("groupObj") Group filledGroup
 	) {
-		if(results.hasErrors()) {
-			return "newItem.jsp";
-		}
-		mainServ.createItem(filledItem);
+		mainServ.saveGroup(filledGroup);
 		return "redirect:/";
 	}
 	
-	@GetMapping("/items/{id}")
-	public String item(
-		@PathVariable("id")Long id, Model model
+	// ----------------- CREATING GROUPS ---------------------//
+	// ----------------- DISPLAY A USER AND JOIN A GROUP --------//
+	@GetMapping("/users/{id}")
+	public String showUser(
+			@ModelAttribute("userGroupObj") UserGroup emptyUserGroup,
+			@PathVariable("id") Long user_id,
+			Model model
 	) {
-		Item item = mainServ.findItem(id);
-		model.addAttribute(item);
+		User oneUser = mainServ.findUser(user_id);
+		List<Group> allGroups = mainServ.groupsExcludingUser(oneUser);
 
-//		List<User> list = mainServ.findNonPurchasers(item);
-		List<User> list = mainServ.test(item);
-		model.addAttribute("users", list);
-		
-		return "item.jsp";
+		model.addAttribute("user", oneUser);
+		model.addAttribute("groups", allGroups);
+		return "one_user.jsp";
 	}
-	// -------------------------------------------------------------------//
 	
-	@GetMapping("/purchase")
-	public String displayPurchase(
-			@ModelAttribute("purchaseObj")Purchase emptyPurchase, Model model
+	@PostMapping("/join/process")
+	public String joinGroup(
+			@ModelAttribute("userGroupObj") UserGroup filledUserGroup
 	) {
-		model.addAttribute("allUsers", mainServ.allUsers());
-		model.addAttribute("allItems", mainServ.allItems());
-		return "purchase.jsp";
+		mainServ.saveUserGroup(filledUserGroup);
+		return "redirect:/users/" + filledUserGroup.getUser().getId();
 	}
 	
-	@GetMapping("/purchase/all")
-	public String allPurchase(Model model) {
-		model.addAttribute("allPurchase", mainServ.allPurchase());
-		return "allPurchase.jsp";
-	}
-	
-	@PostMapping("/purchase/new")
-	public String processPurchase(@ModelAttribute("purchaseObj")Purchase filledPurchase) {
-		mainServ.createPurchase(filledPurchase);
-		return "redirect:/purchase";
-	}
-	
-	
-	
-	
-	
-	
+	// ----------------- DISPLAY A USER AND JOIN A GROUP --------//
 }

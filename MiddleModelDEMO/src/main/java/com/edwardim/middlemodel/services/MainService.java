@@ -6,73 +6,58 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edwardim.middlemodel.models.Item;
-import com.edwardim.middlemodel.models.Purchase;
+import com.edwardim.middlemodel.models.Group;
 import com.edwardim.middlemodel.models.User;
-import com.edwardim.middlemodel.repositories.ItemRepository;
-import com.edwardim.middlemodel.repositories.PurchaseRepository;
+import com.edwardim.middlemodel.models.UserGroup;
+import com.edwardim.middlemodel.repositories.GroupRepository;
+import com.edwardim.middlemodel.repositories.UserGroupRepository;
 import com.edwardim.middlemodel.repositories.UserRepository;
 
 @Service
 public class MainService {
+	
 	@Autowired
 	private UserRepository userRepo;
 	
 	@Autowired
-	private ItemRepository itemRepo;
+	private GroupRepository groupRepo;
 	
 	@Autowired
-	private PurchaseRepository purchaseRepo;
-
-	public User createUser(User filledUser) {
-		return userRepo.save(filledUser);
-		
-	}
+	private UserGroupRepository userGroupRepo;
 	
-	public List<User> allUsers() {
+	// -------------------- CRUD USER -----------------------------//
+	public List<User> allUsers(){
 		return userRepo.findAll();
 	}
 	
-	public List<User> findUsersWithName(String name){
-		return userRepo.findByname(name);
+	public User saveUser(User u) {
+		return userRepo.save(u);
 	}
 	
-	
-	// ------------------------------- //
-	public Item createItem(Item item) {
-		return itemRepo.save(item);
+	public User findUser(Long user_id) {
+		return userRepo.findById(user_id).orElse(null);
 	}
 	
-	public List<Item> allItems(){
-		return itemRepo.findAll();
+	// -------------------- CRUD GROUP -----------------------------//
+	public List<Group> allGroups(){
+		return groupRepo.findAll();
+	}
+	
+	public Group saveGroup(Group g) {
+		return groupRepo.save(g);
+	}
+	
+	public Group findGroup(Long group_id) {
+		return groupRepo.findById(group_id).orElse(null);
+	}
+	
+	public List<Group> groupsExcludingUser(User u){
+		return groupRepo.groupsExcludingUser(u);
+	}
+	
+	// -------------------- CRUD USER GROUP -----------------------------//
+	public UserGroup saveUserGroup(UserGroup userGroup) {
+		return userGroupRepo.save(userGroup);
 	}
 
-	public void createPurchase(Purchase filledPurchase) {
-		purchaseRepo.save(filledPurchase);
-		
-	}
-
-	public List<Purchase> allPurchase() {
-		return purchaseRepo.findAll();
-	}
-
-	public Item findItem(Long id) {
-		return itemRepo.findById(id).orElse(null);
-	}
-	
-	public List<User> findNonPurchasers(Item item){
-		// GENERATE LIST OF USERS WHO HAVE BOUGHT THIS ITEM
-		ArrayList<Long> ids = new ArrayList<Long>();
-		for(Purchase p : item.getOrders()) {
-			ids.add(p.getPurchaser().getId());
-		}
-		// QUERY THE LIST OF USERS WHO BOUGHT ITEM AGAINST ALL PURCHASES
-		return userRepo.findByIdNotIn(ids);
-	}
-	
-	public List<User> test(Item item){
-		return userRepo.findUsersNoPurchase(item);
-	}
-	
-	
 }
