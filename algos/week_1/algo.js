@@ -58,16 +58,7 @@ class SLL {
      * @returns {SinglyLinkedList} This list.
      */
     printValues() {
-        if (this.head == null) {
-            console.log("LIST EMPTY")
-            return
-        }
-        // IF THE LIST IS NOT EMPTY
-        var runner = this.head
-        while (runner != null) {
-            console.log(runner.value)
-            runner = runner.next
-        }
+
     }
     /**
      * Creates a new node with the given data and inserts it at the back of
