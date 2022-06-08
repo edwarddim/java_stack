@@ -76,9 +76,14 @@ class SLL {
      * @returns {SinglyLinkedList} This list.
      */
     insertAtFront(data) {
-        // CREATE NEW NODE
-        // POINT NEW NODE NEXT TO CURRENT HEAD
-        // POINT HEAD TO THE NEW NODE
+        // SLL IS EMPTY
+        // CREATE A NEW NODE WITH THE GIVEN DATA
+        // POINT THE HEAD AT THE NEW NODE
+
+        // SLL IS NOT EMPTY
+        // CREATE A NEW NODE
+        // POINT THE NEW NODE'S NEXT TO THE HEAD
+        // POINT THE HEAD TO THE NEW NODE
     }
 
     /**
@@ -88,7 +93,12 @@ class SLL {
      * @returns {any} The data from the removed node.
      */
     removeAtFront() {
+        // SLL IS EMPTY
 
+        // SLL IS NOT EMPTY
+        // CREATE A TEMP VARIABLE POINTING AT THE SECOND NODE IN THE LIST
+        // TAKE THE FIRST NODE AND POINT IT TO NULL
+        // POINT THE HEAD TO THE TEMP VARIABLE
     }
 
     // EXTRA
@@ -99,7 +109,20 @@ class SLL {
      * @returns {number|NaN} The average of the node's data.
      */
     average() {
-
+        // SLL IS EMPTY
+        if(this.head == null){
+            return 0
+        }
+        // SLL IS NOT EMPTY
+        var total = 0
+        var count = 0
+        var runner = this.head
+        while(runner != null){
+            total += runner.value
+            count++
+            runner = runner.next
+        }
+        return total / count;
     }
     // THURSDAY --------------------------------------------------------------------//
     /**

@@ -14,5 +14,9 @@ public class Test{
         // System.out.println(armenCar.drive(5));
 
         armenCar.drive(5).drive(5).drive(5);
+        defaultCar.drive(5).drive(5).drive(5);
+
+        Car.printTotalCars();
+        Car.printTotalMiles();
     }
 }

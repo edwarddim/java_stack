@@ -6,6 +6,12 @@ public class Car{
     private String engine;
     private boolean convertible;
     private int odometer;
+
+    // CLASS VARIABLES
+    private static int totalCars = 0;
+    private static int totalMiles = 0;
+
+
     // CONSTRUCTOR METHODS
     // EMPTY CONSTRUCTOR
     public Car(){
@@ -16,6 +22,7 @@ public class Car{
         this.engine = "V4";
         this.convertible = false;
         this.odometer = 0;
+        totalCars++;
     }
     // FULL CONSTRUCTOR
     public Car(int wheels, int doors, String color, String engine, boolean convertible){
@@ -26,12 +33,22 @@ public class Car{
         this.engine = engine;
         this.convertible = convertible;
         this.odometer = 0;
+        totalCars++;
+    }
+
+    public static void printTotalMiles(){
+        System.out.println(totalMiles);
+    }
+
+    public static void printTotalCars(){
+        System.out.println(totalCars);
     }
     // OTHER METHODS
     // drive
     public Car drive(int distance){
         this.odometer += distance;
         System.out.println(this.odometer);
+        totalMiles += distance;
         return this;
     }
     // honk
