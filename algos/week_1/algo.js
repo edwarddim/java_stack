@@ -29,7 +29,7 @@ class SLL {
      */
     printValues() {
         var runner = this.head
-        while(runner != null){
+        while (runner != null) {
             console.log(runner.value)
             runner = runner.next
         }
@@ -110,14 +110,14 @@ class SLL {
      */
     average() {
         // SLL IS EMPTY
-        if(this.head == null){
+        if (this.head == null) {
             return 0
         }
         // SLL IS NOT EMPTY
         var total = 0
         var count = 0
         var runner = this.head
-        while(runner != null){
+        while (runner != null) {
             total += runner.value
             count++
             runner = runner.next
@@ -125,16 +125,6 @@ class SLL {
         return total / count;
     }
     // THURSDAY --------------------------------------------------------------------//
-    /**
-     * Determines whether or not the given search value exists in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @param {any} val The data to search for in the nodes of this list.
-     * @returns {boolean}
-     */
-    contains(val) {
-
-    }
 
     /**
      * Removes the last node of this list.
@@ -143,9 +133,27 @@ class SLL {
      * @returns {any} The data from the node that was removed.
      */
     removeBack() {
+        // SLL IS EMPTY
 
+        // SLL HAS ONE NODE
+
+        // SLL IS NOT EMPTY
     }
-
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @returns {boolean}
+     */
+    contains(target) {
+        // CREATE A RUNNER AT THE HEAD
+        // HAVE THE RUNNER GO THROUGH THE SLL
+            // CHECK TO SEE IF THE RUNNER VALUE MATCHES THE TARGET
+            // RETURN TRUE IF THE VALUE MATCHES THE TARGET
+            // GO TO THE NEXT NODE
+        // RETURN FALSE IF THE RUNNER GOES OUT OF BOUNDS
+    }
     // EXTRA
     /**
      * Determines whether or not the given search value exists in this list.
@@ -163,17 +171,6 @@ class SLL {
     // FRIDAY ----------------------------------------------------------------------//
 
     /**
-     * Retrieves the data of the second to last node in this list.
-     * - Time: (?).
-     * - Space: (?).
-     * @returns {any} The data of the second to last node or null if there is no
-     *    second to last node.
-     */
-    secondToLast() {
-
-    }
-
-    /**
      * Removes the node that has the matching given val as it's data.
      * - Time: (?).
      * - Space: (?).
@@ -182,6 +179,28 @@ class SLL {
      * @returns {boolean} Indicates if a node was removed or not.
      */
     removeVal(val) {
+        // LIST IS EMPTY
+        // LIST HAS ONE NODE
+        // LIST HAS MANY NODES
+        // CREATE A RUNNER AT THE HEAD
+        // RUN THROUGH THE SLL
+            // CHECK FOR THE RUNNERS NEXT VALUE
+            // IF THE VALUE IS FOUND
+                // CREATE A TEMP VARIABLE POINTING TO THE RUNNERS NEXT NODE
+                // POINT THE RUNNER POINT AND SKIP TO THE NEXT NEXT NODE
+                // USING THE temp VARIABLE, POINT THE NEXT TO NULL
+                // RETURN true
+        // RETURN false
+    }
+
+    /**
+     * Retrieves the data of the second to last node in this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data of the second to last node or null if there is no
+     *    second to last node.
+     */
+    secondToLast() {
 
     }
 
