@@ -1,26 +1,33 @@
 package com.edwardim.userdemo.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edwardim.userdemo.models.User;
+import com.edwardim.userdemo.repositories.UserRepository;
 
 @Service
 public class UserService {
+	
+	@Autowired
+	UserRepository userRepo;
+	
 	// CREATE A USER
+	public User create(User newUser) {
+		return userRepo.save(newUser);
+	}
 	
 	// GET ALL USERS
 	public List<User> getAllUsers(){
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("Ed Im", 15, "ed@gmail.com", "password"));
-		users.add(new User("Jane Doe",18, "jane@gmail.com", "password"));
-		users.add(new User("John Im",55, "john@gmail.com", "password"));
-		return users;
+		return userRepo.findAll();
 	}
-	// GET ONE USER
 	
+	// GET ONE USER
+	public User getOneUser(Long id) {
+		return userRepo.findById(id).orElse(null);
+	}
 	// UPDATE USER
 	
 	// DELETE USER

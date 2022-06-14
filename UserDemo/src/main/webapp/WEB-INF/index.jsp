@@ -9,6 +9,13 @@
 </head>
 <body>
 	<h1>Index JSP</h1>
+	<form action="/users/new" method="POST">
+		<input type="text" name="name" />
+		<input type="text" name="email" />
+		<input type="text" name="password" />
+		<input type="number" name="age" />
+		<button>Submit</button>
+	</form>
 	<table>
 		<thead>
 			<tr>
