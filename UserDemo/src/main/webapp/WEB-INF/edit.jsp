@@ -11,8 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Index JSP</h1>
-	<form:form method="POST" action="/users/data" modelAttribute="userObj">
+	<div class="container">
+		<form:form method="POST" action="/users/${userObj.id}/edit" modelAttribute="userObj">
+			<input type="hidden" name="_method" value="put">
 			<p>
 				Name:
 				<form:input type="text" path="name" />
@@ -35,40 +36,6 @@
 			</p>
 			<button>Submit</button>
 		</form:form>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Password</th>
-				<th>Age</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="user" items="${users }">
-				<tr>
-					<td><c:out value="${user.name }"/></td>
-					<td><c:out value="${user.email }"/></td>
-					<td><c:out value="${user.password }"/></td>
-					<c:choose>
-						<c:when test="${user.age > 21 }">
-							<td>Age over 21</td>	
-						</c:when>
-						<c:when test="${user.age < 21 && user.age >= 18 }">
-							<td>Age between 21 and 18</td>
-						</c:when>
-						<c:otherwise>
-							<td>Age under 18</td>
-						</c:otherwise>
-					</c:choose>
-					<td>
-						<a href="/users/${user.id}/edit">Edit</a>
-						<a href="/users/${user.id}/delete">Delete</a>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	</div>
 </body>
 </html>

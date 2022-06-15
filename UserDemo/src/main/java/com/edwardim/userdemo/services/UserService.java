@@ -2,6 +2,8 @@ package com.edwardim.userdemo.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,13 @@ public class UserService {
 		return userRepo.findById(id).orElse(null);
 	}
 	// UPDATE USER
+
+	public User updateUser(@Valid User updatedUser) {
+		return userRepo.save(updatedUser);
+	}
 	
 	// DELETE USER
+	public void deleteUser(Long id) {
+		userRepo.deleteById(id);
+	}
 }
