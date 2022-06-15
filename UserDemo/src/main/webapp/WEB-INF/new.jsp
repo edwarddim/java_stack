@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,30 @@
 </head>
 <body>
 	<div class="container">
-		
+		<h1>Data Binding Form</h1>
+		<form:form method="POST" action="/users/data" modelAttribute="userObj">
+			<p>
+				Name:
+				<form:input type="text" path="name" />
+				<form:errors path="name" />
+			</p>
+			<p>
+				Email:
+				<form:input type="text" path="email" />
+				<form:errors path="email" />
+			</p>
+			<p>
+				Password:
+				<form:input type="text" path="password" />
+				<form:errors path="password" />
+			</p>
+			<p>
+				Age:
+				<form:input type="number" path="age" />
+				<form:errors path="age" />
+			</p>
+			<button>Submit</button>
+		</form:form>
 	</div>
 </body>
 </html>

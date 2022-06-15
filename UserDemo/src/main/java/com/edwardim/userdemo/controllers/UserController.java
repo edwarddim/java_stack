@@ -2,10 +2,14 @@ package com.edwardim.userdemo.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +24,10 @@ public class UserController {
 	private UserService userServ;
 	
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(
+		Model model,
+		@ModelAttribute("userObj") User emptyUser
+	) {
 		// GRAB ALL USERS FROM DB - UserService userServ
 		List<User> allUsers = userServ.getAllUsers();
 		
@@ -58,5 +65,35 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	// ----------------- CREATE -----------------------//
+	@GetMapping("/users/new")
+	public String newUser(
+		@ModelAttribute("userObj") User emptyUser
+	) {
+		return "new.jsp";
+	}
 	
+	@PostMapping("/users/data")
+	public String createUser(
+		@Valid @ModelAttribute("userObj") User filledUser, 
+		BindingResult results, Model model
+	) {
+		// CHECK TO SEE IF VALIDATIONS FAIL
+		if(results.hasErrors()) {
+			// GRAB ALL USERS FROM DB - UserService userServ
+			List<User> allUsers = userServ.getAllUsers();
+			
+			// PASS THE USERS TO THE JSP - Model model
+			model.addAttribute("users", allUsers);
+			return "index.jsp";
+		}
+		// VALIDATIONNS HAVE PASSED, CREATE USER AND REDIRECT
+		else {
+			userServ.create(filledUser);
+			return "redirect:/";
+		}
+	}
+	
+	
+	// ----------------- CREATE -----------------------//
 }

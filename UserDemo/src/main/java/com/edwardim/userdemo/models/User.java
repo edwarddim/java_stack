@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,9 +24,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotNull
+    @Size(min=3, max=100, message="Custom Name validation message")
 	private String name;
+    
+    @NotNull
+    @Size(min=3, max=100)
 	private String email;
+    @NotNull
+    @Size(min=3, max=100)
 	private String password;
+    
+    @NotNull
+    @Min(0)
+    @Max(130)
 	private int age;
 	
     @Column(updatable=false)
