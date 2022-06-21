@@ -12,13 +12,14 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Dashboard</h1>
+		<h1>Welcome, <c:out value="${user.userName}" /></h1>
 		<a href="/questions/new">Ask a Question</a>
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Question</th>
 					<th>Creator</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,6 +27,17 @@
 					<tr>
 						<td><c:out value="${question.text}" /></td>
 						<td><c:out value="${question.creator.userName}" /></td>
+						<td>
+							<c:if test="${user_id == question.creator.id }">
+								<a href="">Edit</a>
+								<form action="/questions/${question.id}" method="POST">
+									<input type="hidden" name="_method" value="DELETE" />
+									<button>Delete</button>
+								</form>
+								<a href="/questions/${question.id}/delete">DELETE</a>
+							</c:if>
+							<a href="">Show</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -30,4 +30,7 @@ public class QuestionService {
 	// UPDATE
 	
 	// DELETE
+	public void deleteQuestion(Long id) {
+		qRepo.deleteById(id);
+	}
 }
