@@ -92,11 +92,9 @@ public class MainController {
 	public String joinDataBinding(
 		@ModelAttribute("prodCatObj") ProductCategory filledProdCat
 	) {
-		mainServ.createRelationship(filledProdCat);
+		ProductCategory newProdCat = mainServ.createRelationship(filledProdCat);
 		
-		return "redirect:/products/" + filledProdCat.getProduct().getId();
+		return "redirect:/products/" + newProdCat.getProduct().getId();
 	}
 	// --------------- CREATING A RELATIONSHIP (SHOW PRODUCT) -------------- //
-	
-	
 }
