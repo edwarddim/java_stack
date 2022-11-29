@@ -1,5 +1,3 @@
-// MON
-
 /* 
 Intro to Singly Linked Lists
  - OOP
@@ -11,9 +9,6 @@ class SLNode {
         this.next = null
     }
 }
-
-
-
 class SLL {
     constructor() {
         this.head = null;
@@ -44,22 +39,6 @@ class SLL {
             runner = runner.next.next
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //  TUESDAY -------------------------------------------------------------------//
     /**
      * Creates a new node with the given data and inserts it at the back of
@@ -70,9 +49,16 @@ class SLL {
      * @returns {SinglyLinkedList} This list.
      */
     insertAtBack(data) {
-
+        // SLL IS EMPTY
+            // CREATE A NEW NODE WITH THE GIVEN DATA
+            // POINT THE HEAD TO THE NEW NODE
+            // RETURN
+        // SLL IS NOT EMPTY
+            // CREATE A RUNNER AT THE HEAD
+            // RUN THE RUNNER UNTIL IT GETS TO THE LAST NODE
+            // CREATE A NEW NODE WITH THE GIVEN DATA
+            // POINT THE RUNNER'S NEXT TO THE NEW NODE
     }
-
     /**
      * Adds each item of the given array to the back of this list.
      * - Time: (?).
@@ -91,14 +77,15 @@ class SLL {
 //==========================//
 
 
-var sll = new SLL();
-// sll.insertAtBack(1)
-// sll.insertAtBack(2)
-// sll.insertAtBack(3)
-// sll.insertAtBack(4)
-// sll.insertAtBack(5)
+let sll = new SLL();
+sll.insertAtBack(1)
+sll.insertAtBack(2)
+sll.insertAtBack(3)
+sll.insertAtBack(4)
+sll.insertAtBack(5)
 
-// sll.printValues()
+sll.printValues()
+sll.seedFromArr([1,2,3,4,5,6])
 // sll.insertAtFront(10)
 // sll.removeAtFront()
 // sll.printValues()
