@@ -12,6 +12,7 @@ class SLNode {
 class SLL {
     constructor() {
         this.head = null;
+        this.length = 0;
     }
     //  MONDAY -------------------------------------------------------------------//
     /**
@@ -36,7 +37,7 @@ class SLL {
         let runner = this.head
         while(runner != null){
             console.log(runner.value)
-            runner = runner.next.next
+            runner = runner.next
         }
     }
     //  TUESDAY -------------------------------------------------------------------//
@@ -70,7 +71,7 @@ class SLL {
 
     }
 
-        // WEDNESDAY -------------------------------------------------------------------//
+    // WEDNESDAY -------------------------------------------------------------------//
 
     /**
      * Creates a new node with the given data and inserts that node at the front
@@ -82,25 +83,13 @@ class SLL {
      */
      insertAtFront(data) {
         // SLL IS EMPTY
-        // CREATE A NEW NODE WITH THE GIVEN DATA
-        let NewNode = new SLNode(data)
-        if(this.isEmpty()){
-            console.log("SLL IS EMPTY")
+            // CREATE A NEW NODE WITH THE GIVEN DATA
             // POINT THE HEAD TO THE NEW NODE
-            this.head = NewNode
             // RETURN
-            return 
-        }
         // SLL IS NOT EMPTY
-        // CREATE A RUNNER AT THE HEAD
-        let runner = this.head
-        // RUN THE RUNNER UNTIL IT GETS TO THE LAST NODE
-        while(runner.next != null){
-            runner = runner.next
-        }
-        // POINT THE RUNNER'S NEXT TO THE NEW NODE
-        runner.next = NewNode
-        return
+            // CREATE A NEW NODE WITH THE GIVEN DATA
+            // SET THE NEW NODE NEXT TO THE HEAD
+            // POINT HEAD TO NEW NODE
     }
 
     /**
@@ -110,7 +99,10 @@ class SLL {
      * @returns {any} The data from the removed node.
      */
     removeAtFront() {
-
+        // SLL IS EMPTY
+            // DO NOTHING, NOTHING TO REMOVE
+        // SLL IS NOT EMPTY
+            // MOVE HEAD TO NEXT NODE
     }
 
     // EXTRA
@@ -121,9 +113,6 @@ class SLL {
      * @returns {number|NaN} The average of the node's data.
      */
     average() {
-        // SLL IS EMPTY
-
-        // SLL IS NOT EMPTY
 
     }
     // THURSDAY --------------------------------------------------------------------//
@@ -135,11 +124,7 @@ class SLL {
      * @returns {any} The data from the node that was removed.
      */
      removeBack() {
-        // SLL IS EMPTY
 
-        // SLL HAS ONE NODE
-
-        // SLL IS NOT EMPTY
     }
     /**
      * Determines whether or not the given search value exists in this list.
@@ -149,12 +134,7 @@ class SLL {
      * @returns {boolean}
      */
     contains(target) {
-        // CREATE A RUNNER AT THE HEAD
-        // HAVE THE RUNNER GO THROUGH THE SLL
-            // CHECK TO SEE IF THE RUNNER VALUE MATCHES THE TARGET
-            // RETURN TRUE IF THE VALUE MATCHES THE TARGET
-            // GO TO THE NEXT NODE
-        // RETURN FALSE IF THE RUNNER GOES OUT OF BOUNDS
+
     }
     // EXTRA
     /**
@@ -180,18 +160,7 @@ class SLL {
      * @returns {boolean} Indicates if a node was removed or not.
      */
      removeVal(val) {
-        // LIST IS EMPTY
-        // LIST HAS ONE NODE
-        // LIST HAS MANY NODES
-        // CREATE A RUNNER AT THE HEAD
-        // RUN THROUGH THE SLL
-            // CHECK FOR THE RUNNERS NEXT VALUE
-            // IF THE VALUE IS FOUND
-                // CREATE A TEMP VARIABLE POINTING TO THE RUNNERS NEXT NODE
-                // POINT THE RUNNER POINT AND SKIP TO THE NEXT NEXT NODE
-                // USING THE temp VARIABLE, POINT THE NEXT TO NULL
-                // RETURN true
-        // RETURN false
+
     }
 
     /**

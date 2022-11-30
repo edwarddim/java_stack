@@ -1,8 +1,8 @@
 # OOP - OBJECT ORIENTED PROGRAMMING
 
 # Four Pillars of OOP
- - Abstraction
  - Encapsulation
+ - Abstraction
 
- - Polymorphism
  - Inheritance
+ - Polymorphism
