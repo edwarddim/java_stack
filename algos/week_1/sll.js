@@ -12,7 +12,6 @@ class SLNode {
 class SLL {
     constructor() {
         this.head = null;
-        this.length = 0;
     }
     //  MONDAY -------------------------------------------------------------------//
     /**
@@ -124,7 +123,11 @@ class SLL {
      * @returns {any} The data from the node that was removed.
      */
      removeBack() {
+        // SLL IS EMPTY
 
+        // SLL HAS 1 NODE
+
+        // SLL IS NOT EMPTY
     }
     /**
      * Determines whether or not the given search value exists in this list.
