@@ -163,7 +163,13 @@ class SLL {
      * @returns {boolean} Indicates if a node was removed or not.
      */
      removeVal(val) {
+        // THE NODE TO REMOVE IS NOT THERE
 
+        // THE NODE TO REMOVE IS THE FIRST NODE
+
+        // THE NODE TO REMOVE IS SOMEWHERE IN THE MIDDLE
+
+        // THE NODE TO REMOVE IS THE LAST NODE
     }
 
     /**
