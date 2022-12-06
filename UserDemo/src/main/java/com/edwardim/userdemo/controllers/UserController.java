@@ -21,10 +21,10 @@ public class UserController {
 	@GetMapping("/")
 	public String index(Model model) {
 		// USE SERVICE TO MAKE CRUD COMMAND - RETRIEVE ALL USERS
-		List<User> allUsersFromDB = userServ.getAllUsers();
+//		List<User> allUsersFromDB = userServ.getAllUsers();
 		
 		// PASS ALL USERS TO JSP
-		model.addAttribute("allUsers", allUsersFromDB);
+//		model.addAttribute("allUsers", allUsersFromDB);
 		
 		// RENDER THE JSP
 		return "index.jsp";
