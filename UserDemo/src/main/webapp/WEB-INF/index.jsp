@@ -36,6 +36,25 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<form action="/users/new" method="POST">
+			<p>
+				Name:
+				<input type="text" name="name" id="" />
+			</p>
+			<p>
+				Email:
+				<input type="email" name="email" id="" />
+			</p>
+			<p>
+				Password:
+				<input type="password" name="password" id="" />
+			</p>
+			<p>
+				Age:
+				<input type="number" name="age" id="" />
+			</p>
+			<button>Submit</button>
+		</form>
 	</div>
 </body>
 </html>

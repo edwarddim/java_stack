@@ -13,4 +13,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findAll();
 	
 	// CUSTOM QUERIES
+	List<User> findByFullName(String search);
 }
