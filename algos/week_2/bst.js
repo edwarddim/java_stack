@@ -85,15 +85,15 @@ class BinarySearchTree {
      * @param {number} searchVal The number to search for in the node's data.
      * @returns {boolean} Indicates if the searchVal was found.
      */
-    contains(searchVal) { 
+    contains(searchVal) {
         // BST IS EMPTY
 
         // BST IS NOT EMPTY
         // SET RUNNER AT ROOT
         // while loop
-            // searchVal is EQUAL to runner data
-            // searchVal is LESS THAN to runner data
-            // searchVal is GREATER THAN to runner data
+        // searchVal is EQUAL to runner data
+        // searchVal is LESS THAN to runner data
+        // searchVal is GREATER THAN to runner data
     }
 
     /**
@@ -114,7 +114,70 @@ class BinarySearchTree {
      *    startNode is the root or not.
      */
     range(startNode = this.root) { }
+
+    // ------------------- WEDNESDAY --------------------------//
+    /**
+     * Inserts a new node with the given newVal in the right place to preserver
+     * the order of this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} newVal The data to be added to a new node.
+     * @returns {BinarySearchTree} This tree.
+     */
+    insert(newVal) { 
+        // BST IS EMPTY
+            // CREATE A NEW BST NODE
+            // POINT THE ROOT TO THE NEW BST NODE
+            // RETURN THIS
+        // BST IS NOT EMPTY
+            // SET THE RUNNER AT THE ROOT
+            // COMPARE THE newValue TO runner data
+            // CHECK TO SEE IF THE runner LEFT or RIGHT POINTS TO ANOTHER NODE
+                // IF LEFT or RIGHT points to NULL
+                // POINT THE runner LEFT or RIGHT to the NEW BST NODE
+    }
+
+    /**
+     * Inserts a new node with the given newVal in the right place to preserver
+     * the order of this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {number} newVal The data to be added to a new node.
+     * @param {Node} curr The node that is currently accessed from the tree as
+     *    the tree is being traversed.
+     * @returns {BinarySearchTree} This tree.
+     */
+    insertRecursive(newVal, curr = this.root) { }
 }
+/* fullTree
+                    root
+                <-- 25 -->
+              /            \
+            15             50
+          /    \         /    \
+        10     22      35     70
+      /   \   /  \    /  \   /  \
+    4    12  18  24  31  44 66  90
+*/
+const fullTree = new BinarySearchTree();
+fullTree
+  .insert(25)
+  .insert(15)
+  .insert(10)
+  .insert(22)
+  .insert(4)
+  .insert(12)
+  .insert(18)
+  .insert(24)
+  .insert(50)
+  .insert(35)
+  .insert(70)
+  .insert(31)
+  .insert(44)
+  .insert(66)
+  .insert(90);
+fullTree.print();
+
 
 const emptyTree = new BinarySearchTree();
 const oneNodeTree = new BinarySearchTree();

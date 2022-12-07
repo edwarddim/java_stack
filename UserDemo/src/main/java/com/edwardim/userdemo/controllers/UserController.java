@@ -2,10 +2,14 @@ package com.edwardim.userdemo.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +64,30 @@ public class UserController {
 		userServ.create(newUser);
 		return "redirect:/";
 	}
+	
+	
+	
+	// ------------------ DATA BINDING ------------------------ //
+	@GetMapping("/users/new/dataBinding")
+	public String newUser(
+		@ModelAttribute("userObj") User emptyUserObj
+	) {
+//		model.addAttribute("userObj", new User());
+		return "create.jsp";
+	}
+	
+	@PostMapping("/users/new/dataBinding")
+	public String processUser(
+		@Valid @ModelAttribute("userObj") User filledUserObj,
+		BindingResult results
+	) {
+		if(results.hasErrors()) {
+			return "create.jsp";
+		}
+		userServ.create(filledUserObj);
+		return "redirect:/";
+	}
+	// ------------------ DATA BINDING ------------------------ //
 
 	
 	

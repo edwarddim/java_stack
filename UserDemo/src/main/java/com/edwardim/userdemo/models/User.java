@@ -10,7 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,9 +28,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+    @Size(min=3, max=100, message="CUSTOM MESSAGE FOR FULL NAME")
     private String fullName;
+    
+    @NotEmpty
+    @Email
 	private String email;
+    
+    @NotEmpty
 	private String password;
+    
+    @NotNull
+//    @Min(0)
+//    @Max(130)
+    @Range(min=0 , max=130)
 	private int age;
 	
     @Column(updatable=false)
