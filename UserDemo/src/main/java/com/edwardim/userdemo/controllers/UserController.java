@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.edwardim.userdemo.models.User;
 import com.edwardim.userdemo.services.UserService;
@@ -24,9 +25,12 @@ public class UserController {
 	@Autowired
 	UserService userServ;
 	
+	// ------------------ DATA BINDING(CREATE) ------------------------ //
 	// READ ALL
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(
+		Model model, @ModelAttribute("userObj") User emptyUserObj
+	) {
 		// USE SERVICE TO MAKE CRUD COMMAND - RETRIEVE ALL USERS
 		List<User> allUsersFromDB = userServ.getAllUsers();
 		
@@ -36,6 +40,23 @@ public class UserController {
 		// RENDER THE JSP
 		return "index.jsp";
 	}
+	
+	@PostMapping("/users/new")
+	public String processUser(
+		Model model,
+		@Valid @ModelAttribute("userObj") User filledUserObj,
+		BindingResult results
+	) {
+		if(results.hasErrors()) {
+			model.addAttribute("allUsers", userServ.getAllUsers());
+			return "index.jsp";
+		}
+		userServ.create(filledUserObj);
+		return "redirect:/";
+	}
+	// ------------------ DATA BINDING(CREATE) ------------------------ //
+	
+	
 	
 	// READ ONE USER
 	@GetMapping("/users/{id}")
@@ -52,43 +73,45 @@ public class UserController {
 		return "oneUser.jsp";
 	}
 	
-	// CREATE A USER
-	@PostMapping("/users/new")
-	public String create(
-		@RequestParam("name") String name,
-		@RequestParam("email") String email,
-		@RequestParam("password") String password,
-		@RequestParam("age") Integer age
+	
+	// ------------------ DATA BINDING(CREATE) ------------------------ //
+//	@GetMapping("/users/new")
+//	public String newUser(
+//		@ModelAttribute("userObj") User emptyUserObj
+//	) {
+////		model.addAttribute("userObj", new User());
+//		return "create.jsp";
+//	}
+	
+	// ------------------ DATA BINDING(CREATE) ------------------------ //
+	
+	// ------------------ DATA BINDING(UPDATE) ------------------------ //
+	@GetMapping("/users/{id}/edit")
+	public String editUser(
+		@PathVariable("id") Long userId, Model model
 	) {
-		User newUser = new User(email, password, age, name);
-		userServ.create(newUser);
-		return "redirect:/";
+		// GRAB ONE USER FROM DB
+		User oneUser = userServ.findUser(userId);
+		// PASS ONE USER TO JSP
+		model.addAttribute("userObj", oneUser);
+		return "editUser.jsp";
 	}
-	
-	
-	
-	// ------------------ DATA BINDING ------------------------ //
-	@GetMapping("/users/new/dataBinding")
-	public String newUser(
-		@ModelAttribute("userObj") User emptyUserObj
-	) {
-//		model.addAttribute("userObj", new User());
-		return "create.jsp";
-	}
-	
-	@PostMapping("/users/new/dataBinding")
-	public String processUser(
+	@PutMapping("/users/{id}/edit")
+	public String updateUser(
 		@Valid @ModelAttribute("userObj") User filledUserObj,
 		BindingResult results
 	) {
 		if(results.hasErrors()) {
-			return "create.jsp";
+			return "editUser.jsp";
 		}
 		userServ.create(filledUserObj);
 		return "redirect:/";
 	}
-	// ------------------ DATA BINDING ------------------------ //
-
+	// ------------------ DATA BINDING(UPDATE) ------------------------ //
 	
-	
+	@DeleteMapping("/users/{id}")
+	public String deleteUser(@PathVariable("id") Long userId) {
+		userServ.deleteUser(userId);
+		return "redirect:/";
+	}
 }

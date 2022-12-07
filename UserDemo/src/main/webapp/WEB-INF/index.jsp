@@ -17,44 +17,63 @@
 			<thead>
 				<tr>
 					<th>Id</th>
+					<th>Full Name</th>
 					<th>Email</th>
 					<th>Password</th>
 					<th>Age</th>
 					<th>Created At</th>
+					<th>Updated At</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="oneUser" items="${allUsers }">
 					<tr>
 						<td><c:out value="${oneUser.id}" /></td>
+						<td>
+							<a href="/users/${oneUser.id}">						
+								<c:out value="${oneUser.fullName}" />
+							</a>
+						</td>
 						<td><c:out value="${oneUser.email}" /></td>
 						<td><c:out value="${oneUser.password}" /></td>
 						<td><c:out value="${oneUser.age}" /></td>
 						<td><c:out value="${oneUser.createdAt}" /></td>
 						<td><c:out value="${oneUser.updatedAt}" /></td>
+						<td>
+							<form action="/users/${oneUser.id}" method="POST">
+								<input type="hidden" name="_method" value="delete">
+								<button class="btn btn-danger">Delete</button>
+							</form>
+							<a class="btn btn-warning" href="/users/${oneUser.id}/edit">Edit</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<form action="/users/new" method="POST">
+		<form:form modelAttribute="userObj" method="POST" action="/users/new" >
 			<p>
 				Name:
-				<input type="text" name="name" id="" />
+				<form:input type="text" path="fullName"/>
+				<form:errors path="fullName" />
 			</p>
 			<p>
 				Email:
-				<input type="email" name="email" id="" />
+				<form:input type="email" path="email" />
+				<form:errors path="email" />
 			</p>
 			<p>
 				Password:
-				<input type="password" name="password" id="" />
+				<form:input type="password" path="password" />
+				<form:errors path="password" />
 			</p>
 			<p>
 				Age:
-				<input type="number" name="age" id="" />
+				<form:input type="number" path="age" />
+				<form:errors path="age" />
 			</p>
 			<button>Submit</button>
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>
