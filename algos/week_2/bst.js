@@ -124,17 +124,34 @@ class BinarySearchTree {
      * @param {number} newVal The data to be added to a new node.
      * @returns {BinarySearchTree} This tree.
      */
-    insert(newVal) { 
-        // BST IS EMPTY
-            // CREATE A NEW BST NODE
-            // POINT THE ROOT TO THE NEW BST NODE
-            // RETURN THIS
-        // BST IS NOT EMPTY
-            // SET THE RUNNER AT THE ROOT
-            // COMPARE THE newValue TO runner data
-            // CHECK TO SEE IF THE runner LEFT or RIGHT POINTS TO ANOTHER NODE
-                // IF LEFT or RIGHT points to NULL
-                // POINT THE runner LEFT or RIGHT to the NEW BST NODE
+    insert(newVal) {
+        const node = new BSTNode(newVal);
+
+        if (this.isEmpty()) {
+          this.root = node;
+          return this;
+        }
+    
+        let current = this.root;
+    
+        while (true) {
+          if (newVal <= current.data) {
+            if (current.left === null) {
+              current.left = node;
+              return this;
+            }
+    
+            current = current.left;
+          } else {
+            // newVal is greater than current.data
+            if (current.right === null) {
+              current.right = node;
+              return this;
+            }
+    
+            current = current.right;
+          }
+        }
     }
 
     /**
@@ -148,6 +165,44 @@ class BinarySearchTree {
      * @returns {BinarySearchTree} This tree.
      */
     insertRecursive(newVal, curr = this.root) { }
+
+    // ------------------- THRUSDAY --------------------------//
+    /**
+     * DFS Inorder: (Left, CurrNode, Right)
+     * Converts this BST into an array following Depth First Search inorder.
+     * See debugger call stack to help understand the recursion.
+     * Example on the fullTree var:
+     * [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+     * @param {Node} node The current node during the traversal of this tree.
+     * @param {Array<number>} vals The data that has been visited so far.
+     * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
+    */
+    toArrInorder(node = this.root, vals = []) { 
+        if(node !== null){
+            vals = this.toArrInorder(node.left, vals)
+            vals.push(node.data)
+            vals = this.toArrInorder(node.right, vals)
+        }
+        return vals
+    }
+    // preorder
+    toArrPreorder(node = this.root, vals = []) { 
+        if(node !== null){
+            vals.push(node.data)
+            vals = this.toArrInorder(node.left, vals)
+            vals = this.toArrInorder(node.right, vals)
+        }
+        return vals
+    }
+    // postorder
+    toArrPostorder(node = this.root, vals = []) { 
+        if(node !== null){
+            vals = this.toArrInorder(node.left, vals)
+            vals = this.toArrInorder(node.right, vals)
+            vals.push(node.data)
+        }
+        return vals
+    }
 }
 /* fullTree
                     root
@@ -161,22 +216,25 @@ class BinarySearchTree {
 */
 const fullTree = new BinarySearchTree();
 fullTree
-  .insert(25)
-  .insert(15)
-  .insert(10)
-  .insert(22)
-  .insert(4)
-  .insert(12)
-  .insert(18)
-  .insert(24)
-  .insert(50)
-  .insert(35)
-  .insert(70)
-  .insert(31)
-  .insert(44)
-  .insert(66)
-  .insert(90);
+    .insert(25)
+    .insert(15)
+    .insert(10)
+    .insert(22)
+    .insert(4)
+    .insert(12)
+    .insert(18)
+    .insert(24)
+    .insert(50)
+    .insert(35)
+    .insert(70)
+    .insert(31)
+    .insert(44)
+    .insert(66)
+    .insert(90);
 fullTree.print();
+console.log(fullTree.toArrInorder());
+console.log(fullTree.toArrPreorder());
+console.log(fullTree.toArrPostorder());
 
 
 const emptyTree = new BinarySearchTree();
@@ -210,7 +268,7 @@ threeLevelTree.root.left.right = new BSTNode(6);
 threeLevelTree.root.right = new BSTNode(15);
 threeLevelTree.root.right.left = new BSTNode(13);
 
-console.log(threeLevelTree.contains(6))
+// console.log(threeLevelTree.contains(6))
 
 // console.log(threeLevelTree.min())
 // threeLevelTree.print()
