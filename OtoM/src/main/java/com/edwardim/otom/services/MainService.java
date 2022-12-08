@@ -43,7 +43,7 @@ public class MainService {
 	
 	// ------------- CRUD FOR DISH ----------------//
 	// CREATE
-	public Dish creatDish(Dish dish) {
+	public Dish createDish(Dish dish) {
 		return dishRepo.save(dish);
 	}
 	// READ ONE

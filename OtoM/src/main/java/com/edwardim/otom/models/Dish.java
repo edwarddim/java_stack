@@ -44,8 +44,14 @@ public class Dish {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
 	// CONSTRUCTORS
-	
-	
+    public Dish() {}
+    
+    public Dish(@NotEmpty String name, @Min(0) int calories, Chef creator) {
+		super();
+		this.name = name;
+		this.calories = calories;
+		this.creator = creator;
+	}	
 	// GETTERS / SETTERS / OTHER METHODS
 	@PrePersist
     protected void onCreate(){
