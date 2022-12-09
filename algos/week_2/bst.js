@@ -203,6 +203,67 @@ class BinarySearchTree {
         }
         return vals
     }
+
+    // ------------------- FRIDAY --------------------------//
+    /**
+     * Recursively counts the total number of nodes in this tree.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during the traversal of this tree.
+     * @returns {number} The total number of nodes.
+     */
+    size(node = this.root) {
+      // BASE CASE
+      if(node === null){
+        return 0
+      }
+      return 1 + this.size(node.left) + this.size(node.right)
+    }
+
+    /**
+     * Calculates the height of the tree which is based on how many nodes from
+     * top to bottom (whichever side is taller).
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {number} The height of the tree.
+     */
+    height(node = this.root) {
+      // BASE CASE
+      if(node === null){
+        return 0
+      }
+      // COMPARE THE LEFT HEIGHT AND RIGHT HEIGHT
+      let left = this.height(node.left)
+      let right = this.height(node.right)
+      if(left < right){
+        return right + 1
+      }
+      return left + 1
+      // WHICHEVER HEIGHT IS BIGGER ADD ONE MORE TO THAT HEIGHT
+    }
+
+    /**
+     * Determine whether the BST is balanced, for a BST to be balanced,
+     * a Node's left and right height must have a max difference of 1 AND
+     * all Nodes in the tree must be balanced as well.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {Node} node The current node during traversal of this tree.
+     * @returns {boolean} 
+     */
+    isBalanced(node = this.root) {
+      if(node === null){
+        return true
+      }
+      let left = this.height(node.left)
+      let right = this.height(node.right)
+      if(Math.abs(left - right) < 2 && this.isBalanced(node.left) && this.isBalanced(node.right) ){
+        return true
+      }
+      return false
+    }
+
 }
 /* fullTree
                     root
@@ -213,6 +274,8 @@ class BinarySearchTree {
         10     22      35     70
       /   \   /  \    /  \   /  \
     4    12  18  24  31  44 66  90
+
+
 */
 const fullTree = new BinarySearchTree();
 fullTree
@@ -235,6 +298,7 @@ fullTree.print();
 console.log(fullTree.toArrInorder());
 console.log(fullTree.toArrPreorder());
 console.log(fullTree.toArrPostorder());
+console.log(fullTree.isBalanced())
 
 
 const emptyTree = new BinarySearchTree();
@@ -253,12 +317,14 @@ twoLevelTree.root.left = new BSTNode(5);
 twoLevelTree.root.right = new BSTNode(15);
 
 /* threeLevelTree 
-        root
-        10
-      /   \
-    5     15
-  / \    / \
-2   6  13  
+            root
+            10
+          /   \
+        5     15
+      / \    / \
+    2   6  13  
+           /
+          11
 */
 const threeLevelTree = new BinarySearchTree();
 threeLevelTree.root = new BSTNode(10);
@@ -267,6 +333,7 @@ threeLevelTree.root.left.left = new BSTNode(2);
 threeLevelTree.root.left.right = new BSTNode(6);
 threeLevelTree.root.right = new BSTNode(15);
 threeLevelTree.root.right.left = new BSTNode(13);
+threeLevelTree.root.right.left.left = new BSTNode(11);
 
 // console.log(threeLevelTree.contains(6))
 
