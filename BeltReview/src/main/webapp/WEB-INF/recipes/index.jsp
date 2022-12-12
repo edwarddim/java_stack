@@ -29,11 +29,15 @@
 						<td><c:out value="${recipe.under30Min}" /></td>
 						<td><c:out value="${recipe.creator.userName}" /></td>
 						<td>
-							<a href="">View</a>
+							<a href="/recipes/${recipe.id}">View</a>
 							<c:if test="${user_id == recipe.creator.id }">
-								<a href="">Edit</a>
-								<a href="">Delete</a>							
+								<a href="/recipes/${recipe.id}/edit">Edit</a>
+								<a href="/recipes/${recipe.id}/delete">Delete</a>							
 							</c:if>
+							<form action="/recipes/${recipe.id}" method="POST">
+								<input type="hidden" name="_method" value="DELETE" />
+								<button>Delete</button>
+							</form>
 						</td>
 					</tr>
 				</c:forEach>

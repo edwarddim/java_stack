@@ -14,20 +14,23 @@ public class RecipeService {
 	@Autowired
 	RecipeRepository recipeRepo;
 	
-	// CREATE
+	// CREATE & UPDATE
 	public Recipe create(Recipe newRecipe) {
 		return recipeRepo.save(newRecipe);
 	}
 	
 	// READ ONE
+	public Recipe getOne(Long id) {
+		return recipeRepo.findById(id).orElse(null);
+	}
 	
 	// READ ALL
 	public List<Recipe> getAll(){
 		return recipeRepo.findAll();
 	}
 	
-	// UPDATE
-	
 	// DELETE
-	
+	public void deleteOne(Long id) {
+		recipeRepo.deleteById(id);
+	}
 }

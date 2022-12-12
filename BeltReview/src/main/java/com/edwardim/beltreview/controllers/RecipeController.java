@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.edwardim.beltreview.models.Recipe;
 import com.edwardim.beltreview.services.RecipeService;
@@ -59,4 +62,53 @@ public class RecipeController {
 	}
 	// ---------- CREATE -----------------//
 	
+	// ---------- READ ONE --------------//
+	@GetMapping("/recipes/{id}")
+	public String oneRecipe(
+		@PathVariable("id") Long id,
+		Model model
+	) {
+		model.addAttribute("oneRecipe", recipeServ.getOne(id) );
+		return "/recipes/show.jsp";
+	}
+	// ---------- READ ONE --------------//
+	
+	// ---------- UPDATE --------------//
+	@GetMapping("/recipes/{id}/edit")
+	public String edit(
+		@PathVariable("id") Long id,
+		Model model
+	) {
+		model.addAttribute("recipeObj", recipeServ.getOne(id));
+		return "/recipes/edit.jsp";
+	}
+	@PutMapping("/recipes/{id}/edit")
+	public String update(
+		@Valid @ModelAttribute("recipeObj") Recipe filledRecipe,
+		BindingResult results
+	) {
+		if(results.hasErrors()) {
+			return "/recipes/edit.jsp";
+		}
+		recipeServ.create(filledRecipe);
+		return "redirect:/recipes";
+	}
+	// ---------- UPDATE --------------//
+	
+	// ---------- DELETE --------------//
+	@GetMapping("/recipes/{id}/delete")
+	public String delete(
+		@PathVariable("id") Long id
+	) {
+		recipeServ.deleteOne(id);
+		return "redirect:/recipes";
+	}
+	@DeleteMapping("/recipes/{id}")
+	public String deleteRecipe(
+		@PathVariable("id") Long id
+	) {
+		recipeServ.deleteOne(id);
+		return "redirect:/recipes";
+	}
+	// ---------- DELETE --------------//
 }

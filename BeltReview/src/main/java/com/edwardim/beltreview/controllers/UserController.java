@@ -66,6 +66,15 @@ public class UserController {
 		return "redirect:/recipes";
 	}
 	
+	// LOGOUT
+	@GetMapping("/logout")
+	public String logout(
+		HttpSession session
+	) {
+		session.invalidate();
+//		session.removeAttribute("user_id");
+		return "redirect:/";
+	}
 	
 	
 }
